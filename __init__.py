@@ -1,4 +1,4 @@
-from .plugin import Plugin
+from .kicad_amf_plugin.plugin import Plugin
 
 try:
     Plugin().register()
