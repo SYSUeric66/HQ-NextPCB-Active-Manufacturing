@@ -257,10 +257,14 @@ class AmfDialog( dialog_amf_base.AmfDialogBase ):
         form.add_field('spray', self.m_surfaceProcessCtrl.GetString(self.m_surfaceProcessCtrl.GetSelection()))
         if self.m_surfaceProcessCtrl.GetSelection() == 2:
             form.add_field('cjh', str(self.GetCJH()))
+
+            
         form.add_field('impendance', str(self.m_impedanceCtrl.GetSelection()))
         form.add_field('bankong', str(self.m_halfHoleCtrl.GetSelection()))
         form.add_field('blind', self.GetBlindValue())
         form.add_field('via_in_pad', self.GetViaInPad())
+
+
         form.add_field('test', self.GetTestMethod())
         form.add_field('shipment_report', str(self.m_deliveryReportCtrl.GetSelection()))
         form.add_field('slice_report', str(self.m_analysisReportCtrl.GetSelection()))
