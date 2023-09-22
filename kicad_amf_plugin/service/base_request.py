@@ -2,7 +2,7 @@ import dataclasses
 
 
 @dataclasses.dataclass
-class ServiceBaseRequest:
+class BaseRequest:
     service: str = 'pcb'
     region_id: str = '211'  # TODO
     country: str = '211'  # TODO

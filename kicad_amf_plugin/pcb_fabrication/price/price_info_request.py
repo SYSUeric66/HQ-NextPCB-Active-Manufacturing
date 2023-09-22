@@ -1,8 +1,8 @@
 
 from dataclasses import dataclass
-from kicad_amf_plugin.service.service_base_request import ServiceBaseRequest
+from kicad_amf_plugin.service.base_request import BaseRequest
 
 
 @dataclass
-class PriceInfoRequest(ServiceBaseRequest):
+class PriceInfoRequest(BaseRequest):
     pass
