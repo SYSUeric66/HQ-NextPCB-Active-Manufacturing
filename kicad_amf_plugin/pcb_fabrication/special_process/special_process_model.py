@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class SpecialProcessInfo:
+class SpecialProcessModel:
     impendance: str  # Impendance
     bankong: str  # Plated Half Holes:
     blind: str  # HDI(Buried/blind vias):

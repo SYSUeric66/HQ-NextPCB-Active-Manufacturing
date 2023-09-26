@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class PersonalizedInfo:
+class PersonalizedInfoModel:
     test: str  # Electrical Test
     shipment_report: str  # Delivery Report
     slice_report: str  # Microsection Analysis Report

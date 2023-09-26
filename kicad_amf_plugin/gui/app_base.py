@@ -8,7 +8,7 @@
 #
 
 from wx.lib.mixins.inspection import InspectionMixin
-import app_const as appC
+from .app_const import supLang, langDomain
 import builtins
 import sys
 import os
@@ -84,8 +84,8 @@ class BaseApp(wx.App, InspectionMixin):
 
         """
         # if an unsupported language is requested default to English
-        if lang in appC.supLang:
-            selLang = appC.supLang[lang]
+        if lang in supLang:
+            selLang = supLang[lang]
         else:
             selLang = wx.LANGUAGE_ENGLISH
 
@@ -96,6 +96,6 @@ class BaseApp(wx.App, InspectionMixin):
         # create a locale object for this language
         self.locale = wx.Locale(selLang)
         if self.locale.IsOk():
-            self.locale.AddCatalog(appC.langDomain)
+            self.locale.AddCatalog(langDomain)
         else:
             self.locale = None

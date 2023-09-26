@@ -1,135 +1,244 @@
 
+from kicad_amf_plugin.icon import GetImagePath
+from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
+from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
+from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
+from kicad_amf_plugin.pcb_fabrication.price.price_info_view import PriceInfoView
+
 import os
-import sys
 import wx
-import wx.lib.sized_controls as sc
 import wx.xrc
+import wx.dataview
+
+import gettext
+_ = gettext.gettext
 
 
-class AppI18N(wx.Dialog):
-    def __init__(self, parent, **kwds):
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=wx.EmptyString,
-                           pos=wx.DefaultPosition, size=wx.Size(852, 571), style=wx.DEFAULT_DIALOG_STYLE)
+class MainWindow (wx.Dialog):
 
+    def __init__(self, parent):
+        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
+                           pos=wx.DefaultPosition, size=wx.Size(800, 700), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+        wx.SizerFlags.DisableConsistencyChecks()
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
+        m_mainSizer = wx.BoxSizer(wx.VERTICAL)
+        m_topSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        bSizer1 = wx.BoxSizer(wx.VERTICAL)
+        m_topLeftSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_panel1 = wx.Panel(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        bSizer2 = wx.BoxSizer(wx.VERTICAL)
+        m_templateChoices = [_(u"PCB Fabrication")]
+        self.m_template = wx.Choice(
+            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(300, -1), m_templateChoices, 0)
+        self.m_template.SetSelection(0)
+        m_topLeftSizer.Add(self.m_template, 0, wx.EXPAND | wx.TOP, 5)
 
-        m_radioBox1Choices = [u"Radio Button"]
-        self.m_radioBox1 = wx.RadioBox(self.m_panel1, wx.ID_ANY, u"wxRadioBox",
-                                       wx.DefaultPosition, wx.DefaultSize, m_radioBox1Choices, 1, wx.RA_SPECIFY_COLS)
-        self.m_radioBox1.SetSelection(0)
-        bSizer2.Add(self.m_radioBox1, 0, wx.ALL, 5)
+        self.m_notebook = wx.Notebook(
+            self, wx.ID_ANY, wx.DefaultPosition, wx.Size(300, -1), 0)
+        self.m_panelFab = wx.ScrolledWindow(
+            self.m_notebook, wx.ID_ANY, wx.DefaultPosition, wx.Size(300, -1), wx.HSCROLL | wx.VSCROLL)
+        self.m_panelFab.SetScrollRate(10, 10)
+        m_panelFabSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_radioBtn1 = wx.RadioButton(
-            self.m_panel1, wx.ID_ANY, u"RadioBtn", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer2.Add(self.m_radioBtn1, 0, wx.ALL, 5)
+        m_fabBaseInfo = BaseInfoView(wx.StaticBox(
+            self.m_panelFab, wx.ID_ANY, _(u"Base info")), wx.VERTICAL)
+        m_panelFabSizer.Add(m_fabBaseInfo, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.m_staticline1 = wx.StaticLine(
-            self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL)
-        bSizer2.Add(self.m_staticline1, 0, wx.EXPAND | wx.ALL, 5)
+        m_fabProcessInfo = ProcessInfoView(wx.StaticBox(
+            self.m_panelFab, wx.ID_ANY, _(u"Process info")), wx.VERTICAL)
+        m_panelFabSizer.Add(m_fabProcessInfo, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.m_gauge1 = wx.Gauge(self.m_panel1, wx.ID_ANY, 100,
-                                 wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL)
-        self.m_gauge1.SetValue(0)
-        bSizer2.Add(self.m_gauge1, 0, wx.ALL, 5)
+        m_fabSpecialProcess = SpecialProcessView(wx.StaticBox(
+            self.m_panelFab, wx.ID_ANY, _(u"Special Process")), wx.VERTICAL)
+        m_panelFabSizer.Add(m_fabSpecialProcess, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.m_slider1 = wx.Slider(self.m_panel1, wx.ID_ANY, 50, 0,
-                                   100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        bSizer2.Add(self.m_slider1, 0, wx.ALL, 5)
+        m_fabServiceInfo = wx.StaticBoxSizer(wx.StaticBox(
+            self.m_panelFab, wx.ID_ANY, _(u"Personalized Service")), wx.VERTICAL)
+        m_panelFabSizer.Add(m_fabServiceInfo, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.m_radioBtn2 = wx.RadioButton(
-            self.m_panel1, wx.ID_ANY, u"RadioBtn", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer2.Add(self.m_radioBtn2, 0, wx.ALL, 5)
+        self.m_panelFab.SetSizer(m_panelFabSizer)
+        self.m_panelFab.Layout()
+        m_panelFabSizer.Fit(self.m_panelFab)
+        self.m_notebook.AddPage(self.m_panelFab, _(u"PCB Fabrication"), False)
 
-        self.m_panel1.SetSizer(bSizer2)
-        self.m_panel1.Layout()
-        bSizer2.Fit(self.m_panel1)
-        bSizer1.Add(self.m_panel1, 1, wx.EXPAND | wx.ALL, 5)
+        m_topLeftSizer.Add(self.m_notebook, 1,
+                           wx.ALIGN_CENTER | wx.EXPAND | wx.TOP, 12)
 
-        self.m_panel2 = wx.Panel(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        bSizer1.Add(self.m_panel2, 1, wx.EXPAND | wx.ALL, 5)
+        m_topSizer.Add(m_topLeftSizer, 6, wx.ALL | wx.EXPAND, 5)
 
-        self.m_collapsiblePane1 = wx.CollapsiblePane(
-            self, wx.ID_ANY, u"collapsible", wx.DefaultPosition, wx.DefaultSize, wx.CP_DEFAULT_STYLE)
-        self.m_collapsiblePane1.Collapse(False)
+        m_topRightSizer = wx.BoxSizer(wx.VERTICAL)
 
-        bSizer1.Add(self.m_collapsiblePane1, 1, wx.EXPAND | wx.ALL, 5)
+        m_totalSummarySizer = wx.GridBagSizer(0, 0)
+        m_totalSummarySizer.SetFlexibleDirection(wx.BOTH)
+        m_totalSummarySizer.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_checkBox1 = wx.CheckBox(
-            self, wx.ID_ANY, u"Check Me!", wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer1.Add(self.m_checkBox1, 0, wx.ALL, 5)
+        self.m_huaqiuLogo = wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(GetImagePath(
+            u"Huaqiu.png"), wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, 0)
+        m_totalSummarySizer.Add(self.m_huaqiuLogo, wx.GBPosition(
+            0, 0), wx.GBSpan(3, 1), wx.ALL | wx.EXPAND | wx.RIGHT | wx.TOP, 5)
 
-        self.SetSizer(bSizer1)
+        self.m_amountLabel = wx.StaticText(self, wx.ID_ANY, _(
+            u"PCB Qty："), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_amountLabel.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_amountLabel, wx.GBPosition(
+            0, 1), wx.GBSpan(1, 1), wx.LEFT | wx.TOP, 5)
+
+        self.m_amountCtrl = wx.StaticText(self, wx.ID_ANY, _(
+            u"-"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_amountCtrl.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_amountCtrl, wx.GBPosition(
+            0, 2), wx.GBSpan(1, 1), wx.TOP, 5)
+
+        self.m_amountUnit = wx.StaticText(self, wx.ID_ANY, _(
+            u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_amountUnit.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_amountUnit, wx.GBPosition(
+            0, 3), wx.GBSpan(1, 1), wx.LEFT | wx.TOP, 5)
+
+        self.m_dueDateLabel = wx.StaticText(self, wx.ID_ANY, _(
+            u"Time："), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_dueDateLabel.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_dueDateLabel, wx.GBPosition(
+            1, 1), wx.GBSpan(1, 1), wx.LEFT, 5)
+
+        self.m_dueDateCtrl = wx.StaticText(self, wx.ID_ANY, _(
+            u"-"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_dueDateCtrl.Wrap(-1)
+
+        m_totalSummarySizer.Add(
+            self.m_dueDateCtrl, wx.GBPosition(1, 2), wx.GBSpan(1, 1), 0, 5)
+
+        self.m_dueDateUnit = wx.StaticText(self, wx.ID_ANY, _(
+            u"Days"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_dueDateUnit.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_dueDateUnit, wx.GBPosition(
+            1, 3), wx.GBSpan(1, 1), wx.LEFT, 5)
+
+        self.m_priceLabel = wx.StaticText(self, wx.ID_ANY, _(
+            u"Cost："), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_priceLabel.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_priceLabel, wx.GBPosition(
+            2, 1), wx.GBSpan(1, 1), wx.LEFT | wx.TOP, 5)
+
+        self.m_priceCtrl = wx.StaticText(self, wx.ID_ANY, _(
+            u"-"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_priceCtrl.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_priceCtrl, wx.GBPosition(
+            2, 2), wx.GBSpan(1, 1), wx.TOP, 5)
+
+        self.m_priceUnit = wx.StaticText(self, wx.ID_ANY, _(
+            u"$"), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_priceUnit.Wrap(-1)
+
+        m_totalSummarySizer.Add(self.m_priceUnit, wx.GBPosition(
+            2, 3), wx.GBSpan(1, 1), wx.LEFT | wx.TOP, 5)
+
+        self.m_updatePriceButton = wx.Button(self, wx.ID_ANY, _(
+            u"Update Price"), wx.DefaultPosition, wx.DefaultSize, 0)
+        m_totalSummarySizer.Add(self.m_updatePriceButton, wx.GBPosition(
+            2, 4), wx.GBSpan(1, 1), wx.BOTTOM | wx.EXPAND | wx.RIGHT, 5)
+
+        self.m_placeOrderButton = wx.Button(self, wx.ID_ANY, _(
+            u"Place Order"), wx.DefaultPosition, wx.DefaultSize, 0)
+        m_totalSummarySizer.Add(self.m_placeOrderButton, wx.GBPosition(
+            0, 4), wx.GBSpan(1, 1), wx.EXPAND | wx.RIGHT | wx.TOP, 5)
+
+        m_totalSummarySizer.AddGrowableCol(2)
+        m_totalSummarySizer.AddGrowableCol(3)
+
+        m_topRightSizer.Add(m_totalSummarySizer, 0, wx.EXPAND, 5)
+
+        self.m_priceDetailsViewListCtrl = wx.dataview.DataViewListCtrl(
+            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_priceDescriptionColumn = self.m_priceDetailsViewListCtrl.AppendTextColumn(
+            _(u"Item"), wx.dataview.DATAVIEW_CELL_INERT, 200, wx.ALIGN_LEFT, wx.dataview.DATAVIEW_COL_RESIZABLE)
+        self.m_priceColumn = self.m_priceDetailsViewListCtrl.AppendTextColumn(
+            _(u"Price"), wx.dataview.DATAVIEW_CELL_INERT, -1, wx.ALIGN_LEFT, wx.dataview.DATAVIEW_COL_RESIZABLE)
+        m_topRightSizer.Add(self.m_priceDetailsViewListCtrl,
+                            1, wx.ALL | wx.EXPAND, 5)
+
+        self.m_drcPanel = wx.Panel(
+            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.BORDER_SIMPLE | wx.TAB_TRAVERSAL)
+        m_drcPanelSizer = wx.BoxSizer(wx.VERTICAL)
+
+        self.m_drcPanel.SetSizer(m_drcPanelSizer)
+        self.m_drcPanel.Layout()
+        m_drcPanelSizer.Fit(self.m_drcPanel)
+        m_topRightSizer.Add(self.m_drcPanel, 1, wx.ALL | wx.EXPAND, 5)
+
+        m_topSizer.Add(m_topRightSizer, 5, wx.ALL | wx.EXPAND, 5)
+
+        m_mainSizer.Add(m_topSizer, 1, wx.EXPAND, 8)
+
+        self.SetSizer(m_mainSizer)
         self.Layout()
 
         self.Centre(wx.BOTH)
 
-    def createOtherCtrls(self):
-        sizer = wx.BoxSizer()
-        pane = sc.SizedFrame(None)
-        sizer.Add(pane)
-        cPane = sc.SizedPanel(pane)
-        cPane.SetSizerType("grid", options={"cols": 2})
-        st = wx.StaticText(cPane, wx.ID_ANY,
-                           _(u"A nice label for the TextCtrl"))
-        st.SetSizerProps(valign='center')
-        tc = wx.TextCtrl(cPane, wx.ID_ANY)
+        # Connect Events
+        # self.m_template.Bind(wx.EVT_CHOICE, self.OnTemplateChanged)
+        # self.m_pcbPackaingCtrl.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
+        # self.m_panelizeXCtrl.Bind(wx.EVT_TEXT, self.OnPanelizeXChanged)
+        # self.m_panelizeYCtrl.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
+        # self.m_quantityCtrl.Bind(wx.EVT_CHOICE, self.OnPcbQuantityChanged)
+        # self.m_marginModeCtrl.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
+        # self.m_surfaceProcessCtrl.Bind(
+        #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
+        # self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
+        # self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
+        # self.m_analysisReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
+        # self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
+        # self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
+        # self.m_solderColorCtrl.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
+        # # self.m_layerCountCtrl.Bind( wx.EVT_CHOICE, self.OnTGChangebyLayer )
+        # self.m_layerCountCtrl.Bind(
+        #     wx.EVT_CHOICE, self.OnThicknessChangebyLayer)
 
-        searchSt = wx.StaticText(cPane, wx.ID_ANY,
-                                 _(u"a search control"))
-        searchSt.SetSizerProps(valign='center')
-        searchC = wx.SearchCtrl(cPane, wx.ID_ANY)
+    def __del__(self):
+        pass
 
-        # sline = wx.StaticLine(pane, wx.ID_ANY)
-        # sline.SetSizerProps(expand=True)
-        bPane = sc.SizedPanel(pane)
-        fB = wx.Button(bPane, wx.ID_ANY, _(u"Open a file dialog"))
-        fB.SetSizerProps(align="center")
-        fB.Bind(wx.EVT_BUTTON, self.onFbButton)
-        self.SetSizer(sizer)
-        self.Layout()
-
-    def onFbButton(self, event):
-        wildcard = "Python source (*.py)|*.py|"     \
-                   "Compiled Python (*.pyc)|*.pyc|" \
-                   "SPAM files (*.spam)|*.spam|"    \
-                   "Egg file (*.egg)|*.egg|"        \
-                   "All files (*.*)|*.*"
-
-        with wx.FileDialog(
-            self, message=_(u"Choose a file"),
-            defaultDir=os.getcwd(),
-            defaultFile="",
-            wildcard=wildcard,
-            style=wx.FD_OPEN | wx.FD_MULTIPLE | wx.FD_CHANGE_DIR
-        ) as dlg:
-
-            # Show the dialog and retrieve the user response. If it is the
-            # OK response,
-            # process the data.
-            if dlg.ShowModal() == wx.ID_OK:
-                # This returns a Python list of files that were selected.
-                paths = dlg.GetPaths()
-
-    def onClose(self, event):
+    # Virtual event handlers, override them in your derived class
+    def OnTemplateChanged(self, event):
         event.Skip()
 
-    def doEditSomething(self, event):
+    def OnPcbPackagingChanged(self, event):
         event.Skip()
 
-    def doAboutBox(self, event):
+    def OnPanelizeXChanged(self, event):
         event.Skip()
 
+    def OnPanelizeYChanged(self, event):
+        event.Skip()
 
-if __name__ == '__main__':
-    import app_base as ab
-    app = ab.BaseApp(redirect=False)
-    frame = AppI18N(None)
-    frame.Show()
-    sys.exit(app.MainLoop())
+    def OnPcbQuantityChanged(self, event):
+        event.Skip()
+
+    def OnMarginModeChanged(self, event):
+        event.Skip()
+
+    def OnSurfaceProcessChanged(self, event):
+        event.Skip()
+
+    def OnHDIChanged(self, event):
+        event.Skip()
+
+    def OnReportChanged(self, event):
+        event.Skip()
+
+    def OnUpdatePrice(self, event):
+        event.Skip()
+
+    def OnPlaceOrder(self, event):
+        event.Skip()
+
+    def OnMaskColorChange(self, event):
+        event.Skip()
+
+    def OnThicknessChangebyLayer(self, event):
+        event.Skip()
