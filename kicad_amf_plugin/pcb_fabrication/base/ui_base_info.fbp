@@ -43,7 +43,7 @@
             <property name="id">wxID_ANY</property>
             <property name="maximum_size"></property>
             <property name="minimum_size"></property>
-            <property name="name">BaseInfoView</property>
+            <property name="name">UiBaseInfo</property>
             <property name="pos"></property>
             <property name="size">421,301</property>
             <property name="subclass">; ; forward_declare</property>
