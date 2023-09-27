@@ -39,8 +39,7 @@ class MainWindow (wx.Dialog):
         self.m_panelFab.SetScrollRate(10, 10)
         m_panelFabSizer = wx.BoxSizer(wx.VERTICAL)
 
-        m_fabBaseInfo = BaseInfoView(wx.StaticBox(
-            self.m_panelFab, wx.ID_ANY, _(u"Base info")), wx.VERTICAL)
+        m_fabBaseInfo = BaseInfoView(self.m_panelFab)
         m_panelFabSizer.Add(m_fabBaseInfo, 0, wx.ALL | wx.EXPAND, 5)
 
         m_fabProcessInfo = ProcessInfoView(wx.StaticBox(
