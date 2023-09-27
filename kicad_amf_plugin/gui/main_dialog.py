@@ -51,8 +51,8 @@ class MainWindow (wx.Dialog):
             self.m_panelFab, wx.ID_ANY, _(u"Special Process")), wx.VERTICAL)
         m_panelFabSizer.Add(m_fabSpecialProcess, 0, wx.ALL | wx.EXPAND, 5)
 
-        m_fabServiceInfo = PersonalizedInfoView(wx.StaticBox(
-            self.m_panelFab, wx.ID_ANY, _(u"Personalized Service")), wx.VERTICAL)
+        m_fabServiceInfo = PersonalizedInfoView(
+            self.m_panelFab)
         m_panelFabSizer.Add(m_fabServiceInfo, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_panelFab.SetSizer(m_panelFabSizer)
@@ -192,7 +192,7 @@ class MainWindow (wx.Dialog):
         #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         # self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         # self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
-        # self.m_analysisReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
+        # self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         # self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
         # self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
         # self.m_solderColorCtrl.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)

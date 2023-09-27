@@ -169,12 +169,12 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.m_hdiStructureCtrl.Enabled = False
 
     def OnReportChanged(self, event):
-        if self.m_deliveryReportCtrl.GetSelection() == 0 and self.m_analysisReportCtrl.GetSelection() == 0:
+        if self.m_deliveryReportCtrl.GetSelection() == 0 and self.comb_delivery_report.GetSelection() == 0:
             self.m_reportFormatLabel.Enabled = False
-            self.m_reportFormatCtrl.Enabled = False
+            self.comb_report_format.Enabled = False
         else:
             self.m_reportFormatLabel.Enabled = True
-            self.m_reportFormatCtrl.Enabled = True
+            self.comb_report_format.Enabled = True
 
     def OnMaskColorChange(self, event):
         self.m_silkscreenColorCtrl.Clear()
@@ -287,15 +287,15 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         form.add_field('shipment_report', str(
             self.m_deliveryReportCtrl.GetSelection()))
         form.add_field('slice_report', str(
-            self.m_analysisReportCtrl.GetSelection()))
+            self.comb_delivery_report.GetSelection()))
         form.add_field('report_type', str(self.GetReportType()))
         form.add_field('beveledge', str(self.m_goldFingerCtrl.GetSelection()))
         form.add_field('review_file', self.GetReviewFile())
         form.add_field('has_period', self.GetHasPeriod())
-        if self.m_ulMarkCtrl.GetSelection() != 0:
+        if self.comb_ul_mark.GetSelection() != 0:
             form.add_field('period_format', self.GetPeriodFormat())
-        form.add_field('film_report', str(self.m_filmCtrl.GetSelection()))
-        form.add_field('pcb_note', self.m_specialRequestsCtrl.GetValue())
+        form.add_field('film_report', str(self.comb_film.GetSelection()))
+        form.add_field('pcb_note', self.edit_special_request.GetValue())
 
         form.add_field('region_id', '211')  # TODO
         form.add_field('country', '211')  # TODO
@@ -522,29 +522,29 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return "3"
 
     def GetTestMethod(self):
-        if self.m_testMethodCtrl.GetSelection() == 0:
+        if self.comb_test_method.GetSelection() == 0:
             return 'Sample Test Free'
-        elif self.m_testMethodCtrl.GetSelection() == 1:
+        elif self.comb_test_method.GetSelection() == 1:
             return 'Batch Flying Probe Test'
-        elif self.m_testMethodCtrl.GetSelection() == 2:
+        elif self.comb_test_method.GetSelection() == 2:
             return 'Batch Fixture Test'
 
     def GetReviewFile(self):
-        if self.m_approveWorkingGerberCtrl.GetSelection() == 0:
+        if self.comb_approve_gerber.GetSelection() == 0:
             return '0'
         else:
             return '2'
 
     def GetHasPeriod(self):
-        if self.m_ulMarkCtrl.GetSelection() == 0:
+        if self.comb_ul_mark.GetSelection() == 0:
             return '2'
         else:
             return '6'
 
     def GetPeriodFormat(self):
-        if self.m_ulMarkCtrl.GetSelection() == 1:
+        if self.comb_ul_mark.GetSelection() == 1:
             return '2'
-        elif self.m_ulMarkCtrl.GetSelection() == 2:
+        elif self.comb_ul_mark.GetSelection() == 2:
             return '1'
 
     def GetViaInPad(self):
@@ -554,11 +554,11 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return 'Have'
 
     def GetReportType(self):
-        if self.m_deliveryReportCtrl.GetSelection() == 0 and self.m_analysisReportCtrl.GetSelection() == 0:
+        if self.m_deliveryReportCtrl.GetSelection() == 0 and self.comb_delivery_report.GetSelection() == 0:
             return 0
-        elif self.m_reportFormatCtrl.GetSelection() == 0:
+        elif self.comb_report_format.GetSelection() == 0:
             return 2
-        elif self.m_reportFormatCtrl.GetSelection() == 1:
+        elif self.comb_report_format.GetSelection() == 1:
             return 1
 
     def GetDaysFromString(self, str):

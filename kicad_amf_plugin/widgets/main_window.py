@@ -540,10 +540,10 @@ class MainWindow (wx.Dialog):
 
         m_testMethodCtrlChoices = [_(u"Sample Test Free"), _(
             u"AOI+Flying Test"), _(u"AOI+Fixture")]
-        self.m_testMethodCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.comb_test_method = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_testMethodCtrlChoices, 0)
-        self.m_testMethodCtrl.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.m_testMethodCtrl, wx.GBPosition(
+        self.comb_test_method.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.comb_test_method, wx.GBPosition(
             0, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_approveWorkingGerberLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -554,10 +554,10 @@ class MainWindow (wx.Dialog):
             1, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_approveWorkingGerberCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_approveWorkingGerberCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.comb_approve_gerber = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_approveWorkingGerberCtrlChoices, 0)
-        self.m_approveWorkingGerberCtrl.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.m_approveWorkingGerberCtrl, wx.GBPosition(
+        self.comb_approve_gerber.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.comb_approve_gerber, wx.GBPosition(
             1, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_deliveryReportLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -581,11 +581,11 @@ class MainWindow (wx.Dialog):
         m_fabServiceInfoSizer.Add(self.m_analysisReportLabel, wx.GBPosition(
             3, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
-        m_analysisReportCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_analysisReportCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
-        ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_analysisReportCtrlChoices, 0)
-        self.m_analysisReportCtrl.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.m_analysisReportCtrl, wx.GBPosition(
+        comb_analysis_report = [_(u"No"), _(u"Yes")]
+        self.comb_delivery_report = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), comb_analysis_report, 0)
+        self.comb_delivery_report.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.comb_delivery_report, wx.GBPosition(
             3, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_reportFormatLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -596,10 +596,10 @@ class MainWindow (wx.Dialog):
             4, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_reportFormatCtrlChoices = [_(u"Paper"), _(u"Electronic")]
-        self.m_reportFormatCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.comb_report_format = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_reportFormatCtrlChoices, 0)
-        self.m_reportFormatCtrl.SetSelection(1)
-        m_fabServiceInfoSizer.Add(self.m_reportFormatCtrl, wx.GBPosition(
+        self.comb_report_format.SetSelection(1)
+        m_fabServiceInfoSizer.Add(self.comb_report_format, wx.GBPosition(
             4, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_ulMarkLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -611,10 +611,10 @@ class MainWindow (wx.Dialog):
 
         m_ulMarkCtrlChoices = [_(u"No"), _(
             u"UL+Week/Year"), _(u"UL+Year/Week")]
-        self.m_ulMarkCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.comb_ul_mark = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_ulMarkCtrlChoices, 0)
-        self.m_ulMarkCtrl.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.m_ulMarkCtrl, wx.GBPosition(
+        self.comb_ul_mark.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.comb_ul_mark, wx.GBPosition(
             5, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_filmLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -625,10 +625,10 @@ class MainWindow (wx.Dialog):
             6, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_filmCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_filmCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.comb_film = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_filmCtrlChoices, 0)
-        self.m_filmCtrl.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.m_filmCtrl, wx.GBPosition(
+        self.comb_film.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.comb_film, wx.GBPosition(
             6, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_specialRequestsLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -638,9 +638,9 @@ class MainWindow (wx.Dialog):
         m_fabServiceInfoSizer.Add(self.m_specialRequestsLabel, wx.GBPosition(
             7, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
-        self.m_specialRequestsCtrl = wx.TextCtrl(m_fabServiceInfo.GetStaticBox(
+        self.edit_special_request = wx.TextCtrl(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(100, -1), 0)
-        m_fabServiceInfoSizer.Add(self.m_specialRequestsCtrl, wx.GBPosition(
+        m_fabServiceInfoSizer.Add(self.edit_special_request, wx.GBPosition(
             7, 1), wx.GBSpan(5, 3), wx.ALL | wx.EXPAND, 5)
 
         m_fabServiceInfoSizer.AddGrowableCol(1)
@@ -786,7 +786,8 @@ class MainWindow (wx.Dialog):
             wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
-        self.m_analysisReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
+        self.comb_delivery_report.Bind(
+            wx.EVT_CHOICE, self.OnReportChanged)
         self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
         self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
         self.m_solderColorCtrl.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
