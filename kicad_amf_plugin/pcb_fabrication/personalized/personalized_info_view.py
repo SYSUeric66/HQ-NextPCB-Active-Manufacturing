@@ -8,7 +8,7 @@ import gettext
 _ = gettext.gettext
 
 
-class personalized_info_view(wx.StaticBoxSizer):
+class PersonalizedInfoView(wx.StaticBoxSizer):
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
         self.special_process: PersonalizedInfoModel = None

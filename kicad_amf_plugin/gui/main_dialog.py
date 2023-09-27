@@ -3,6 +3,7 @@ from kicad_amf_plugin.icon import GetImagePath
 from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
+from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.pcb_fabrication.price.price_info_view import PriceInfoView
 
 import os
@@ -50,7 +51,7 @@ class MainWindow (wx.Dialog):
             self.m_panelFab, wx.ID_ANY, _(u"Special Process")), wx.VERTICAL)
         m_panelFabSizer.Add(m_fabSpecialProcess, 0, wx.ALL | wx.EXPAND, 5)
 
-        m_fabServiceInfo = wx.StaticBoxSizer(wx.StaticBox(
+        m_fabServiceInfo = PersonalizedInfoView(wx.StaticBox(
             self.m_panelFab, wx.ID_ANY, _(u"Personalized Service")), wx.VERTICAL)
         m_panelFabSizer.Add(m_fabServiceInfo, 0, wx.ALL | wx.EXPAND, 5)
 

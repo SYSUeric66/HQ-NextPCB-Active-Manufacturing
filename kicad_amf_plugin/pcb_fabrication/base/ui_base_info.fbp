@@ -130,7 +130,7 @@
                                 <property name="style"></property>
                                 <property name="subclass">; ; forward_declare</property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip"></property>
+                                <property name="tooltip">Non-conductive base material</property>
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
@@ -191,7 +191,7 @@
                                 <property name="style"></property>
                                 <property name="subclass">; ; forward_declare</property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip"></property>
+                                <property name="tooltip">Non-conductive base material</property>
                                 <property name="validator_data_type"></property>
                                 <property name="validator_style">wxFILTER_NONE</property>
                                 <property name="validator_type">wxDefaultValidator</property>
@@ -398,7 +398,7 @@
                                 <property name="style"></property>
                                 <property name="subclass">; ; forward_declare</property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip"></property>
+                                <property name="tooltip">The finished PCB are by single or by panel</property>
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
@@ -445,7 +445,7 @@
                                 <property name="minimize_button">0</property>
                                 <property name="minimum_size"></property>
                                 <property name="moveable">1</property>
-                                <property name="name">m_choice3</property>
+                                <property name="name">pcb_package_kind</property>
                                 <property name="pane_border">1</property>
                                 <property name="pane_position"></property>
                                 <property name="pane_size"></property>
@@ -459,7 +459,7 @@
                                 <property name="style"></property>
                                 <property name="subclass">; ; forward_declare</property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip"></property>
+                                <property name="tooltip">The finished PCB are by single or by panel</property>
                                 <property name="validator_data_type"></property>
                                 <property name="validator_style">wxFILTER_NONE</property>
                                 <property name="validator_type">wxDefaultValidator</property>
@@ -586,7 +586,7 @@
                                         <property name="minimize_button">0</property>
                                         <property name="minimum_size"></property>
                                         <property name="moveable">1</property>
-                                        <property name="name">m_choice4</property>
+                                        <property name="name">combo_quantity</property>
                                         <property name="pane_border">1</property>
                                         <property name="pane_position"></property>
                                         <property name="pane_size"></property>
@@ -829,7 +829,7 @@
                                                         <property name="minimize_button">0</property>
                                                         <property name="minimum_size"></property>
                                                         <property name="moveable">1</property>
-                                                        <property name="name">m_textCtrl3</property>
+                                                        <property name="name">edit_panel_x</property>
                                                         <property name="pane_border">1</property>
                                                         <property name="pane_position"></property>
                                                         <property name="pane_size"></property>
@@ -1033,7 +1033,7 @@
                                                         <property name="minimize_button">0</property>
                                                         <property name="minimum_size"></property>
                                                         <property name="moveable">1</property>
-                                                        <property name="name">m_textCtrl31</property>
+                                                        <property name="name">edit_panel_y</property>
                                                         <property name="pane_border">1</property>
                                                         <property name="pane_position"></property>
                                                         <property name="pane_size"></property>
@@ -1269,7 +1269,7 @@
                                                         <property name="minimize_button">0</property>
                                                         <property name="minimum_size"></property>
                                                         <property name="moveable">1</property>
-                                                        <property name="name">m_textCtrl32</property>
+                                                        <property name="name">edit_size_x</property>
                                                         <property name="pane_border">1</property>
                                                         <property name="pane_position"></property>
                                                         <property name="pane_size"></property>
@@ -1473,7 +1473,7 @@
                                                         <property name="minimize_button">0</property>
                                                         <property name="minimum_size"></property>
                                                         <property name="moveable">1</property>
-                                                        <property name="name">m_textCtrl311</property>
+                                                        <property name="name">edit_size_y</property>
                                                         <property name="pane_border">1</property>
                                                         <property name="pane_position"></property>
                                                         <property name="pane_size"></property>
@@ -1634,7 +1634,7 @@
                                         <property name="minimize_button">0</property>
                                         <property name="minimum_size"></property>
                                         <property name="moveable">1</property>
-                                        <property name="name">m_choice9</property>
+                                        <property name="name">comb_margin_mode</property>
                                         <property name="pane_border">1</property>
                                         <property name="pane_position"></property>
                                         <property name="pane_size"></property>
@@ -1698,7 +1698,7 @@
                                         <property name="minimize_button">0</property>
                                         <property name="minimum_size"></property>
                                         <property name="moveable">1</property>
-                                        <property name="name">m_textCtrl16</property>
+                                        <property name="name">edit_margin_size</property>
                                         <property name="pane_border">1</property>
                                         <property name="pane_position"></property>
                                         <property name="pane_size"></property>
