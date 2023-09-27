@@ -183,10 +183,10 @@ class MainWindow (wx.Dialog):
         # Connect Events
         # self.m_template.Bind(wx.EVT_CHOICE, self.OnTemplateChanged)
         # self.m_pcbPackaingCtrl.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
-        # self.m_panelizeXCtrl.Bind(wx.EVT_TEXT, self.OnPanelizeXChanged)
-        # self.m_panelizeYCtrl.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
+        # self.edit_panel_x.Bind(wx.EVT_TEXT, self.OnPanelizeXChanged)
+        # self.edit_panel_y.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
         # self.m_quantityCtrl.Bind(wx.EVT_CHOICE, self.OnPcbQuantityChanged)
-        # self.m_marginModeCtrl.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
+        # self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
         # self.m_surfaceProcessCtrl.Bind(
         #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         # self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
@@ -195,8 +195,8 @@ class MainWindow (wx.Dialog):
         # self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
         # self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
         # self.m_solderColorCtrl.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
-        # # self.m_layerCountCtrl.Bind( wx.EVT_CHOICE, self.OnTGChangebyLayer )
-        # self.m_layerCountCtrl.Bind(
+        # # self.combo_layer_count.Bind( wx.EVT_CHOICE, self.OnTGChangebyLayer )
+        # self.combo_layer_count.Bind(
         #     wx.EVT_CHOICE, self.OnThicknessChangebyLayer)
 
     def __del__(self):

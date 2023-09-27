@@ -33,13 +33,17 @@ class UiBaseInfo (wx.Panel):
         ), wx.ID_ANY, u"Material Type", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText3.Wrap(-1)
 
+        self.m_staticText3.SetToolTip(u"Non-conductive base material")
+
         fgSizer2.Add(self.m_staticText3, 0, wx.ALL, 5)
 
-        m_choice2Choices = []
-        self.m_choice2 = wx.Choice(sbSizer2.GetStaticBox(
-        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice2Choices, 0)
-        self.m_choice2.SetSelection(0)
-        fgSizer2.Add(self.m_choice2, 0, wx.ALL | wx.EXPAND, 5)
+        combo_material_typeChoices = []
+        self.combo_material_type = wx.Choice(sbSizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_material_typeChoices, 0)
+        self.combo_material_type.SetSelection(0)
+        self.combo_material_type.SetToolTip(u"Non-conductive base material")
+
+        fgSizer2.Add(self.combo_material_type, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText4 = wx.StaticText(sbSizer2.GetStaticBox(
         ), wx.ID_ANY, u"Layer Count", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -47,9 +51,11 @@ class UiBaseInfo (wx.Panel):
 
         fgSizer2.Add(self.m_staticText4, 0, wx.ALL, 5)
 
-        self.m_textCtrl2 = wx.TextCtrl(sbSizer2.GetStaticBox(
-        ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        fgSizer2.Add(self.m_textCtrl2, 0, wx.ALL | wx.EXPAND, 5)
+        combo_layer_countChoices = []
+        self.combo_layer_count = wx.Choice(sbSizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_layer_countChoices, 0)
+        self.combo_layer_count.SetSelection(0)
+        fgSizer2.Add(self.combo_layer_count, 0, wx.ALL | wx.EXPAND, 5)
 
         sbSizer2.Add(fgSizer2, 0, wx.EXPAND, 5)
 
@@ -62,13 +68,19 @@ class UiBaseInfo (wx.Panel):
         ), wx.ID_ANY, u"Board Type", wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_staticText5.Wrap(-1)
 
+        self.m_staticText5.SetToolTip(
+            u"The finished PCB are by single or by panel")
+
         fgSizer3.Add(self.m_staticText5, 0, wx.ALL, 5)
 
-        m_choice3Choices = []
-        self.m_choice3 = wx.Choice(sbSizer2.GetStaticBox(
-        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice3Choices, 0)
-        self.m_choice3.SetSelection(0)
-        fgSizer3.Add(self.m_choice3, 0, wx.ALL | wx.EXPAND, 5)
+        pcb_package_kindChoices = []
+        self.pcb_package_kind = wx.Choice(sbSizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, pcb_package_kindChoices, 0)
+        self.pcb_package_kind.SetSelection(0)
+        self.pcb_package_kind.SetToolTip(
+            u"The finished PCB are by single or by panel")
+
+        fgSizer3.Add(self.pcb_package_kind, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText51 = wx.StaticText(sbSizer2.GetStaticBox(
         ), wx.ID_ANY, u"Qty(single)", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -81,11 +93,11 @@ class UiBaseInfo (wx.Panel):
         fgSizer21.SetFlexibleDirection(wx.BOTH)
         fgSizer21.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        m_choice4Choices = []
-        self.m_choice4 = wx.Choice(sbSizer2.GetStaticBox(
-        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice4Choices, 0)
-        self.m_choice4.SetSelection(0)
-        fgSizer21.Add(self.m_choice4, 0, wx.ALL | wx.EXPAND, 5)
+        combo_quantityChoices = []
+        self.combo_quantity = wx.Choice(sbSizer2.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_quantityChoices, 0)
+        self.combo_quantity.SetSelection(0)
+        fgSizer21.Add(self.combo_quantity, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText71 = wx.StaticText(sbSizer2.GetStaticBox(
         ), wx.ID_ANY, u"Pcs", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -118,9 +130,9 @@ class UiBaseInfo (wx.Panel):
         fgSizer6.SetFlexibleDirection(wx.BOTH)
         fgSizer6.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_textCtrl3 = wx.TextCtrl(sbSizer21.GetStaticBox(
+        self.edit_panel_x = wx.TextCtrl(sbSizer21.GetStaticBox(
         ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        fgSizer6.Add(self.m_textCtrl3, 0, wx.ALL | wx.EXPAND, 5)
+        fgSizer6.Add(self.edit_panel_x, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText10 = wx.StaticText(sbSizer21.GetStaticBox(
         ), wx.ID_ANY, u"pcs", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -141,9 +153,9 @@ class UiBaseInfo (wx.Panel):
         fgSizer61.SetFlexibleDirection(wx.BOTH)
         fgSizer61.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_textCtrl31 = wx.TextCtrl(sbSizer21.GetStaticBox(
+        self.edit_panel_y = wx.TextCtrl(sbSizer21.GetStaticBox(
         ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        fgSizer61.Add(self.m_textCtrl31, 0, wx.ALL | wx.EXPAND, 5)
+        fgSizer61.Add(self.edit_panel_y, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText101 = wx.StaticText(sbSizer21.GetStaticBox(
         ), wx.ID_ANY, u"pcs", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -176,9 +188,9 @@ class UiBaseInfo (wx.Panel):
         fgSizer62.SetFlexibleDirection(wx.BOTH)
         fgSizer62.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_textCtrl32 = wx.TextCtrl(sbSizer211.GetStaticBox(
+        self.edit_size_x = wx.TextCtrl(sbSizer211.GetStaticBox(
         ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        fgSizer62.Add(self.m_textCtrl32, 0, wx.ALL | wx.EXPAND, 5)
+        fgSizer62.Add(self.edit_size_x, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText102 = wx.StaticText(sbSizer211.GetStaticBox(
         ), wx.ID_ANY, u"pcs", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -199,9 +211,9 @@ class UiBaseInfo (wx.Panel):
         fgSizer611.SetFlexibleDirection(wx.BOTH)
         fgSizer611.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        self.m_textCtrl311 = wx.TextCtrl(sbSizer211.GetStaticBox(
+        self.edit_size_y = wx.TextCtrl(sbSizer211.GetStaticBox(
         ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        fgSizer611.Add(self.m_textCtrl311, 0, wx.ALL | wx.EXPAND, 5)
+        fgSizer611.Add(self.edit_size_y, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText1011 = wx.StaticText(sbSizer211.GetStaticBox(
         ), wx.ID_ANY, u"pcs", wx.DefaultPosition, wx.DefaultSize, 0)
@@ -225,15 +237,15 @@ class UiBaseInfo (wx.Panel):
         fgSizer24.SetFlexibleDirection(wx.BOTH)
         fgSizer24.SetNonFlexibleGrowMode(wx.FLEX_GROWMODE_SPECIFIED)
 
-        m_choice9Choices = []
-        self.m_choice9 = wx.Choice(sbSizer12.GetStaticBox(
-        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice9Choices, 0)
-        self.m_choice9.SetSelection(0)
-        fgSizer24.Add(self.m_choice9, 0, wx.ALL, 5)
+        comb_margin_modeChoices = []
+        self.comb_margin_mode = wx.Choice(sbSizer12.GetStaticBox(
+        ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comb_margin_modeChoices, 0)
+        self.comb_margin_mode.SetSelection(0)
+        fgSizer24.Add(self.comb_margin_mode, 0, wx.ALL, 5)
 
-        self.m_textCtrl16 = wx.TextCtrl(sbSizer12.GetStaticBox(
+        self.edit_margin_size = wx.TextCtrl(sbSizer12.GetStaticBox(
         ), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0)
-        fgSizer24.Add(self.m_textCtrl16, 0, wx.ALL | wx.EXPAND, 5)
+        fgSizer24.Add(self.edit_margin_size, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_staticText39 = wx.StaticText(sbSizer12.GetStaticBox(
         ), wx.ID_ANY, u"mm", wx.DefaultPosition, wx.DefaultSize, 0)
