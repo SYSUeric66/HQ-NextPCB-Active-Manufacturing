@@ -271,10 +271,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_boardThicknessCtrlChoices = [_(u"0.6"), _(u"0.8"), _(u"1.0"), _(
             u"1.2"), _(u"1.6"), _(u"2.0"), _(u"2.5"), _(u"3.0"), _(u"3.2")]
-        self.m_boardThicknessCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_board_thickness = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_boardThicknessCtrlChoices, 0)
-        self.m_boardThicknessCtrl.SetSelection(4)
-        m_fabProcessInfoSizer.Add(self.m_boardThicknessCtrl, wx.GBPosition(
+        self.combo_board_thickness.SetSelection(4)
+        m_fabProcessInfoSizer.Add(self.combo_board_thickness, wx.GBPosition(
             0, 1), wx.GBSpan(1, 1), wx.ALL | wx.EXPAND, 5)
 
         self.m_boardThicknessUnit = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -292,10 +292,10 @@ class AmfDialogBase (wx.Dialog):
             1, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_outerCopperThicknessCtrlChoices = [_(u"1oz"), _(u"2oz")]
-        self.m_outerCopperThicknessCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_outer_copper_thickness = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_outerCopperThicknessCtrlChoices, 0)
-        self.m_outerCopperThicknessCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_outerCopperThicknessCtrl, wx.GBPosition(
+        self.combo_outer_copper_thickness.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_outer_copper_thickness, wx.GBPosition(
             1, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_innerCopperThicknessLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -306,10 +306,10 @@ class AmfDialogBase (wx.Dialog):
             2, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_innerCopperThicknessCtrlChoices = [_(u"0.5oz"), _(u"1oz"), _(u"2oz")]
-        self.m_innerCopperThicknessCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_inner_copper_thickness = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_innerCopperThicknessCtrlChoices, 0)
-        self.m_innerCopperThicknessCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_innerCopperThicknessCtrl, wx.GBPosition(
+        self.combo_inner_copper_thickness.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_inner_copper_thickness, wx.GBPosition(
             2, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_minTraceWidthClearanceLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -321,10 +321,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_minTraceWidthClearanceCtrlChoices = [
             _(u"10/10mil"), _(u"8/8mil"), _(u"6/6mil"), _(u"5/5mil"), _(u"4/4mil"), _(u"3.5/3.5mil")]
-        self.m_minTraceWidthClearanceCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_min_trace_width_clearance = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_minTraceWidthClearanceCtrlChoices, 0)
-        self.m_minTraceWidthClearanceCtrl.SetSelection(2)
-        m_fabProcessInfoSizer.Add(self.m_minTraceWidthClearanceCtrl, wx.GBPosition(
+        self.combo_min_trace_width_clearance.SetSelection(2)
+        m_fabProcessInfoSizer.Add(self.combo_min_trace_width_clearance, wx.GBPosition(
             3, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_minHoleSizeLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -336,10 +336,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_minHoleSizeCtrlChoices = [_(u"0.3mm"), _(
             u"0.25mm"), _(u"0.2mm"), _(u"0.15mm")]
-        self.m_minHoleSizeCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_min_hole_size = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_minHoleSizeCtrlChoices, 0)
-        self.m_minHoleSizeCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_minHoleSizeCtrl, wx.GBPosition(
+        self.combo_min_hole_size.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_min_hole_size, wx.GBPosition(
             4, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_solderColorLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -351,10 +351,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_solderColorCtrlChoices = [_(u"Green"), _(u"Red"), _(u"Yellow"), _(
             u"Blue"), _(u"White"), _(u"Matte Black"), _(u"Black")]
-        self.m_solderColorCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_solder_color = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_solderColorCtrlChoices, 0)
-        self.m_solderColorCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_solderColorCtrl, wx.GBPosition(
+        self.combo_solder_color.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_solder_color, wx.GBPosition(
             5, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_silkscreenColorLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -365,10 +365,10 @@ class AmfDialogBase (wx.Dialog):
             6, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_silkscreenColorCtrlChoices = [_(u"White")]
-        self.m_silkscreenColorCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_silk_screen_color = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_silkscreenColorCtrlChoices, 0)
-        self.m_silkscreenColorCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_silkscreenColorCtrl, wx.GBPosition(
+        self.combo_silk_screen_color.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_silk_screen_color, wx.GBPosition(
             6, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_solderCoverLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -380,10 +380,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_solderCoverCtrlChoices = [_(u"Tenting Vias"), _(u"Vias not covered"), _(
             u"Solder Mask Plug (IV-B)"), _(u"Non-Conductive Fill")]
-        self.m_solderCoverCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_solder_cover = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_solderCoverCtrlChoices, 0)
-        self.m_solderCoverCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_solderCoverCtrl, wx.GBPosition(
+        self.combo_solder_cover.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_solder_cover, wx.GBPosition(
             7, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_surfaceProcessLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(
@@ -395,10 +395,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_surfaceProcessCtrlChoices = [_(u"HASL"), _(
             u"Lead free HASL"), _(u"ENIG"), _(u"OSP")]
-        self.m_surfaceProcessCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_surface_process = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_surfaceProcessCtrlChoices, 0)
-        self.m_surfaceProcessCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_surfaceProcessCtrl, wx.GBPosition(
+        self.combo_surface_process.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_surface_process, wx.GBPosition(
             8, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_goldThicknessLabel = wx.StaticText(m_fabProcessInfo.GetStaticBox(), wx.ID_ANY, _(
@@ -409,10 +409,10 @@ class AmfDialogBase (wx.Dialog):
             9, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_goldThicknessCtrlChoices = [_(u"1µm"), _(u"2µm"), _(u"3µm")]
-        self.m_goldThicknessCtrl = wx.Choice(m_fabProcessInfo.GetStaticBox(
+        self.combo_gold_thickness = wx.Choice(m_fabProcessInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_goldThicknessCtrlChoices, 0)
-        self.m_goldThicknessCtrl.SetSelection(0)
-        m_fabProcessInfoSizer.Add(self.m_goldThicknessCtrl, wx.GBPosition(
+        self.combo_gold_thickness.SetSelection(0)
+        m_fabProcessInfoSizer.Add(self.combo_gold_thickness, wx.GBPosition(
             9, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         m_fabProcessInfoSizer.AddGrowableCol(1)
@@ -793,7 +793,7 @@ class AmfDialogBase (wx.Dialog):
         self.edit_panel_y.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
         self.m_quantityCtrl.Bind(wx.EVT_CHOICE, self.OnPcbQuantityChanged)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
-        self.m_surfaceProcessCtrl.Bind(
+        self.combo_surface_process.Bind(
             wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
@@ -801,7 +801,7 @@ class AmfDialogBase (wx.Dialog):
             wx.EVT_CHOICE, self.OnReportChanged)
         self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
         self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
-        self.m_solderColorCtrl.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
+        self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
         # self.combo_layer_count.Bind( wx.EVT_CHOICE, self.OnTGChangebyLayer )
         self.combo_layer_count.Bind(
             wx.EVT_CHOICE, self.OnThicknessChangebyLayer)

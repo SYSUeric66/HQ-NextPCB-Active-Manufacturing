@@ -43,8 +43,7 @@ class MainWindow (wx.Dialog):
         m_fabBaseInfo = BaseInfoView(self.m_panelFab)
         m_panelFabSizer.Add(m_fabBaseInfo, 0, wx.ALL | wx.EXPAND, 5)
 
-        m_fabProcessInfo = ProcessInfoView(wx.StaticBox(
-            self.m_panelFab, wx.ID_ANY, _(u"Process info")), wx.VERTICAL)
+        m_fabProcessInfo = ProcessInfoView(self.m_panelFab)
         m_panelFabSizer.Add(m_fabProcessInfo, 0, wx.ALL | wx.EXPAND, 5)
 
         m_fabSpecialProcess = SpecialProcessView(wx.StaticBox(
@@ -188,14 +187,14 @@ class MainWindow (wx.Dialog):
         # self.edit_panel_y.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
         # self.m_quantityCtrl.Bind(wx.EVT_CHOICE, self.OnPcbQuantityChanged)
         # self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
-        # self.m_surfaceProcessCtrl.Bind(
+        # self.combo_surface_process.Bind(
         #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         # self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         # self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         # self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         # self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
         # self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
-        # self.m_solderColorCtrl.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
+        # self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
         # # self.combo_layer_count.Bind( wx.EVT_CHOICE, self.OnTGChangebyLayer )
         # self.combo_layer_count.Bind(
         #     wx.EVT_CHOICE, self.OnThicknessChangebyLayer)

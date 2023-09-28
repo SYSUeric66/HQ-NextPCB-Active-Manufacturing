@@ -60,7 +60,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         self.OnPcbPackagingChanged(None)
         self.comb_margin_mode.SetSelection(0)
         self.OnMarginModeChanged(None)
-        self.m_surfaceProcessCtrl.SetSelection(0)
+        self.combo_surface_process.SetSelection(0)
         self.OnSurfaceProcessChanged(None)
         self.numericValidator = validators.NumericTextCtrlValidator()
         self.edit_panel_x.SetValidator(self.numericValidator)
@@ -69,12 +69,12 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         self.edit_margin_size.SetValidator(self.floatValidator)
         if layerCount == 2:
             self.m_innerCopperThicknessLabel.Enabled = False
-            self.m_innerCopperThicknessCtrl.Enabled = False
+            self.combo_inner_copper_thickness.Enabled = False
             self.m_blindViaLabel.Enabled = False
             self.m_blindViaCtrl.Enabled = False
         else:
             self.m_innerCopperThicknessLabel.Enabled = True
-            self.m_innerCopperThicknessCtrl.Enabled = True
+            self.combo_inner_copper_thickness.Enabled = True
             self.m_blindViaLabel.Enabled = True
             self.m_blindViaCtrl.Enabled = True
         self.m_template.SetSelection(0)
@@ -135,12 +135,12 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.m_marginValueUnit.Enabled = True
 
     def OnSurfaceProcessChanged(self, event):
-        if self.m_surfaceProcessCtrl.GetSelection() == 2:
+        if self.combo_surface_process.GetSelection() == 2:
             self.m_goldThicknessLabel.Enabled = True
-            self.m_goldThicknessCtrl.Enabled = True
+            self.combo_gold_thickness.Enabled = True
         else:
             self.m_goldThicknessLabel.Enabled = False
-            self.m_goldThicknessCtrl.Enabled = False
+            self.combo_gold_thickness.Enabled = False
 
     def OnPanelizeXChanged(self, event):
         if not self.edit_panel_x.Validate():
@@ -177,19 +177,19 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.comb_report_format.Enabled = True
 
     def OnMaskColorChange(self, event):
-        self.m_silkscreenColorCtrl.Clear()
-        mask_color = self.m_solderColorCtrl.GetString(
-            self.m_solderColorCtrl.GetSelection())
+        self.combo_silk_screen_color.Clear()
+        mask_color = self.combo_solder_color.GetString(
+            self.combo_solder_color.GetSelection())
         val_list = self.config_json["rule"]["silkscreen"][mask_color]
-        self.m_silkscreenColorCtrl.Append(val_list)
-        self.m_silkscreenColorCtrl.SetSelection(0)
+        self.combo_silk_screen_color.Append(val_list)
+        self.combo_silk_screen_color.SetSelection(0)
 
     def OnThicknessChangebyLayer(self, event):
         layer = self.combo_layer_count.GetString(
             self.combo_layer_count.GetSelection())
-        self.m_boardThicknessCtrl.Clear()
+        self.combo_board_thickness.Clear()
         val_list = self.config_json["rule"]["thickness"][layer]
-        self.m_boardThicknessCtrl.Append(val_list)
+        self.combo_board_thickness.Append(val_list)
 
     def load_config_file(self):
         """Load config from config.json"""
@@ -253,8 +253,8 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         form.add_field('sidedirection', self.GetMarginMode())
         if self.comb_margin_mode.GetSelection() != 0:
             form.add_field('sidewidth', self.edit_margin_size.GetValue())
-        form.add_field('bheight', self.m_boardThicknessCtrl.GetString(
-            self.m_boardThicknessCtrl.GetSelection()))
+        form.add_field('bheight', self.combo_board_thickness.GetString(
+            self.combo_board_thickness.GetSelection()))
         form.add_field('copper', str(self.GetOuterCopperThickness()))
         if layercount > 2:
             form.add_field('insidecopper', str(self.GetInnerCopperThickness()))
@@ -267,15 +267,15 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             form.add_field('pressing', '')
         form.add_field('lineweight', str(self.GetMinTraceWidthAndClearance()))
         form.add_field('vias', str(self.GetMinHoleSize()))
-        form.add_field('color', self.m_solderColorCtrl.GetString(
-            self.m_solderColorCtrl.GetSelection()))
-        form.add_field('charcolor', self.m_silkscreenColorCtrl.GetString(
-            self.m_silkscreenColorCtrl.GetSelection()))
-        form.add_field('cover', self.m_solderCoverCtrl.GetString(
-            self.m_solderCoverCtrl.GetSelection()))
-        form.add_field('spray', self.m_surfaceProcessCtrl.GetString(
-            self.m_surfaceProcessCtrl.GetSelection()))
-        if self.m_surfaceProcessCtrl.GetSelection() == 2:
+        form.add_field('color', self.combo_solder_color.GetString(
+            self.combo_solder_color.GetSelection()))
+        form.add_field('charcolor', self.combo_silk_screen_color.GetString(
+            self.combo_silk_screen_color.GetSelection()))
+        form.add_field('cover', self.combo_solder_cover.GetString(
+            self.combo_solder_cover.GetSelection()))
+        form.add_field('spray', self.combo_surface_process.GetString(
+            self.combo_surface_process.GetSelection()))
+        if self.combo_surface_process.GetSelection() == 2:
             form.add_field('cjh', str(self.GetCJH()))
 
         form.add_field('impendance', str(self.m_impedanceCtrl.GetSelection()))
@@ -460,53 +460,53 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return "N/A"
 
     def GetOuterCopperThickness(self):
-        if self.m_outerCopperThicknessCtrl.GetSelection() == 0:
+        if self.combo_outer_copper_thickness.GetSelection() == 0:
             return 1
-        elif self.m_outerCopperThicknessCtrl.GetSelection() == 1:
+        elif self.combo_outer_copper_thickness.GetSelection() == 1:
             return 2
 
     def GetInnerCopperThickness(self):
-        if self.m_innerCopperThicknessCtrl.GetSelection() == 0:
+        if self.combo_inner_copper_thickness.GetSelection() == 0:
             return 0.5
-        if self.m_innerCopperThicknessCtrl.GetSelection() == 1:
+        if self.combo_inner_copper_thickness.GetSelection() == 1:
             return 1
-        elif self.m_innerCopperThicknessCtrl.GetSelection() == 2:
+        elif self.combo_inner_copper_thickness.GetSelection() == 2:
             return 2
 
     def GetMinTraceWidthAndClearance(self):
-        if self.m_minTraceWidthClearanceCtrl.GetSelection() == 0:
+        if self.combo_min_trace_width_clearance.GetSelection() == 0:
             return 10
-        elif self.m_minTraceWidthClearanceCtrl.GetSelection() == 1:
+        elif self.combo_min_trace_width_clearance.GetSelection() == 1:
             return 8
-        elif self.m_minTraceWidthClearanceCtrl.GetSelection() == 2:
+        elif self.combo_min_trace_width_clearance.GetSelection() == 2:
             return 6
-        elif self.m_minTraceWidthClearanceCtrl.GetSelection() == 3:
+        elif self.combo_min_trace_width_clearance.GetSelection() == 3:
             return 5
-        elif self.m_minTraceWidthClearanceCtrl.GetSelection() == 4:
+        elif self.combo_min_trace_width_clearance.GetSelection() == 4:
             return 4
-        elif self.m_minTraceWidthClearanceCtrl.GetSelection() == 5:
+        elif self.combo_min_trace_width_clearance.GetSelection() == 5:
             return 3.5
         else:
             return 10
 
     def GetMinHoleSize(self):
-        if self.m_minHoleSizeCtrl.GetSelection() == 0:
+        if self.combo_min_hole_size.GetSelection() == 0:
             return 0.3
-        elif self.m_minHoleSizeCtrl.GetSelection() == 1:
+        elif self.combo_min_hole_size.GetSelection() == 1:
             return 0.25
-        elif self.m_minHoleSizeCtrl.GetSelection() == 2:
+        elif self.combo_min_hole_size.GetSelection() == 2:
             return 0.2
-        elif self.m_minHoleSizeCtrl.GetSelection() == 3:
+        elif self.combo_min_hole_size.GetSelection() == 3:
             return 0.15
         else:
             return 0.3
 
     def GetCJH(self):
-        if self.m_goldThicknessCtrl.GetSelection() == 0:
+        if self.combo_gold_thickness.GetSelection() == 0:
             return 1
-        elif self.m_goldThicknessCtrl.GetSelection() == 1:
+        elif self.combo_gold_thickness.GetSelection() == 1:
             return 2
-        elif self.m_goldThicknessCtrl.GetSelection() == 2:
+        elif self.combo_gold_thickness.GetSelection() == 2:
             return 3
         else:
             return 1
@@ -569,9 +569,9 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return int(numbers[0])
 
     def SetBoardThickness(self, thickness):
-        for i in range(self.m_boardThicknessCtrl.GetCount()):
-            if thickness <= float(self.m_boardThicknessCtrl.GetString(i)):
-                self.m_boardThicknessCtrl.SetSelection(i)
+        for i in range(self.combo_board_thickness.GetCount()):
+            if thickness <= float(self.combo_board_thickness.GetString(i)):
+                self.combo_board_thickness.SetSelection(i)
                 break
 
     def SetMinTrace(self, minTraceWidth, minTraceClearance):
@@ -586,42 +586,42 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
 
         if minTrace == 0:
             minTrace = 6
-            self.m_minTraceWidthClearanceCtrl.SetSelection(2)
+            self.combo_min_trace_width_clearance.SetSelection(2)
         elif minTrace >= 10:
             minTrace = 10
-            self.m_minTraceWidthClearanceCtrl.SetSelection(0)
+            self.combo_min_trace_width_clearance.SetSelection(0)
         elif minTrace >= 8:
             minTrace = 8
-            self.m_minTraceWidthClearanceCtrl.SetSelection(1)
+            self.combo_min_trace_width_clearance.SetSelection(1)
         elif minTrace >= 6:
             minTrace = 6
-            self.m_minTraceWidthClearanceCtrl.SetSelection(2)
+            self.combo_min_trace_width_clearance.SetSelection(2)
         elif minTrace >= 5:
             minTrace = 5
-            self.m_minTraceWidthClearanceCtrl.SetSelection(3)
+            self.combo_min_trace_width_clearance.SetSelection(3)
         elif minTrace >= 4:
             minTrace = 4
-            self.m_minTraceWidthClearanceCtrl.SetSelection(4)
+            self.combo_min_trace_width_clearance.SetSelection(4)
         else:
             minTrace = 3.5
-            self.m_minTraceWidthClearanceCtrl.SetSelection(5)
+            self.combo_min_trace_width_clearance.SetSelection(5)
 
     def SetMinHole(self, minHoleSize):
         if minHoleSize == 0:
             minHoleSize = 0.3
-            self.m_minHoleSizeCtrl.SetSelection(0)
+            self.combo_min_hole_size.SetSelection(0)
         elif minHoleSize >= 0.3:
             minHoleSize = 0.3
-            self.m_minHoleSizeCtrl.SetSelection(0)
+            self.combo_min_hole_size.SetSelection(0)
         elif minHoleSize >= 0.25:
             minHoleSize = 0.25
-            self.m_minHoleSizeCtrl.SetSelection(1)
+            self.combo_min_hole_size.SetSelection(1)
         elif minHoleSize >= 0.2:
             minHoleSize = 0.2
-            self.m_minHoleSizeCtrl.SetSelection(2)
+            self.combo_min_hole_size.SetSelection(2)
         else:
             minHoleSize = 0.15
-            self.m_minHoleSizeCtrl.SetSelection(3)
+            self.combo_min_hole_size.SetSelection(3)
 
     def SetSMTInfo(self):
         smtPadCount = 0
