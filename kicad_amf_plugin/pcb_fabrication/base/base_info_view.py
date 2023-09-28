@@ -1,6 +1,5 @@
 from .base_info_model import BaseInfoModel
 from .ui_base_info import UiBaseInfo
-import wx
 import wx.xrc
 import wx.dataview
 

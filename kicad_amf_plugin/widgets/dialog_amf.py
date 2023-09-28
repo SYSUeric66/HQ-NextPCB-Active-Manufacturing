@@ -71,12 +71,12 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.m_innerCopperThicknessLabel.Enabled = False
             self.combo_inner_copper_thickness.Enabled = False
             self.m_blindViaLabel.Enabled = False
-            self.m_blindViaCtrl.Enabled = False
+            self.combo_blind_via.Enabled = False
         else:
             self.m_innerCopperThicknessLabel.Enabled = True
             self.combo_inner_copper_thickness.Enabled = True
             self.m_blindViaLabel.Enabled = True
-            self.m_blindViaCtrl.Enabled = True
+            self.combo_blind_via.Enabled = True
         self.m_template.SetSelection(0)
         self.OnTemplateChanged(None)
         self.OnPcbQuantityChanged(None)
@@ -161,12 +161,12 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         return
 
     def OnHDIChanged(self, event):
-        if self.m_blindViaCtrl.GetSelection() == 1:
+        if self.combo_blind_via.GetSelection() == 1:
             self.m_hdiStructureLabel.Enabled = True
-            self.m_hdiStructureCtrl.Enabled = True
+            self.combo_hdi_structure.Enabled = True
         else:
             self.m_hdiStructureLabel.Enabled = False
-            self.m_hdiStructureCtrl.Enabled = False
+            self.combo_hdi_structure.Enabled = False
 
     def OnReportChanged(self, event):
         if self.m_deliveryReportCtrl.GetSelection() == 0 and self.comb_delivery_report.GetSelection() == 0:
@@ -258,7 +258,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         form.add_field('copper', str(self.GetOuterCopperThickness()))
         if layercount > 2:
             form.add_field('insidecopper', str(self.GetInnerCopperThickness()))
-            if self.m_stackupCtrl.GetSelection() == 0:
+            if self.combo_stackup.GetSelection() == 0:
                 form.add_field('pressing', '')
             else:
                 form.add_field('pressing', 'Customer Specified Stack up')
@@ -278,8 +278,8 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         if self.combo_surface_process.GetSelection() == 2:
             form.add_field('cjh', str(self.GetCJH()))
 
-        form.add_field('impendance', str(self.m_impedanceCtrl.GetSelection()))
-        form.add_field('bankong', str(self.m_halfHoleCtrl.GetSelection()))
+        form.add_field('impendance', str(self.combo_impedance.GetSelection()))
+        form.add_field('bankong', str(self.combo_halfHole.GetSelection()))
         form.add_field('blind', self.GetBlindValue())
         form.add_field('via_in_pad', self.GetViaInPad())
 
@@ -289,7 +289,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         form.add_field('slice_report', str(
             self.comb_delivery_report.GetSelection()))
         form.add_field('report_type', str(self.GetReportType()))
-        form.add_field('beveledge', str(self.m_goldFingerCtrl.GetSelection()))
+        form.add_field('beveledge', str(self.combo_goldFinger.GetSelection()))
         form.add_field('review_file', self.GetReviewFile())
         form.add_field('has_period', self.GetHasPeriod())
         if self.comb_ul_mark.GetSelection() != 0:
@@ -512,13 +512,13 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return 1
 
     def GetBlindValue(self):
-        if self.m_blindViaCtrl.GetSelection() == 0:
+        if self.combo_blind_via.GetSelection() == 0:
             return "0"
-        elif self.m_hdiStructureCtrl.GetSelection() == 0:
+        elif self.combo_hdi_structure.GetSelection() == 0:
             return "1"
-        elif self.m_hdiStructureCtrl.GetSelection() == 1:
+        elif self.combo_hdi_structure.GetSelection() == 1:
             return "2"
-        elif self.m_hdiStructureCtrl.GetSelection() == 2:
+        elif self.combo_hdi_structure.GetSelection() == 2:
             return "3"
 
     def GetTestMethod(self):
@@ -548,7 +548,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return '1'
 
     def GetViaInPad(self):
-        if self.m_padHoleCtrl.GetSelection() == 0:
+        if self.combo_pad_hole.GetSelection() == 0:
             return 'N/A'
         else:
             return 'Have'

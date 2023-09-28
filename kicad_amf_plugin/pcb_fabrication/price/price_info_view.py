@@ -1,5 +1,4 @@
 
-from kicad_amf_plugin.icon import GetImagePath
 import wx
 import wx.xrc
 import wx.dataview

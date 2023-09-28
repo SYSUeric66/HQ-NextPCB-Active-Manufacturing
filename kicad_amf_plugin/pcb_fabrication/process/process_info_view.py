@@ -1,9 +1,5 @@
 
 from .process_info_model import ProcessInfoModel
-import wx
-import wx.xrc
-import wx.dataview
-
 
 from .ui_process_info import UiProcessInfo
 

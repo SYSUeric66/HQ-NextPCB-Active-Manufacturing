@@ -437,10 +437,10 @@ class AmfDialogBase (wx.Dialog):
             self.m_impedanceLabel, wx.GBPosition(0, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_impedanceCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_impedanceCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_impedance = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_impedanceCtrlChoices, 0)
-        self.m_impedanceCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_impedanceCtrl, wx.GBPosition(
+        self.combo_impedance.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_impedance, wx.GBPosition(
             0, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_goldFingerLabel = wx.StaticText(m_fabSpecialProcess.GetStaticBox(
@@ -451,10 +451,10 @@ class AmfDialogBase (wx.Dialog):
             self.m_goldFingerLabel, wx.GBPosition(1, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_goldFingerCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_goldFingerCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_goldFinger = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_goldFingerCtrlChoices, 0)
-        self.m_goldFingerCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_goldFingerCtrl, wx.GBPosition(
+        self.combo_goldFinger.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_goldFinger, wx.GBPosition(
             1, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_halfHoleLabel = wx.StaticText(m_fabSpecialProcess.GetStaticBox(
@@ -465,10 +465,10 @@ class AmfDialogBase (wx.Dialog):
             self.m_halfHoleLabel, wx.GBPosition(2, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_halfHoleCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_halfHoleCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_halfHole = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_halfHoleCtrlChoices, 0)
-        self.m_halfHoleCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_halfHoleCtrl, wx.GBPosition(
+        self.combo_halfHole.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_halfHole, wx.GBPosition(
             2, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_padHoleLabel = wx.StaticText(m_fabSpecialProcess.GetStaticBox(
@@ -479,10 +479,10 @@ class AmfDialogBase (wx.Dialog):
             self.m_padHoleLabel, wx.GBPosition(3, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_padHoleCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_padHoleCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_pad_hole = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_padHoleCtrlChoices, 0)
-        self.m_padHoleCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_padHoleCtrl, wx.GBPosition(
+        self.combo_pad_hole.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_pad_hole, wx.GBPosition(
             3, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_blindViaLabel = wx.StaticText(m_fabSpecialProcess.GetStaticBox(), wx.ID_ANY, _(
@@ -493,10 +493,10 @@ class AmfDialogBase (wx.Dialog):
             self.m_blindViaLabel, wx.GBPosition(4, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_blindViaCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_blindViaCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_blind_via = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_blindViaCtrlChoices, 0)
-        self.m_blindViaCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_blindViaCtrl, wx.GBPosition(
+        self.combo_blind_via.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_blind_via, wx.GBPosition(
             4, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_hdiStructureLabel = wx.StaticText(m_fabSpecialProcess.GetStaticBox(
@@ -507,10 +507,10 @@ class AmfDialogBase (wx.Dialog):
             self.m_hdiStructureLabel, wx.GBPosition(5, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_hdiStructureCtrlChoices = [_(u"Rank 1"), _(u"Rank 2"), _(u"Rank 3")]
-        self.m_hdiStructureCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_hdi_structure = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_hdiStructureCtrlChoices, 0)
-        self.m_hdiStructureCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_hdiStructureCtrl, wx.GBPosition(
+        self.combo_hdi_structure.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_hdi_structure, wx.GBPosition(
             5, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_stackupLabel = wx.StaticText(m_fabSpecialProcess.GetStaticBox(
@@ -522,10 +522,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_stackupCtrlChoices = [_(u"No Requirement"), _(
             u"Customer Specified Stack up")]
-        self.m_stackupCtrl = wx.Choice(m_fabSpecialProcess.GetStaticBox(
+        self.combo_stackup = wx.Choice(m_fabSpecialProcess.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_stackupCtrlChoices, 0)
-        self.m_stackupCtrl.SetSelection(0)
-        m_fabSpecialProcessSizer.Add(self.m_stackupCtrl, wx.GBPosition(
+        self.combo_stackup.SetSelection(0)
+        m_fabSpecialProcessSizer.Add(self.combo_stackup, wx.GBPosition(
             6, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         m_fabSpecialProcessSizer.AddGrowableCol(1)
@@ -795,7 +795,7 @@ class AmfDialogBase (wx.Dialog):
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
         self.combo_surface_process.Bind(
             wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
-        self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
+        self.combo_blind_via.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         self.comb_delivery_report.Bind(
             wx.EVT_CHOICE, self.OnReportChanged)

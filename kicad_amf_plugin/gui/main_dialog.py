@@ -4,9 +4,7 @@ from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
-from kicad_amf_plugin.pcb_fabrication.price.price_info_view import PriceInfoView
 
-import os
 import wx
 import wx.xrc
 import wx.dataview
@@ -40,19 +38,19 @@ class MainWindow (wx.Dialog):
         self.m_panelFab.SetScrollRate(10, 10)
         m_panelFabSizer = wx.BoxSizer(wx.VERTICAL)
 
+        # Section the info views
         m_fabBaseInfo = BaseInfoView(self.m_panelFab)
-        m_panelFabSizer.Add(m_fabBaseInfo, 0, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabBaseInfo, 1, wx.ALL | wx.EXPAND, 5)
 
         m_fabProcessInfo = ProcessInfoView(self.m_panelFab)
-        m_panelFabSizer.Add(m_fabProcessInfo, 0, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabProcessInfo, 1, wx.ALL | wx.EXPAND, 5)
 
-        m_fabSpecialProcess = SpecialProcessView(wx.StaticBox(
-            self.m_panelFab, wx.ID_ANY, _(u"Special Process")), wx.VERTICAL)
-        m_panelFabSizer.Add(m_fabSpecialProcess, 0, wx.ALL | wx.EXPAND, 5)
+        m_fabSpecialProcess = SpecialProcessView(self.m_panelFab)
+        m_panelFabSizer.Add(m_fabSpecialProcess, 1, wx.ALL | wx.EXPAND, 5)
 
         m_fabServiceInfo = PersonalizedInfoView(
             self.m_panelFab)
-        m_panelFabSizer.Add(m_fabServiceInfo, 0, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabServiceInfo, 1, wx.ALL | wx.EXPAND, 5)
 
         self.m_panelFab.SetSizer(m_panelFabSizer)
         self.m_panelFab.Layout()
@@ -189,7 +187,7 @@ class MainWindow (wx.Dialog):
         # self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
         # self.combo_surface_process.Bind(
         #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
-        # self.m_blindViaCtrl.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
+        # self.combo_blind_via.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         # self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         # self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         # self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
