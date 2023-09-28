@@ -22,7 +22,7 @@ class PriceInfoView(wx.GridBagSizer):
         #     0, 0), wx.GBSpan(3, 1), wx.ALL | wx.EXPAND | wx.RIGHT | wx.TOP, 5)
 
         self.m_amountLabel = wx.StaticText(self, wx.ID_ANY, _(
-            u"PCB Qty："), wx.DefaultPosition, wx.DefaultSize, 0)
+            u"PCB Qty:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_amountLabel.Wrap(-1)
 
         self.Add(self.m_amountLabel, wx.GBPosition(
@@ -43,7 +43,7 @@ class PriceInfoView(wx.GridBagSizer):
             0, 3), wx.GBSpan(1, 1), wx.LEFT | wx.TOP, 5)
 
         self.m_dueDateLabel = wx.StaticText(self, wx.ID_ANY, _(
-            u"Time："), wx.DefaultPosition, wx.DefaultSize, 0)
+            u"Time:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_dueDateLabel.Wrap(-1)
 
         self.Add(self.m_dueDateLabel, wx.GBPosition(
@@ -64,7 +64,7 @@ class PriceInfoView(wx.GridBagSizer):
             1, 3), wx.GBSpan(1, 1), wx.LEFT, 5)
 
         self.m_priceLabel = wx.StaticText(self, wx.ID_ANY, _(
-            u"Cost："), wx.DefaultPosition, wx.DefaultSize, 0)
+            u"Cost:"), wx.DefaultPosition, wx.DefaultSize, 0)
         self.m_priceLabel.Wrap(-1)
 
         self.Add(self.m_priceLabel, wx.GBPosition(

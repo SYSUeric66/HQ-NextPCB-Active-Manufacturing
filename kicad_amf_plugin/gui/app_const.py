@@ -7,7 +7,7 @@
 import wx
 
 # language domain
-langDomain = "I18Nwxapp"
+langDomain = "kicad_amf_plugin"
 # languages you want to support
 supLang = {u"en": wx.LANGUAGE_ENGLISH,
            u"jp": wx.LANGUAGE_JAPANESE,

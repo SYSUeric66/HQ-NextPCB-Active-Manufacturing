@@ -21,7 +21,8 @@ catalog.
 import subprocess
 import sys
 import os
-import app_const as appC
+import kicad_amf_plugin.gui.app_const as appC
+from kicad_amf_plugin import PLUGIN_ROOT
 
 # we remove English as source code strings are in English
 supportedLang = []
@@ -29,8 +30,6 @@ for l in appC.supLang:
     if l != u"en":
         supportedLang.append(l)
 
-
-appFolder = os.getcwd()
 
 # setup some stuff to get at Python I18N tools/utilities
 
@@ -40,14 +39,14 @@ pyToolsFolder = os.path.join(pyFolder, 'Tools')
 pyI18nFolder = os.path.join(pyToolsFolder, 'i18n')
 pyGettext = os.path.join(pyI18nFolder, 'pygettext.py')
 pyMsgfmt = os.path.join(pyI18nFolder, 'msgfmt.py')
-outFolder = os.path.join(appFolder, 'locale')
+outFolder = os.path.join(PLUGIN_ROOT, 'locale')
 
 # build command for pygettext
 gtOptions = '-a -d %s -o %s.pot -p %s %s'
 tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (appC.langDomain,
                                                      appC.langDomain,
                                                      outFolder,
-                                                     appFolder))
+                                                     PLUGIN_ROOT))
 print("Generating the .pot file")
 print("cmd: %s" % tCmd)
 rCode = subprocess.call(tCmd)
@@ -55,7 +54,7 @@ print("return code: %s\n\n" % rCode)
 
 for tLang in supportedLang:
     # build command for msgfmt
-    langDir = os.path.join(appFolder, ('locale\%s\LC_MESSAGES' % tLang))
+    langDir = os.path.join(PLUGIN_ROOT, ('locale\%s\LC_MESSAGES' % tLang))
     poFile = os.path.join(langDir, appC.langDomain + '.po')
     tCmd = pyExe + ' ' + pyMsgfmt + ' ' + poFile
 

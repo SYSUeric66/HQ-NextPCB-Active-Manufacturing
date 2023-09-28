@@ -12,7 +12,7 @@ from .app_const import supLang, langDomain
 import builtins
 import sys
 import os
-
+from kicad_amf_plugin import PLUGIN_ROOT
 import wx
 
 # Install a custom displayhook to keep Python from setting the global
@@ -35,15 +35,12 @@ class BaseApp(wx.App, InspectionMixin):
         self.Init()  # InspectionMixin
         # work around for Python stealing "_"
         sys.displayhook = _displayHook
-
         self.appName = "kicad-amf"
-
         self.doConfig()
-
         self.locale = None
-        wx.Locale.AddCatalogLookupPathPrefix('locale')
+        wx.Locale.AddCatalogLookupPathPrefix(
+            os.path.join(PLUGIN_ROOT, 'locale'))
         self.updateLanguage(self.appConfig.Read(u"Language"))
-
         return True
 
     def doConfig(self):
