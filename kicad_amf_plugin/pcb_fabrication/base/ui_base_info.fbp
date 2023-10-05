@@ -3,7 +3,7 @@
     <FileVersion major="1" minor="16" />
     <object class="Project" expanded="1">
         <property name="class_decoration">; </property>
-        <property name="code_generation">C++</property>
+        <property name="code_generation">Python</property>
         <property name="disconnect_events">1</property>
         <property name="disconnect_mode">source_name</property>
         <property name="disconnect_php_events">0</property>
@@ -11,13 +11,13 @@
         <property name="embedded_files_path">res</property>
         <property name="encoding">UTF-8</property>
         <property name="event_generation">connect</property>
-        <property name="file"></property>
+        <property name="file">ui_base_info</property>
         <property name="first_id">1000</property>
         <property name="help_provider">none</property>
         <property name="image_path_wrapper_function_name"></property>
         <property name="indent_with_spaces"></property>
-        <property name="internationalize">0</property>
-        <property name="name">MyProject1</property>
+        <property name="internationalize">1</property>
+        <property name="name">UiBaseInfo</property>
         <property name="namespace"></property>
         <property name="path">.</property>
         <property name="precompiled_header"></property>
@@ -52,7 +52,7 @@
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
-            <object class="wxStaticBoxSizer" expanded="0">
+            <object class="wxStaticBoxSizer" expanded="1">
                 <property name="id">wxID_ANY</property>
                 <property name="label">Base Info</property>
                 <property name="minimum_size"></property>
@@ -262,11 +262,11 @@
                                 <property name="wrap">-1</property>
                             </object>
                         </object>
-                        <object class="sizeritem" expanded="1">
+                        <object class="sizeritem" expanded="0">
                             <property name="border">5</property>
                             <property name="flag">wxALL|wxEXPAND</property>
                             <property name="proportion">0</property>
-                            <object class="wxChoice" expanded="1">
+                            <object class="wxChoice" expanded="0">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
                                 <property name="RightDockable">1</property>
@@ -1596,7 +1596,7 @@
                                 <property name="vgap">0</property>
                                 <object class="sizeritem" expanded="0">
                                     <property name="border">5</property>
-                                    <property name="flag">wxALL</property>
+                                    <property name="flag">wxALL|wxEXPAND</property>
                                     <property name="proportion">0</property>
                                     <object class="wxChoice" expanded="0">
                                         <property name="BottomDockable">1</property>

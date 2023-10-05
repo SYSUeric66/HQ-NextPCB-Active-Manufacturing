@@ -4,5 +4,5 @@ def _main():
         from kicad_amf_plugin.gui.main_dialog import MainWindow
         app = BaseApp(redirect=False)
         frame = MainWindow(None)
-        frame.Show()
+        frame.ShowModal()
         sys.exit(app.MainLoop())
