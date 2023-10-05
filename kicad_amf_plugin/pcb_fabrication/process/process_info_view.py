@@ -44,6 +44,8 @@ class ProcessInfoView(UiProcessInfo):
         super().__init__(*args, **kw)
         self.info: ProcessInfoModel = None
         self.initUI()
+        self.Fit()
+
 
     def getInfo(self):
         return self.info

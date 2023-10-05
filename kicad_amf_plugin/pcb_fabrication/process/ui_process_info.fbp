@@ -45,7 +45,7 @@
             <property name="minimum_size"></property>
             <property name="name">UiProcessInfo</property>
             <property name="pos"></property>
-            <property name="size">513,437</property>
+            <property name="size">492,370</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="tooltip"></property>
             <property name="two_step_creation">0</property>

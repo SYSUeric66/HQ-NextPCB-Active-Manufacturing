@@ -28,6 +28,7 @@ class BaseInfoView(UiBaseInfo):
         super().__init__(*args, **kw)
         self.base_info = None
         self.initUI()
+        self.Fit()
 
     def getBaseInfo(self):
         return self.base_info
