@@ -1,7 +1,8 @@
-from .kicad_amf_plugin.plugin import Plugin
+
 
 try:
-    Plugin().register()
+    from .kicad_amf_plugin.plugin.kicad_amf_action_plugin import KiCadAmfActionPlugin
+    KiCadAmfActionPlugin().register()
 except Exception as e:
     import logging
     logger = logging.getLogger()
