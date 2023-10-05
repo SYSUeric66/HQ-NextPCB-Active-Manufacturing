@@ -16,6 +16,7 @@ class KiCadAmfActionPlugin(pcbnew.ActionPlugin):
 
     def Run(self):
         PLUGIN_ROOT =os.path.abspath(os.path.join( os.path.abspath(os.path.dirname(os.path.abspath(__file__))  ) ,'..' ,'..' ))
-        sys.path.append(PLUGIN_ROOT)
+        if PLUGIN_ROOT not in sys.path:
+            sys.path.append(PLUGIN_ROOT)
         from kicad_amf_plugin.plugin._main import _main
         _main()

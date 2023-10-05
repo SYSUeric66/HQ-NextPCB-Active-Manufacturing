@@ -160,14 +160,14 @@ class MainWindow (wx.Dialog):
         m_topRightSizer.Add(self.m_priceDetailsViewListCtrl,
                             1, wx.ALL | wx.EXPAND, 5)
 
-        self.m_drcPanel = wx.Panel(
-            self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.BORDER_SIMPLE | wx.TAB_TRAVERSAL)
-        m_drcPanelSizer = wx.BoxSizer(wx.VERTICAL)
+        # self.m_drcPanel = wx.Panel(
+        #     self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.BORDER_SIMPLE | wx.TAB_TRAVERSAL)
+        # m_drcPanelSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_drcPanel.SetSizer(m_drcPanelSizer)
-        self.m_drcPanel.Layout()
-        m_drcPanelSizer.Fit(self.m_drcPanel)
-        m_topRightSizer.Add(self.m_drcPanel, 1, wx.ALL | wx.EXPAND, 5)
+        # self.m_drcPanel.SetSizer(m_drcPanelSizer)
+        # self.m_drcPanel.Layout()
+        # m_drcPanelSizer.Fit(self.m_drcPanel)
+        # m_topRightSizer.Add(self.m_drcPanel, 1, wx.ALL | wx.EXPAND, 5)
 
         m_topSizer.Add(m_topRightSizer, 5, wx.ALL | wx.EXPAND, 5)
 
