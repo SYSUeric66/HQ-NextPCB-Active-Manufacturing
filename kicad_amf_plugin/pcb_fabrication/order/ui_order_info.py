@@ -31,12 +31,14 @@ class UiOrderInfo ( wx.Panel ):
 
 		m_radioBox3Choices = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
 		self.m_radioBox3 = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Order Region"), wx.DefaultPosition, wx.DefaultSize, m_radioBox3Choices, 1, wx.RA_SPECIFY_ROWS )
-		self.m_radioBox3.SetSelection( 1 )
+		self.m_radioBox3.SetSelection( 2 )
 		sbSizer4.Add( self.m_radioBox3, 1, 0, 5 )
 
 		self.m_bpButton1 = wx.BitmapButton( sbSizer4.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.BU_LEFT )
 
 		self.m_bpButton1.SetBitmap( wx.Bitmap( self.GetImagePath( u"language.png" ), wx.BITMAP_TYPE_ANY ) )
+		self.m_bpButton1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+
 		sbSizer4.Add( self.m_bpButton1, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -71,9 +73,15 @@ class UiOrderInfo ( wx.Panel ):
 		self.SetSizer( bSizer1 )
 		self.Layout()
 		bSizer1.Fit( self )
+		self.m_menu3 = wx.Menu()
+		self.Bind( wx.EVT_RIGHT_DOWN, self.UiOrderInfoOnContextMenu )
+
 
 	def __del__( self ):
 		pass
+
+	def UiOrderInfoOnContextMenu( self, event ):
+		self.PopupMenu( self.m_menu3, event.GetPosition() )
 
 	# Virtual image path resolution method. Override this in your derived class.
 	def GetImagePath( self, bitmap_path ):
