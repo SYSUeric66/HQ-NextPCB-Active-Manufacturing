@@ -40,17 +40,17 @@ class MainWindow (wx.Dialog):
 
         # Section the info views
         m_fabBaseInfo = BaseInfoView(self.m_panelFab)
-        m_panelFabSizer.Add(m_fabBaseInfo, 1, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabBaseInfo, 0, wx.ALL | wx.EXPAND, 5)
 
         m_fabProcessInfo = ProcessInfoView(self.m_panelFab)
-        m_panelFabSizer.Add(m_fabProcessInfo, 1, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabProcessInfo, 0, wx.ALL | wx.EXPAND, 5)
 
         m_fabSpecialProcess = SpecialProcessView(self.m_panelFab)
-        m_panelFabSizer.Add(m_fabSpecialProcess, 1, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabSpecialProcess, 0, wx.ALL | wx.EXPAND, 5)
 
         m_fabServiceInfo = PersonalizedInfoView(
             self.m_panelFab)
-        m_panelFabSizer.Add(m_fabServiceInfo, 1, wx.ALL | wx.EXPAND, 5)
+        m_panelFabSizer.Add(m_fabServiceInfo, 0, wx.ALL | wx.EXPAND, 5)
 
         self.m_panelFab.SetSizer(m_panelFabSizer)
         self.m_panelFab.Layout()
