@@ -17,8 +17,9 @@ _ = gettext.gettext
 class MainWindow (wx.Dialog):
 
     def __init__(self, parent):
+        
         wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
-                           pos=wx.DefaultPosition, size=wx.Size(800, 700), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+                           pos=wx.DefaultPosition, size=wx.Size(900, 600), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         wx.SizerFlags.DisableConsistencyChecks()
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)

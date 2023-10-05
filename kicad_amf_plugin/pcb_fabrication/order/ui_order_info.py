@@ -31,164 +31,41 @@ class UiOrderInfo ( wx.Panel ):
 
 		m_radioBox3Choices = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
 		self.m_radioBox3 = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Order Region"), wx.DefaultPosition, wx.DefaultSize, m_radioBox3Choices, 1, wx.RA_SPECIFY_ROWS )
-		self.m_radioBox3.SetSelection( 0 )
+		self.m_radioBox3.SetSelection( 1 )
 		sbSizer4.Add( self.m_radioBox3, 1, 0, 5 )
 
 		self.m_bpButton1 = wx.BitmapButton( sbSizer4.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.BU_LEFT )
 
 		self.m_bpButton1.SetBitmap( wx.Bitmap( self.GetImagePath( u"language.png" ), wx.BITMAP_TYPE_ANY ) )
-		sbSizer4.Add( self.m_bpButton1, 0, wx.ALL, 5 )
+		sbSizer4.Add( self.m_bpButton1, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-		bSizer3.Add( sbSizer4, 1, wx.EXPAND, 5 )
+		bSizer3.Add( sbSizer4, 1, wx.ALIGN_CENTER|wx.EXPAND, 5 )
 
 
 		bSizer1.Add( bSizer3, 0, wx.ALIGN_CENTER|wx.EXPAND, 5 )
 
 		sbSizer1 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Price detail") ), wx.VERTICAL )
 
-		self.list_price_detail = wx.dataview.DataViewCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.list_price_detail = wx.dataview.DataViewListCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_HORIZ_RULES|wx.dataview.DV_NO_HEADER|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
 		sbSizer1.Add( self.list_price_detail, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer1.Add( sbSizer1, 1, wx.EXPAND, 5 )
 
-		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
+		sbSizer41 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Order Summary") ), wx.VERTICAL )
 
-		fgSizer1 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer1.AddGrowableCol( 1 )
-		fgSizer1.SetFlexibleDirection( wx.BOTH )
-		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText1 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"PCB Quantity"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText1.Wrap( -1 )
-
-		fgSizer1.Add( self.m_staticText1, 0, wx.ALL, 5 )
-
-		fgSizer2 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer2.AddGrowableCol( 0 )
-		fgSizer2.SetFlexibleDirection( wx.BOTH )
-		fgSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		self.list_order_summary = wx.dataview.DataViewListCtrl( sbSizer41.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_HORIZ_RULES|wx.dataview.DV_NO_HEADER|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
+		sbSizer41.Add( self.list_order_summary, 1, wx.ALL|wx.EXPAND|wx.FIXED_MINSIZE, 5 )
 
 
-		fgSizer2.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer1.Add( sbSizer41, 0, wx.EXPAND|wx.FIXED_MINSIZE, 5 )
 
-		fgSizer3 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer3.AddGrowableCol( 0 )
-		fgSizer3.SetFlexibleDirection( wx.BOTH )
-		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		self.btn_update_price = wx.Button( self, wx.ID_ANY, _(u"Update Price"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.btn_update_price, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText4 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText4.Wrap( -1 )
-
-		fgSizer3.Add( self.m_staticText4, 0, wx.ALL, 5 )
-
-		self.m_staticText5 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText5.Wrap( -1 )
-
-		fgSizer3.Add( self.m_staticText5, 0, wx.ALL, 5 )
-
-
-		fgSizer2.Add( fgSizer3, 1, wx.EXPAND, 5 )
-
-
-		fgSizer1.Add( fgSizer2, 1, wx.EXPAND, 5 )
-
-
-		sbSizer2.Add( fgSizer1, 1, wx.EXPAND, 5 )
-
-		fgSizer11 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer11.AddGrowableCol( 1 )
-		fgSizer11.SetFlexibleDirection( wx.BOTH )
-		fgSizer11.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText11 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Time"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText11.Wrap( -1 )
-
-		fgSizer11.Add( self.m_staticText11, 0, wx.ALL, 5 )
-
-		fgSizer21 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer21.AddGrowableCol( 0 )
-		fgSizer21.SetFlexibleDirection( wx.BOTH )
-		fgSizer21.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-
-		fgSizer21.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		fgSizer31 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer31.AddGrowableCol( 0 )
-		fgSizer31.SetFlexibleDirection( wx.BOTH )
-		fgSizer31.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText41 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText41.Wrap( -1 )
-
-		fgSizer31.Add( self.m_staticText41, 0, wx.ALL, 5 )
-
-		self.m_staticText51 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Days"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText51.Wrap( -1 )
-
-		fgSizer31.Add( self.m_staticText51, 0, wx.ALL, 5 )
-
-
-		fgSizer21.Add( fgSizer31, 1, wx.EXPAND, 5 )
-
-
-		fgSizer11.Add( fgSizer21, 1, wx.EXPAND, 5 )
-
-
-		sbSizer2.Add( fgSizer11, 1, wx.EXPAND, 5 )
-
-		fgSizer12 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer12.AddGrowableCol( 1 )
-		fgSizer12.SetFlexibleDirection( wx.BOTH )
-		fgSizer12.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText12 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Cost"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText12.Wrap( -1 )
-
-		fgSizer12.Add( self.m_staticText12, 0, wx.ALL, 5 )
-
-		fgSizer22 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer22.AddGrowableCol( 0 )
-		fgSizer22.SetFlexibleDirection( wx.BOTH )
-		fgSizer22.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-
-		fgSizer22.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		fgSizer32 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer32.AddGrowableCol( 0 )
-		fgSizer32.SetFlexibleDirection( wx.BOTH )
-		fgSizer32.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText42 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"-"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText42.Wrap( -1 )
-
-		fgSizer32.Add( self.m_staticText42, 0, wx.ALL, 5 )
-
-		self.m_staticText52 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"$"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText52.Wrap( -1 )
-
-		fgSizer32.Add( self.m_staticText52, 0, wx.ALL, 5 )
-
-
-		fgSizer22.Add( fgSizer32, 1, wx.EXPAND, 5 )
-
-
-		fgSizer12.Add( fgSizer22, 1, wx.EXPAND, 5 )
-
-
-		sbSizer2.Add( fgSizer12, 1, wx.EXPAND, 5 )
-
-		self.btn_update_price = wx.Button( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Update Price"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer2.Add( self.btn_update_price, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.btn_place_order = wx.Button( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Place Order"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer2.Add( self.btn_place_order, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer1.Add( sbSizer2, 0, wx.EXPAND, 5 )
+		self.btn_place_order = wx.Button( self, wx.ID_ANY, _(u"Place Order"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.btn_place_order, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer1 )
