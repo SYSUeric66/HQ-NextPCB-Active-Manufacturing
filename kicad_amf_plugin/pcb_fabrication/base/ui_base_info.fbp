@@ -45,7 +45,7 @@
             <property name="minimum_size"></property>
             <property name="name">UiBaseInfo</property>
             <property name="pos"></property>
-            <property name="size">376,350</property>
+            <property name="size">-1,-1</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="tooltip"></property>
             <property name="two_step_creation">0</property>
