@@ -10,7 +10,6 @@
 import wx
 import wx.xrc
 import wx.dataview
-from kicad_amf_plugin.icon import GetImagePath
 
 import gettext
 _ = gettext.gettext
@@ -30,20 +29,18 @@ class UiOrderInfo ( wx.Panel ):
 
 		sbSizer4 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Preference") ), wx.HORIZONTAL )
 
-		m_radioBox3Choices = [ _(u"简体中文"), _(u"日本语"), _(u"English") ]
-		self.m_radioBox3 = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Language"), wx.DefaultPosition, wx.DefaultSize, m_radioBox3Choices, 1, wx.RA_SPECIFY_ROWS )
-		self.m_radioBox3.SetSelection( 2 )
-		sbSizer4.Add( self.m_radioBox3, 1, wx.ALL, 5 )
+		m_radioBox3Choices = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
+		self.m_radioBox3 = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Order Region"), wx.DefaultPosition, wx.DefaultSize, m_radioBox3Choices, 1, wx.RA_SPECIFY_ROWS )
+		self.m_radioBox3.SetSelection( 0 )
+		sbSizer4.Add( self.m_radioBox3, 1, 0, 5 )
 
-		self.m_button12 = wx.Button( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Set Language"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer4.Add( self.m_button12, 0, wx.ALL|wx.EXPAND, 5 )
+		self.m_bpButton1 = wx.BitmapButton( sbSizer4.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.BU_LEFT )
+
+		self.m_bpButton1.SetBitmap( wx.Bitmap( self.GetImagePath( u"language.png" ), wx.BITMAP_TYPE_ANY ) )
+		sbSizer4.Add( self.m_bpButton1, 0, wx.ALL, 5 )
 
 
 		bSizer3.Add( sbSizer4, 1, wx.EXPAND, 5 )
-
-		self.m_bitmap1 =wx.StaticBitmap(self, wx.ID_ANY, wx.Bitmap(GetImagePath(
-             "Huaqiu.png"), wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, 0)
-		bSizer3.Add( self.m_bitmap1, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer1.Add( bSizer3, 0, wx.ALIGN_CENTER|wx.EXPAND, 5 )
@@ -196,8 +193,13 @@ class UiOrderInfo ( wx.Panel ):
 
 		self.SetSizer( bSizer1 )
 		self.Layout()
+		bSizer1.Fit( self )
 
 	def __del__( self ):
 		pass
+
+	# Virtual image path resolution method. Override this in your derived class.
+	def GetImagePath( self, bitmap_path ):
+		return bitmap_path
 
 

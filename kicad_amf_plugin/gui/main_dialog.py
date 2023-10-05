@@ -49,7 +49,7 @@ class MainWindow (wx.Dialog):
 
         main_sizer.Add(pcb_fab_panel, 1, wx.EXPAND, 8)
 
-        main_sizer.Add(order_info_view, 1, wx.EXPAND, 8)
+        main_sizer.Add(order_info_view, 0, wx.EXPAND, 8)
         self.SetSizer(main_sizer)
         self.Layout()
 
