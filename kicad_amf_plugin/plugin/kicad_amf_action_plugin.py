@@ -1,6 +1,6 @@
-import sys
 import pcbnew
 import os
+from kicad_amf_plugin.plugin._main import _main
 
 class KiCadAmfActionPlugin(pcbnew.ActionPlugin):
     def __init__(self):
@@ -15,8 +15,4 @@ class KiCadAmfActionPlugin(pcbnew.ActionPlugin):
             os.path.dirname(__file__),  'icon.png')
 
     def Run(self):
-        PLUGIN_ROOT =os.path.abspath(os.path.join( os.path.abspath(os.path.dirname(os.path.abspath(__file__))  ) ,'..' ,'..' ))
-        if PLUGIN_ROOT not in sys.path:
-            sys.path.append(PLUGIN_ROOT)
-        from kicad_amf_plugin.plugin._main import _main
         _main()

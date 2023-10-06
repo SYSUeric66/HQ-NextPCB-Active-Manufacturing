@@ -21,7 +21,7 @@ catalog.
 import subprocess
 import sys
 import os
-import kicad_amf_plugin.gui.app_const as appC
+import kicad_amf_plugin.language.lang_const as appC
 from kicad_amf_plugin import PLUGIN_ROOT
 
 # we remove English as source code strings are in English
