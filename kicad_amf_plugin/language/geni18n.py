@@ -18,7 +18,7 @@ catalog.
 
 """
 
-from  .lang_const import SUPPORTED_LANG ,LANG_DOMAIN
+from  lang_const import SUPPORTED_LANG ,LANG_DOMAIN
 
 # we remove English as source code strings are in English
 supportedLang = []
@@ -30,7 +30,7 @@ import os
 import sys
 import subprocess
 
-appFolder = os.getcwd()
+appFolder =  os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
 
 # setup some stuff to get at Python I18N tools/utilities
 
@@ -55,10 +55,12 @@ print ("return code: %s\n\n" % rCode)
 
 for tLang in supportedLang:
     # build command for msgfmt
-    langDir = os.path.join(appFolder, ('locale\%s\LC_MESSAGES' % tLang))
+    langDir = os.path.join(appFolder, (f'language/locale/{tLang}/LC_MESSAGES'  ))
+    if not os.path.exists(langDir) :
+        os.mkdir(langDir)
     poFile = os.path.join(langDir, LANG_DOMAIN + '.po')
     tCmd = pyExe + ' ' + pyMsgfmt + ' ' + poFile
-    
+
     print ("Generating the .mo file")
     print ("cmd: %s" % tCmd)
     rCode = subprocess.call(tCmd)

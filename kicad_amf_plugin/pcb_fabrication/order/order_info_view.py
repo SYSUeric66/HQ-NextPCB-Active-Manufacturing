@@ -1,6 +1,6 @@
 from .ui_order_info import UiOrderInfo
 from kicad_amf_plugin.icon import GetImagePath
-from kicad_amf_plugin.locale.lang_setting_pop_menu import LangSettingPopMenu
+from kicad_amf_plugin.language.lang_setting_pop_menu import LangSettingPopMenu
 import wx
 from .order_summary_model import OrderSummary , OrderSummaryModel
 from .price_summary_model import PriceSummaryModel ,ItemPrice

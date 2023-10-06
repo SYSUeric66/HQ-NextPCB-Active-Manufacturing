@@ -8,7 +8,7 @@
 #
 
 from wx.lib.mixins.inspection import InspectionMixin
-from ..locale.lang_const import SUPPORTED_LANG, LANG_DOMAIN
+from ..language.lang_const import SUPPORTED_LANG, LANG_DOMAIN
 import builtins
 import sys
 import os
