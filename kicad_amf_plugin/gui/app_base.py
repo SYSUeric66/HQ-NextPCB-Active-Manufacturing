@@ -8,7 +8,7 @@
 #
 
 from wx.lib.mixins.inspection import InspectionMixin
-from ..language.lang_const import supLang, langDomain
+from ..language.lang_const import SUPPORTED_LANG, langDomain
 import builtins
 import sys
 import os
@@ -81,8 +81,8 @@ class BaseApp(wx.App, InspectionMixin):
 
         """
         # if an unsupported language is requested default to English
-        if lang in supLang:
-            selLang = supLang[lang]
+        if lang in SUPPORTED_LANG:
+            selLang = SUPPORTED_LANG[lang]
         else:
             selLang = wx.LANGUAGE_ENGLISH
 

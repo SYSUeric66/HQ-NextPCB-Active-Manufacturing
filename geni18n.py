@@ -26,7 +26,7 @@ from kicad_amf_plugin import PLUGIN_ROOT
 
 # we remove English as source code strings are in English
 supportedLang = []
-for l in appC.supLang:
+for l in appC.SUPPORTED_LANG:
     if l != u"en":
         supportedLang.append(l)
 

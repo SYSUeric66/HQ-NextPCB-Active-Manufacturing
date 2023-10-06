@@ -9,7 +9,7 @@ import wx
 # language domain
 langDomain = "kicad_amf_plugin"
 # languages you want to support
-supLang = {u"en": wx.LANGUAGE_ENGLISH,
+SUPPORTED_LANG = {u"en": wx.LANGUAGE_ENGLISH,
            u"jp": wx.LANGUAGE_JAPANESE,
-           u"zh_CN": wx.LANGUAGE_CHINESE_CHINA,
+           u"zh_CN": wx.LANGUAGE_CHINESE_SIMPLIFIED
            }
