@@ -3,8 +3,8 @@ from .process_info_model import ProcessInfoModel
 
 from .ui_process_info import UiProcessInfo
 
-import gettext
-_ = gettext.gettext
+
+
 
 BOARD_THICKNESS_CHOICE = [_(u"0.6"), _(u"0.8"), _(u"1.0"), _(
     u"1.2"), _(u"1.6"), _(u"2.0"), _(u"2.5"), _(u"3.0"), _(u"3.2")]

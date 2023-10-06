@@ -3,8 +3,8 @@ from .ui_base_info import UiBaseInfo
 import wx.xrc
 import wx.dataview
 
-import gettext
-_ = gettext.gettext
+
+
 
 
 AVAILABLE_MATERIAL_TYPES = [_(u"FR-4")]

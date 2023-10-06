@@ -6,8 +6,8 @@ import wx.xrc
 import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 
-import gettext
-_ = gettext.gettext
+
+
 
 
 HDI_STRUCTURE_CHOICE = [_(u"Rank 1"), _(u"Rank 2"), _(u"Rank 3")]

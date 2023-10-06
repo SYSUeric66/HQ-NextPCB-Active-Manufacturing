@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 import wx
 import wx.dataview as dv
-import gettext
-_ = gettext.gettext
+
+
 
 @dataclass
 class ItemPrice:

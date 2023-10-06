@@ -5,8 +5,8 @@ class LangSettingPopMenu(wx.Menu):
     def __init__(self , current_lang_id  : int):
         super().__init__()
         for idx ,lang in enumerate(SUPPORTED_LANG):
-            item = wx.MenuItem(self,  idx, lang )
-            if current_lang_id == SUPPORTED_LANG[lang] :
+            item = wx.MenuItem(self,  idx, SUPPORTED_LANG[lang] )
+            if current_lang_id == lang :
                 item.SetBitmap(Smiles.GetBitmap())
             self.Append(item)
 

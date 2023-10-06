@@ -13,8 +13,8 @@ from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT
 import wx.dataview
 from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT,PB_STYLE_SQUARE
 
-import gettext
-_ = gettext.gettext
+
+
 
 ###########################################################################
 ## Class UiOrderInfo

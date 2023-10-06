@@ -5,8 +5,8 @@ import wx.xrc
 import wx.dataview
 from .ui_personalized import UiPersonalizedService
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
-import gettext
-_ = gettext.gettext
+
+
 
 
 TEST_METHOD_CHOICE = [_(u"Sample Test Free"), _(
