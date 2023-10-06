@@ -5,4 +5,4 @@ def _main():
         app = BaseApp(redirect=False)
         frame = MainWindow(None)
         frame.ShowModal()
-        sys.exit(app.MainLoop())
+        app.MainLoop()

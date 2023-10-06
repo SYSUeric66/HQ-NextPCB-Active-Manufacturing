@@ -9,7 +9,9 @@
 
 import wx
 import wx.xrc
+from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT
 import wx.dataview
+from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT,PB_STYLE_SQUARE
 
 import gettext
 _ = gettext.gettext
@@ -34,12 +36,8 @@ class UiOrderInfo ( wx.Panel ):
 		self.m_radioBox3.SetSelection( 2 )
 		sbSizer4.Add( self.m_radioBox3, 1, 0, 5 )
 
-		self.m_bpButton1 = wx.BitmapButton( sbSizer4.GetStaticBox(), wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.BU_LEFT )
-
-		self.m_bpButton1.SetBitmap( wx.Bitmap( self.GetImagePath( u"language.png" ), wx.BITMAP_TYPE_ANY ) )
-		self.m_bpButton1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
-
-		sbSizer4.Add( self.m_bpButton1, 0, wx.ALL|wx.EXPAND, 5 )
+		self.btn_set_language=PlateButton(self,bmp= wx.Bitmap( self.GetImagePath(u"language.png" ),wx.BITMAP_TYPE_ANY ), style=PB_STYLE_GRADIENT )
+		sbSizer4.Add( self.btn_set_language, 0, wx.ALL, 5 )
 
 
 		bSizer3.Add( sbSizer4, 1, wx.ALIGN_CENTER|wx.EXPAND, 5 )
@@ -49,7 +47,7 @@ class UiOrderInfo ( wx.Panel ):
 
 		sbSizer1 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Price detail") ), wx.VERTICAL )
 
-		self.list_price_detail = wx.dataview.DataViewListCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_HORIZ_RULES|wx.dataview.DV_NO_HEADER|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
+		self.list_price_detail = wx.dataview.DataViewListCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_HORIZ_RULES|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
 		sbSizer1.Add( self.list_price_detail, 1, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -63,25 +61,24 @@ class UiOrderInfo ( wx.Panel ):
 
 		bSizer1.Add( sbSizer41, 0, wx.EXPAND|wx.FIXED_MINSIZE, 5 )
 
-		self.btn_update_price = wx.Button( self, wx.ID_ANY, _(u"Update Price"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer1.Add( self.btn_update_price, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer31 = wx.BoxSizer( wx.VERTICAL )
 
-		self.btn_place_order = wx.Button( self, wx.ID_ANY, _(u"Place Order"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer1.Add( self.btn_place_order, 0, wx.ALL|wx.EXPAND, 5 )
+		self.btn_update_price=PlateButton(self,bmp= wx.Bitmap( self.GetImagePath("query.png" ),wx.BITMAP_TYPE_ANY ),style=PB_STYLE_GRADIENT ,label=_("Update Price"))
+		bSizer31.Add( self.btn_update_price, 1, wx.ALIGN_CENTER|wx.ALL|wx.EXPAND, 5 )
+
+		self.btn_place_order=PlateButton(self,bmp= wx.Bitmap( self.GetImagePath("cart.png" ),wx.BITMAP_TYPE_ANY ),style=PB_STYLE_GRADIENT ,label=_("Add to Cart"))
+		bSizer31.Add( self.btn_place_order, 1, wx.ALIGN_CENTER|wx.ALL|wx.EXPAND, 5 )
+
+
+		bSizer1.Add( bSizer31, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer1 )
 		self.Layout()
 		bSizer1.Fit( self )
-		self.m_menu3 = wx.Menu()
-		self.Bind( wx.EVT_RIGHT_DOWN, self.UiOrderInfoOnContextMenu )
-
 
 	def __del__( self ):
 		pass
-
-	def UiOrderInfoOnContextMenu( self, event ):
-		self.PopupMenu( self.m_menu3, event.GetPosition() )
 
 	# Virtual image path resolution method. Override this in your derived class.
 	def GetImagePath( self, bitmap_path ):
