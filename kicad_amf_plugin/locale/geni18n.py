@@ -18,18 +18,19 @@ catalog.
 
 """
 
-import subprocess
-import sys
-import os
-import kicad_amf_plugin.language.lang_const as appC
-from kicad_amf_plugin import PLUGIN_ROOT
+from  .lang_const import SUPPORTED_LANG ,LANG_DOMAIN
 
 # we remove English as source code strings are in English
 supportedLang = []
-for l in appC.SUPPORTED_LANG:
+for l in SUPPORTED_LANG:
     if l != u"en":
         supportedLang.append(l)
 
+import os
+import sys
+import subprocess
+
+appFolder = os.getcwd()
 
 # setup some stuff to get at Python I18N tools/utilities
 
@@ -39,26 +40,26 @@ pyToolsFolder = os.path.join(pyFolder, 'Tools')
 pyI18nFolder = os.path.join(pyToolsFolder, 'i18n')
 pyGettext = os.path.join(pyI18nFolder, 'pygettext.py')
 pyMsgfmt = os.path.join(pyI18nFolder, 'msgfmt.py')
-outFolder = os.path.join(PLUGIN_ROOT, 'locale')
+outFolder = os.path.join(appFolder, 'locale')
 
 # build command for pygettext
 gtOptions = '-a -d %s -o %s.pot -p %s %s'
-tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (appC.langDomain,
-                                                     appC.langDomain,
+tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (LANG_DOMAIN,
+                                                     LANG_DOMAIN,
                                                      outFolder,
-                                                     PLUGIN_ROOT))
-print("Generating the .pot file")
-print("cmd: %s" % tCmd)
+                                                     appFolder))
+print ("Generating the .pot file")
+print ("cmd: %s" % tCmd)
 rCode = subprocess.call(tCmd)
-print("return code: %s\n\n" % rCode)
+print ("return code: %s\n\n" % rCode)
 
 for tLang in supportedLang:
     # build command for msgfmt
-    langDir = os.path.join(PLUGIN_ROOT, ('locale\%s\LC_MESSAGES' % tLang))
-    poFile = os.path.join(langDir, appC.langDomain + '.po')
+    langDir = os.path.join(appFolder, ('locale\%s\LC_MESSAGES' % tLang))
+    poFile = os.path.join(langDir, LANG_DOMAIN + '.po')
     tCmd = pyExe + ' ' + pyMsgfmt + ' ' + poFile
-
-    print("Generating the .mo file")
-    print("cmd: %s" % tCmd)
+    
+    print ("Generating the .mo file")
+    print ("cmd: %s" % tCmd)
     rCode = subprocess.call(tCmd)
-    print("return code: %s\n\n" % rCode)
+    print ("return code: %s\n\n" % rCode)

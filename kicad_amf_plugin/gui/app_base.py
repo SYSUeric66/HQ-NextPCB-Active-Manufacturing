@@ -8,7 +8,7 @@
 #
 
 from wx.lib.mixins.inspection import InspectionMixin
-from ..language.lang_const import SUPPORTED_LANG, langDomain
+from ..locale.lang_const import SUPPORTED_LANG, LANG_DOMAIN
 import builtins
 import sys
 import os
@@ -93,6 +93,6 @@ class BaseApp(wx.App, InspectionMixin):
         # create a locale object for this language
         self.locale = wx.Locale(selLang)
         if self.locale.IsOk():
-            self.locale.AddCatalog(langDomain)
+            self.locale.AddCatalog(LANG_DOMAIN)
         else:
             self.locale = None
