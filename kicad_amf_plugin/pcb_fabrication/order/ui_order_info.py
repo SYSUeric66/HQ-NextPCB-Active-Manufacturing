@@ -45,9 +45,9 @@ class UiOrderInfo ( wx.Panel ):
 
 		bSizer1.Add( bSizer3, 0, wx.ALIGN_CENTER|wx.EXPAND, 5 )
 
-		sbSizer1 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Price detail") ), wx.VERTICAL )
+		sbSizer1 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Cost detail") ), wx.VERTICAL )
 
-		self.list_price_detail = wx.dataview.DataViewListCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_HORIZ_RULES|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
+		self.list_price_detail = wx.dataview.DataViewCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
 		sbSizer1.Add( self.list_price_detail, 1, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -55,8 +55,8 @@ class UiOrderInfo ( wx.Panel ):
 
 		sbSizer41 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Order Summary") ), wx.VERTICAL )
 
-		self.list_order_summary = wx.dataview.DataViewListCtrl( sbSizer41.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_HORIZ_RULES|wx.dataview.DV_NO_HEADER|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
-		sbSizer41.Add( self.list_order_summary, 1, wx.ALL|wx.EXPAND|wx.FIXED_MINSIZE, 5 )
+		self.list_order_summary = wx.dataview.DataViewCtrl( sbSizer41.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_NO_HEADER|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
+		sbSizer41.Add( self.list_order_summary, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer1.Add( sbSizer41, 0, wx.EXPAND|wx.FIXED_MINSIZE, 5 )
