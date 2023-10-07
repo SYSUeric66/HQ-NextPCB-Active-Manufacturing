@@ -1,12 +1,9 @@
 
-from kicad_amf_plugin.icon import GetImagePath
 from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.pcb_fabrication.order.order_info_view import OrderInfoView
-from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT ,AdjustColour
-
 
 
 import wx
@@ -17,15 +14,14 @@ import wx.dataview
 
 
 
-class MainWindow (wx.Dialog):
+class MainFrame (wx.Frame):
 
     def __init__(self, parent):
 
-        wx.Dialog.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
+        wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
                            pos=wx.DefaultPosition, size=wx.Size(900, 600), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         wx.SizerFlags.DisableConsistencyChecks()
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
         pcb_fab_panel = wx.ScrolledWindow(

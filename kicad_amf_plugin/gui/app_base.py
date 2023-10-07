@@ -27,7 +27,7 @@ def _displayHook(obj):
 class BaseApp(wx.App, InspectionMixin):
     def __init__(self, redirect=False, filename=None, useBestVisual=False, clearSigInt=True):
         super().__init__(redirect, filename, useBestVisual, clearSigInt)
-        self.frame = None
+        self.Bind(EVT_CHANGE_LOCALE, self.on_locale_changed)
 
     def OnInit(self):
         self.Init()  # InspectionMixin
@@ -37,7 +37,6 @@ class BaseApp(wx.App, InspectionMixin):
         wx.Locale.AddCatalogLookupPathPrefix(
             os.path.join(PLUGIN_ROOT, 'language', 'locale'))
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
-        self.Bind(EVT_CHANGE_LOCALE, self.on_locale_changed)
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
         self.startup_dialog()
@@ -45,13 +44,16 @@ class BaseApp(wx.App, InspectionMixin):
 
     def on_locale_changed(self, evt):
         self.update_language(evt.GetInt())
-        info = wx.MessageDialog(self.frame, _('Restart the plugin to apply the new locale'),
+        info = wx.MessageDialog(self.main_wind, _('Restart the plugin to apply the new locale ?'),
                                _('Tip'),
-                               wx.OK | wx.ICON_INFORMATION
+                               wx.YES | wx.ICON_QUESTION | wx.NO
                                )
-        info.ShowModal()
+        res = info.ShowModal()
         info.Destroy()
-
+        if res == wx.ID_YES:
+            if self.main_wind :
+                self.main_wind.Destroy()
+            self.startup_dialog()
 
     def update_language(self, lang: int):
         if lang in SUPPORTED_LANG:
@@ -69,6 +71,6 @@ class BaseApp(wx.App, InspectionMixin):
             self.locale = None
 
     def startup_dialog(self):
-        from kicad_amf_plugin.gui.main_dialog import MainWindow
-        self.frame = MainWindow(None)
-        self.frame.ShowModal()
+        from kicad_amf_plugin.gui.main_frame import MainFrame
+        self.main_wind = MainFrame(None)
+        self.main_wind.Show()
