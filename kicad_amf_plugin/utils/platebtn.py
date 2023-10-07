@@ -192,7 +192,7 @@ class PlateButton(wx.Control):
             bw, bh = bmp.GetSize()
             ypos = (self.GetSize()[1] - bh) // 2
             if tw > 0:
-                gc.DrawBitmap(bmp, int((width - tw)/2 -  bw -6) , ypos, bmp.GetMask() is not None)
+                gc.DrawBitmap(bmp, (width - tw)//2 -  bw -6 , ypos, bmp.GetMask() is not None)
             else:
                 gc.DrawBitmap(bmp, 6 , ypos, bmp.GetMask() is not None)
 
@@ -237,7 +237,7 @@ class PlateButton(wx.Control):
         if self._style & PB_STYLE_SQUARE:
             rad = 0
         else:
-            rad = (height - 3) / 2
+            rad = (height - 3) // 2
 
         if self._style & PB_STYLE_GRADIENT:
             gc.SetBrush(wx.TRANSPARENT_BRUSH)
@@ -268,7 +268,7 @@ class PlateButton(wx.Control):
         if self._style & PB_STYLE_SQUARE:
             rad = 0
         else:
-            rad = (height - 3) / 2
+            rad = (height - 3) // 2
 
         if self._style & PB_STYLE_GRADIENT:
             gc.SetBrush(wx.TRANSPARENT_BRUSH)
@@ -345,9 +345,9 @@ class PlateButton(wx.Control):
             # else:
             #     gc.DrawText(self.Label, txt_x + 2, txt_y)
             if wx.Platform == '__WXGTK__':
-                dc.DrawText(self.Label, (width - tw) /2 ,txt_y)
+                dc.DrawText(self.Label, (width - tw) //2 ,txt_y)
             else:
-                gc.DrawText(self.Label, (width - tw) /2, txt_y)
+                gc.DrawText(self.Label, (width - tw) //2, txt_y)
             self.__DrawDropArrow(gc, width - 10, (height // 2) - 2)
 
         else:
@@ -367,9 +367,9 @@ class PlateButton(wx.Control):
             # else:
             #     gc.DrawText(self.Label, txt_x + 2, txt_y)
             if wx.Platform == '__WXGTK__':
-                dc.DrawText(self.Label, int((width - tw) /2) ,txt_y)
+                dc.DrawText(self.Label, (width - tw) //2 ,txt_y)
             else:
-                gc.DrawText(self.Label, int((width - tw) /2), txt_y)
+                gc.DrawText(self.Label, (width - tw) //2, txt_y)
             self.__DrawDropArrow(gc, width - 10, (height // 2) - 2)
 
 
