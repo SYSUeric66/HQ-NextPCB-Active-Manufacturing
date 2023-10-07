@@ -8,7 +8,8 @@
 #
 
 from wx.lib.mixins.inspection import InspectionMixin
-from ..language.lang_const import SUPPORTED_LANG, LANG_DOMAIN
+from  kicad_amf_plugin.language.lang_const  import SUPPORTED_LANG, LANG_DOMAIN
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 import builtins
 import sys
 import os
