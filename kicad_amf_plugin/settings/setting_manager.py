@@ -50,14 +50,17 @@ class _SettingManager(wx.EvtHandler) :
 
         if not self.app_conf.HasEntry(LANGUAGE):
             self.set_language(read_kicad_lang_setting())
-        self.app_conf.Flush()
+            self.app_conf.Flush()
 
     def set_language( self, now : int ):
         old = self.language
+        if old == now:
+            return                    
         self.app_conf.WriteInt(key=LANGUAGE, value=now)
-        if self.app and old != now:
+        if self.app:
             evt = LocaleChangeEvent(id = -1)
             evt.SetInt(now)
+            self.app_conf.Flush()
             wx.PostEvent(self.app ,evt)
 
     @property

@@ -45,6 +45,13 @@ class BaseApp(wx.App, InspectionMixin):
 
     def on_locale_changed(self, evt):
         self.update_language(evt.GetInt())
+        info = wx.MessageDialog(self.frame, _('Restart the plugin to apply the new locale'),
+                               _('Tip'),
+                               wx.OK | wx.ICON_INFORMATION
+                               )
+        info.ShowModal()
+        info.Destroy()
+
 
     def update_language(self, lang: int):
         if lang in SUPPORTED_LANG:

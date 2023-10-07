@@ -6,6 +6,8 @@ from .order_summary_model import OrderSummary , OrderSummaryModel
 from .price_summary_model import PriceSummaryModel ,ItemPrice
 
 import wx.dataview as dv
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+
 
 
 class OrderInfoView(UiOrderInfo):
@@ -42,6 +44,6 @@ class OrderInfoView(UiOrderInfo):
         return height
 
     def on_set_lang_clicked(self, evt):
-        menu = LangSettingPopMenu(wx.LANGUAGE_CHINESE_SIMPLIFIED)
+        menu = LangSettingPopMenu(SETTING_MANAGER.language)
         self.PopupMenu(menu)
         menu.Destroy()
