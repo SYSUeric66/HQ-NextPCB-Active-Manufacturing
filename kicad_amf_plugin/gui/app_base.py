@@ -60,7 +60,8 @@ class BaseApp(wx.App, InspectionMixin):
         if not self.appConfig.HasEntry('Language'):
             # on first run we default to en
             #TODO - Read KiCad's config file
-            self.appConfig.Write(key='Language', value=str(wx.LANGUAGE_ENGLISH))
+            self.appConfig.Write(key='Language', value=str(int(wx.LANGUAGE_ENGLISH)))
+        self.appConfig.Write(key='Language', value=str(int(wx.LANGUAGE_ENGLISH)))
         self.appConfig.Flush()
 
     def updateLanguage(self, lang : int):
