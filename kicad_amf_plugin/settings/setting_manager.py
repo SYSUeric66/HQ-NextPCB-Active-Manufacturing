@@ -2,7 +2,6 @@ import json
 
 import wx
 import os
-import pcbnew
 import logging
 from kicad_amf_plugin.gui.event.locale_change_evt import LocaleChangeEvent
 
@@ -15,7 +14,10 @@ LANGUAGE = 'language'
 
 def read_kicad_lang_setting():
     try:
+        import pcbnew
         kicad_setting_path = str(pcbnew.SETTINGS_MANAGER.GetUserSettingsPath())
+        logging.info(f'Kicad setting path {kicad_setting_path}')
+        print(f'Kicad setting path {kicad_setting_path}')
         if len(kicad_setting_path):
             kicad_common_json = os.path.join(kicad_setting_path, 'kicad_common.json')
             with open(kicad_common_json) as f :
