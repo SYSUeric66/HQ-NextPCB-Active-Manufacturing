@@ -53,14 +53,7 @@ class MainWindow (wx.Dialog):
         order_info_view = OrderInfoView(self)
 
         main_sizer.Add(pcb_fab_panel, 1, wx.EXPAND, 8)
-
         main_sizer.Add(order_info_view, 0, wx.EXPAND, 8)
-
-        # main_sizer.Add(PlateButton(self,
-        #                            bmp= wx.Bitmap( GetImagePath( u"language.png" ),wx.BITMAP_TYPE_ANY ),
-        #                            style= PB_STYLE_GRADIENT
-        #                            ), 0)
-
         self.SetSizer(main_sizer)
         self.Layout()
 
