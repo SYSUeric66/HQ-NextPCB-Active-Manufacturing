@@ -1,4 +1,6 @@
+import wx
+_=wx.GetTranslation
 
 
 
-BOOLEAN_CHOICE = [_(u"No"), _(u"Yes")]
+BOOLEAN_CHOICE = [_("No"), _("Yes")]

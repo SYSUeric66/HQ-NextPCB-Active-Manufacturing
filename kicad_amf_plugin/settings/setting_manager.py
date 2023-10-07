@@ -26,7 +26,7 @@ def read_kicad_lang_setting():
                 if lang.count(u"中文"):
                     return wx.LANGUAGE_CHINESE_SIMPLIFIED
                 elif lang.count(u"日本"):
-                    return wx.LANGUAGE_JAPANESE
+                    return wx.LANGUAGE_JAPANESE_JAPAN
         else:
             logging.error("Empty KiCad config path!")
     except:

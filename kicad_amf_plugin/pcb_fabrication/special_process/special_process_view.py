@@ -27,7 +27,8 @@ class SpecialProcessView(UiSpecialProcess):
 
     def initUI(self):
         for ctrl in self.combo_impedance, self.combo_goldFinger, self.combo_halfHole,  self.combo_pad_hole, self.combo_blind_via:
-            ctrl.Append(BOOLEAN_CHOICE)
+            for i in BOOLEAN_CHOICE:
+                ctrl.Append(_(i))
             ctrl.SetSelection(0)
 
         self.combo_hdi_structure.Append(HDI_STRUCTURE_CHOICE)

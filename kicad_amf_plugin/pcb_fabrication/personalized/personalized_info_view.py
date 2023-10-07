@@ -32,7 +32,8 @@ class PersonalizedInfoView(UiPersonalizedService):
         self.comb_test_method.Append(TEST_METHOD_CHOICE)
         self.comb_test_method.SetSelection(0)
         for ctrl in (self.comb_approve_gerber, self.comb_delivery_report, self.comb_film, self.comb_analysis_report):
-            ctrl.Append(BOOLEAN_CHOICE)
+            for i in BOOLEAN_CHOICE:
+                ctrl.Append(_(i))
             ctrl.SetSelection(0)
 
         self.comb_report_format.Append(REPORT_FORMAT_CHOICE)
