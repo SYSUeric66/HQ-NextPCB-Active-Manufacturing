@@ -9,11 +9,11 @@
 
 from wx.lib.mixins.inspection import InspectionMixin
 from  kicad_amf_plugin.language.lang_const  import SUPPORTED_LANG, LANG_DOMAIN
-from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 import builtins
 import sys
 import os
 from kicad_amf_plugin import PLUGIN_ROOT
+from kicad_amf_plugin.gui.event.locale_change_evt import  EVT_CHANGE_LOCALE
 import wx
 
 
@@ -33,39 +33,25 @@ builtins.__dict__['_'] = wx.GetTranslation
 
 
 class BaseApp(wx.App, InspectionMixin):
+    def __init__(self, redirect=False, filename=None, useBestVisual=False, clearSigInt=True):
+        super().__init__(redirect, filename, useBestVisual, clearSigInt)
+
+
     def OnInit(self):
         self.Init()  # InspectionMixin
         # work around for Python stealing "_"
         sys.displayhook = _displayHook
-        self.appName = "kicad-amf"
-        self.setup_locale_config()
         self.locale = None
         wx.Locale.AddCatalogLookupPathPrefix(
             os.path.join(PLUGIN_ROOT, 'language','locale'))
-        self.updateLanguage(int(self.appConfig.Read(u"Language")))
+        from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER 
+        SETTING_MANAGER.register_app(self)
+        self.Bind(EVT_CHANGE_LOCALE, self.update_language)        
+        self.update_language(SETTING_MANAGER.language)
         return True
 
-    def setup_locale_config(self):
-        sp = wx.StandardPaths.Get()
-        self.configLoc = sp.GetUserConfigDir()
-        self.configLoc = os.path.join(self.configLoc, self.appName)
-
-        if not os.path.exists(self.configLoc):
-            os.mkdir(self.configLoc)
-
-        self.appConfig = wx.FileConfig(appName=self.appName,
-                                       vendorName=u'NextPCB',
-                                       localFilename=os.path.join(
-                                           self.configLoc, "AppConfig"))
-
-        if not self.appConfig.HasEntry('Language'):
-            # on first run we default to en
-            #TODO - Read KiCad's config file
-            self.appConfig.Write(key='Language', value=str(int(wx.LANGUAGE_ENGLISH)))
-        self.appConfig.Write(key='Language', value=str(int(wx.LANGUAGE_ENGLISH)))
-        self.appConfig.Flush()
-
-    def updateLanguage(self, lang : int):
+    def update_language(self, evt ):
+        lang = evt if isinstance(evt,int) else  evt.GetInt()
         if lang in SUPPORTED_LANG:
             selLang = lang
         else:
