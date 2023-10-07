@@ -40,7 +40,7 @@ pyToolsFolder = os.path.join(pyFolder, 'Tools')
 pyI18nFolder = os.path.join(pyToolsFolder, 'i18n')
 pyGettext = os.path.join(pyI18nFolder, 'pygettext.py')
 pyMsgfmt = os.path.join(pyI18nFolder, 'msgfmt.py')
-outFolder = os.path.join(appFolder, 'locale')
+outFolder = os.path.join(appFolder, 'language','locale')
 
 # build command for pygettext
 gtOptions = '-a -d %s -o %s.pot -p %s %s'

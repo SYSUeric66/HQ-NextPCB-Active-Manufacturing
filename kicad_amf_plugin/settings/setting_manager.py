@@ -23,9 +23,9 @@ def read_kicad_lang_setting():
             with open(kicad_common_json) as f :
                 data = json.loads(f.read())
                 lang : str = data["system"]["language"]
-                if lang.count("中文"):
+                if lang.count(u"中文"):
                     return wx.LANGUAGE_CHINESE_SIMPLIFIED
-                elif lang.count("日本"):
+                elif lang.count(u"日本"):
                     return wx.LANGUAGE_JAPANESE
         else:
             logging.error("Empty KiCad config path!")
