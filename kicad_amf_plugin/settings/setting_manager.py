@@ -1,7 +1,7 @@
 
 import wx
 import os
-from kicad_amf_plugin.gui.event.locale_change_evt import LocaleChangeEvent
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LocaleChangeEvent
 from .kicad_setting import KiCadSetting
 APP_NAME = 'kicad_amf_plugin'
 

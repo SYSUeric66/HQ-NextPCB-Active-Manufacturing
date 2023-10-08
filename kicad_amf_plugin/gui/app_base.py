@@ -13,7 +13,8 @@ import builtins
 import sys
 import os
 from kicad_amf_plugin import PLUGIN_ROOT
-from kicad_amf_plugin.gui.event.locale_change_evt import EVT_CHANGE_LOCALE
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LOCALE_CHANGE
+from kicad_amf_plugin.kicad.board_manager import load_board_manager
 import wx
 # add translation macro to builtin similar to what gettext does
 builtins.__dict__['_'] = wx.GetTranslation
@@ -27,7 +28,7 @@ def _displayHook(obj):
 class BaseApp(wx.App, InspectionMixin):
     def __init__(self, redirect=False, filename=None, useBestVisual=False, clearSigInt=True):
         super().__init__(redirect, filename, useBestVisual, clearSigInt)
-        self.Bind(EVT_CHANGE_LOCALE, self.on_locale_changed)
+        self.Bind(EVT_LOCALE_CHANGE, self.on_locale_changed)
 
     def OnInit(self):
         self.Init()  # InspectionMixin
@@ -39,8 +40,11 @@ class BaseApp(wx.App, InspectionMixin):
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
+        self.board_manager = load_board_manager(self)
         self.startup_dialog()
         return True
+    
+
 
     def on_locale_changed(self, evt):
         self.update_language(evt.GetInt())
@@ -72,5 +76,5 @@ class BaseApp(wx.App, InspectionMixin):
 
     def startup_dialog(self):
         from kicad_amf_plugin.gui.main_frame import MainFrame
-        self.main_wind = MainFrame(None)
+        self.main_wind = MainFrame(self.board_manager)
         self.main_wind.Show()

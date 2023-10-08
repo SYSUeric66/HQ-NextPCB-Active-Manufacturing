@@ -1,8 +1,9 @@
 
+from kicad_amf_plugin.kicad.board_manager import BoardManager
 from .process_info_model import ProcessInfoModel
 
 from .ui_process_info import UiProcessInfo
-
+import wx
 
 
 
@@ -41,10 +42,12 @@ GOLD_THICKNESS_CHOICE_UNIT = "µm"
 
 
 class ProcessInfoView(UiProcessInfo):
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
+    def __init__(self, parent , board_manager : BoardManager ):
+        super().__init__(parent)
         self.info: ProcessInfoModel = None
+        self.board_manager = board_manager
         self.initUI()
+        self.loadBoardInfo()
         self.Fit()
 
 
@@ -81,4 +84,14 @@ class ProcessInfoView(UiProcessInfo):
         self.combo_surface_process.SetSelection(0)
 
         self.combo_gold_thickness.Append([f'{i}{GOLD_THICKNESS_CHOICE_UNIT}'  for i in GOLD_THICKNESS_CHOICE ])
-        self.combo_gold_thickness.SetSelection(0)
+        self.combo_gold_thickness.SetSelection(0)   
+
+    def loadBoardInfo(self):
+        self
+
+    def OnThicknessChangebyLayer(self, event):
+        layer = self.combo_layer_count.GetString(
+            self.combo_layer_count.GetSelection())
+        self.combo_board_thickness.Clear()
+        val_list = self.config_json["rule"]["thickness"][layer]
+        self.combo_board_thickness.Append(val_list)
