@@ -33,6 +33,9 @@ class OrderInfoView(UiOrderInfo):
         self.btn_set_language.Bind(wx.EVT_BUTTON,self.on_set_lang_clicked )
 
 
+        self.radio_box_order_region
+
+
     def GetImagePath( self, bitmap_path ):
         return  GetImagePath(bitmap_path)
 

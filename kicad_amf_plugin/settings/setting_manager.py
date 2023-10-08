@@ -1,10 +1,8 @@
-import json
 
 import wx
 import os
-import logging
 from kicad_amf_plugin.gui.event.locale_change_evt import LocaleChangeEvent
-
+from .kicad_setting import KiCadSetting
 APP_NAME = 'kicad_amf_plugin'
 
 VENDOR_NAME = 'NextPCB'
@@ -12,26 +10,8 @@ VENDOR_NAME = 'NextPCB'
 LANGUAGE = 'language'
 
 
-def read_kicad_lang_setting():
-    try:
-        import pcbnew
-        kicad_setting_path = str(pcbnew.SETTINGS_MANAGER.GetUserSettingsPath())
-        logging.info(f'Kicad setting path {kicad_setting_path}')
-        print(f'Kicad setting path {kicad_setting_path}')
-        if len(kicad_setting_path):
-            kicad_common_json = os.path.join(kicad_setting_path, 'kicad_common.json')
-            with open(kicad_common_json) as f :
-                data = json.loads(f.read())
-                lang : str = data["system"]["language"]
-                if lang.count(u"中文"):
-                    return wx.LANGUAGE_CHINESE_SIMPLIFIED
-                elif lang.count(u"日本"):
-                    return wx.LANGUAGE_JAPANESE_JAPAN
-        else:
-            logging.error("Empty KiCad config path!")
-    except:
-        logging.error("Cannot read the language setting of KiCad!")
-    return wx.LANGUAGE_ENGLISH
+ORDER_REGION = "order_region"
+
 
 class _SettingManager(wx.EvtHandler) :
     def __init__(self) -> None:
@@ -49,8 +29,11 @@ class _SettingManager(wx.EvtHandler) :
                                            config_loc, "common.ini"))
 
         if not self.app_conf.HasEntry(LANGUAGE):
-            self.set_language(read_kicad_lang_setting())
+            self.set_language(KiCadSetting.read_lang_setting())
             self.app_conf.Flush()
+
+    def register_app(self, app : wx.App):
+        self.app = app            
 
     def set_language( self, now : int ):
         old = self.language
@@ -66,9 +49,15 @@ class _SettingManager(wx.EvtHandler) :
     @property
     def language(self):
         return self.app_conf.ReadInt(LANGUAGE)
+    
 
-    def register_app(self, app : wx.App):
-        self.app = app
+    def set_order_region(self , region : int):
+        self.app_conf.WriteInt(key=ORDER_REGION, value=region)
+
+    @property
+    def get_order_region(self):
+        return self.app_conf.ReadInt(ORDER_REGION)
+
 
 
 SETTING_MANAGER = _SettingManager()

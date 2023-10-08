@@ -13,8 +13,8 @@ from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT
 import wx.dataview
 from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT,PB_STYLE_SQUARE
 
-
-
+import gettext
+_ = gettext.gettext
 
 ###########################################################################
 ## Class UiOrderInfo
@@ -31,10 +31,10 @@ class UiOrderInfo ( wx.Panel ):
 
 		sbSizer4 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Preference") ), wx.HORIZONTAL )
 
-		m_radioBox3Choices = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
-		self.m_radioBox3 = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Order Region"), wx.DefaultPosition, wx.DefaultSize, m_radioBox3Choices, 1, wx.RA_SPECIFY_ROWS )
-		self.m_radioBox3.SetSelection( 2 )
-		sbSizer4.Add( self.m_radioBox3, 1, 0, 5 )
+		radio_box_order_regionChoices = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
+		self.radio_box_order_region = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Order Region"), wx.DefaultPosition, wx.DefaultSize, radio_box_order_regionChoices, 1, wx.RA_SPECIFY_ROWS )
+		self.radio_box_order_region.SetSelection( 1 )
+		sbSizer4.Add( self.radio_box_order_region, 1, 0, 5 )
 
 		self.btn_set_language=PlateButton(self,bmp= wx.Bitmap( self.GetImagePath(u"language.png" ),wx.BITMAP_TYPE_ANY ), style=PB_STYLE_GRADIENT )
 		sbSizer4.Add( self.btn_set_language, 0, wx.ALL, 5 )
