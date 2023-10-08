@@ -99,8 +99,8 @@ msgid "Qty(single)"
 msgstr "数量(シングル)"
 
 #: C:\Users\yihuo\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:93
-msgid "Pcs"
-msgstr "Pcs"
+msgid "Set"
+msgstr "Set"
 
 #: C:\Users\yihuo\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:106
 msgid "Panel Type"

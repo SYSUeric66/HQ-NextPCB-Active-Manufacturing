@@ -90,7 +90,7 @@ class UiBaseInfo ( wx.Panel ):
 		self.combo_quantity.SetSelection( 0 )
 		fgSizer21.Add( self.combo_quantity, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText71 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText71 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, _(u"Set"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText71.Wrap( -1 )
 
 		fgSizer21.Add( self.m_staticText71, 0, wx.ALL, 5 )
