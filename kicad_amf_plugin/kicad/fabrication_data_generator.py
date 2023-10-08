@@ -35,10 +35,9 @@ from .helpers import get_exclude_from_pos, get_footprint_by_ref, get_smd, is_nig
 
 
 class FabricationDataGenerator:
-    def __init__(self, parent):
+    def __init__(self, board):
         self.logger = logging.getLogger(__name__)
-        self.parent = parent
-        self.board = GetBoard()
+        self.board = board
         self.corrections = []
         self.path, self.filename = os.path.split(self.board.GetFileName())
         self.create_folders()

@@ -15,7 +15,7 @@ import webbrowser
 
 import pcbnew
 from . import dialog_amf_base
-from kicad_amf_plugin.pcb_fabrication.kicad.fabrication_data_generator import FabricationDataGenerator
+from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
 import gettext
 _ = gettext.gettext
 
