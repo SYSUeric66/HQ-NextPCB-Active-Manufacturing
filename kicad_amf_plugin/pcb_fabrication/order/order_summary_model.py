@@ -2,16 +2,15 @@ from dataclasses import dataclass
 import wx.dataview as dv
 
 
-
 @dataclass
 class OrderSummary:
-    pcb_quantity : int = 0
-    days : int = 0
-    cost : int = 0
+    pcb_quantity: int = 0
+    days: int = 0
+    cost: int = 0
+
 
 ORDER_SUMMARY_ROW_COUNT = 3
 ORDER_SUMMARY_COL_COUNT = 3
-
 
 
 PCB_QUANTITY = 0
@@ -25,7 +24,7 @@ UNIT = VALUE + 1
 
 
 class OrderSummaryModel(dv.DataViewIndexListModel):
-    def __init__(self, data : OrderSummary):
+    def __init__(self, data: OrderSummary):
         dv.DataViewIndexListModel.__init__(self, ORDER_SUMMARY_ROW_COUNT)
         self.summary = data
 
@@ -36,7 +35,7 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
             if DESC == col:
                 return _("PCB Quantity")
             elif VALUE == col:
-                return f'{self.summary.pcb_quantity}' if self.summary.pcb_quantity  else "-"
+                return f'{self.summary.pcb_quantity}' if self.summary.pcb_quantity else "-"
             elif UNIT == col:
                 return _("pcs")
 
@@ -44,7 +43,7 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
             if DESC == col:
                 return _("Time")
             elif VALUE == col:
-                return f'{self.summary.days}' if self.summary.pcb_quantity  else "-"
+                return f'{self.summary.days}' if self.summary.pcb_quantity else "-"
             elif UNIT == col:
                 return _("days")
 
@@ -52,7 +51,7 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
             if DESC == col:
                 return _("Cost")
             elif VALUE == col:
-                return f'{self.summary.cost}' if self.summary.pcb_quantity  else "-"
+                return f'{self.summary.cost}' if self.summary.pcb_quantity else "-"
             elif UNIT == col:
                 return _("$")
 
@@ -69,20 +68,19 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
 
     # Report the number of rows in the model
     def GetCount(self):
-        #self.log.write('GetCount')
+        # self.log.write('GetCount')
         return ORDER_SUMMARY_ROW_COUNT
 
     # Called to check if non-standard attributes should be used in the
     # cell at (row, col)
     def GetAttrByRow(self, row, col, attr):
-        ##self.log.write('GetAttrByRow: (%d, %d)' % (row, col))
+        # self.log.write('GetAttrByRow: (%d, %d)' % (row, col))
         # if col == 3:
         #     attr.SetColour('red')
         #     attr.SetBold(True)
         #     return True
         return False
-    def Update(self , data : OrderSummary ):
+
+    def Update(self, data: OrderSummary):
         self.summary = data
         self.Reset(ORDER_SUMMARY_ROW_COUNT)
-
-
