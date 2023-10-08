@@ -10,8 +10,8 @@
 import wx
 import wx.xrc
 
-
-
+import gettext
+_ = gettext.gettext
 
 ###########################################################################
 ## Class UiBaseInfo
@@ -178,7 +178,7 @@ class UiBaseInfo ( wx.Panel ):
 		self.edit_size_x = wx.TextCtrl( sbSizer211.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer62.Add( self.edit_size_x, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText102 = wx.StaticText( sbSizer211.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText102 = wx.StaticText( sbSizer211.GetStaticBox(), wx.ID_ANY, _(u"mm"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText102.Wrap( -1 )
 
 		fgSizer62.Add( self.m_staticText102, 0, wx.ALL, 5 )
@@ -199,7 +199,7 @@ class UiBaseInfo ( wx.Panel ):
 		self.edit_size_y = wx.TextCtrl( sbSizer211.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		fgSizer611.Add( self.edit_size_y, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText1011 = wx.StaticText( sbSizer211.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1011 = wx.StaticText( sbSizer211.GetStaticBox(), wx.ID_ANY, _(u"mm"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1011.Wrap( -1 )
 
 		fgSizer611.Add( self.m_staticText1011, 0, wx.ALL, 5 )
