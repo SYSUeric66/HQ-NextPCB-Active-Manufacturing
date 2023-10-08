@@ -10,8 +10,6 @@
 import wx
 import wx.xrc
 
-import gettext
-_ = gettext.gettext
 
 BOX_PANEL_SETTING = 1000
 BOX_SIZE_SETTING = 1001

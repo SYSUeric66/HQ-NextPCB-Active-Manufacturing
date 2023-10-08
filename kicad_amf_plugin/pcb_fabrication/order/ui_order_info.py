@@ -31,8 +31,11 @@ class UiOrderInfo ( wx.Panel ):
 
 		radio_box_order_regionChoices = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
 		self.radio_box_order_region = wx.RadioBox( sbSizer4.GetStaticBox(), wx.ID_ANY, _(u"Order Region"), wx.DefaultPosition, wx.DefaultSize, radio_box_order_regionChoices, 1, wx.RA_SPECIFY_ROWS )
-		self.radio_box_order_region.SetSelection( 1 )
-		sbSizer4.Add( self.radio_box_order_region, 1, 0, 5 )
+		self.radio_box_order_region.SetSelection( 0 )
+		sbSizer4.Add( self.radio_box_order_region, 0, 0, 5 )
+
+
+		sbSizer4.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 		self.btn_set_language=PlateButton(self,bmp= wx.Bitmap( self.GetImagePath(u"language.png" ),wx.BITMAP_TYPE_ANY ), style=PB_STYLE_GRADIENT )
 		sbSizer4.Add( self.btn_set_language, 0, wx.ALL, 5 )

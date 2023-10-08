@@ -56,6 +56,8 @@ class BaseInfoView(UiBaseInfo):
         self.edit_size_y.SetValue(str(boardHeight))
         for i in self.edit_panel_x  , self.edit_panel_y:
             i.SetEditable(False)
+        self.edit_margin_size.Enabled = False
+        self.box_panel_setting.Enabled = False
 
     def initUI(self):
         self.combo_material_type.Append(AVAILABLE_MATERIAL_TYPES)
