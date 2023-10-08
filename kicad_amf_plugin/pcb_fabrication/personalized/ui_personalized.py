@@ -10,9 +10,6 @@
 import wx
 import wx.xrc
 
-
-
-
 ###########################################################################
 ## Class UiPersonalizedService
 ###########################################################################
@@ -54,20 +51,20 @@ class UiPersonalizedService ( wx.Panel ):
 
 		fgSizer25.Add( self.m_staticText40111, 0, wx.ALL, 5 )
 
-		comb_delivery_reportChoices = []
-		self.comb_delivery_report = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comb_delivery_reportChoices, 0 )
-		self.comb_delivery_report.SetSelection( 0 )
-		fgSizer25.Add( self.comb_delivery_report, 0, wx.ALL|wx.EXPAND, 5 )
+		combo_microsection_reportChoices = []
+		self.combo_microsection_report = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_microsection_reportChoices, 0 )
+		self.combo_microsection_report.SetSelection( 0 )
+		fgSizer25.Add( self.combo_microsection_report, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_staticText401111 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Microsection Analysis Report"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText401111.Wrap( -1 )
 
 		fgSizer25.Add( self.m_staticText401111, 0, wx.ALL, 5 )
 
-		comb_analysis_reportChoices = []
-		self.comb_analysis_report = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comb_analysis_reportChoices, 0 )
-		self.comb_analysis_report.SetSelection( 0 )
-		fgSizer25.Add( self.comb_analysis_report, 0, wx.ALL|wx.EXPAND, 5 )
+		comb_delivery_reportChoices = []
+		self.comb_delivery_report = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comb_delivery_reportChoices, 0 )
+		self.comb_delivery_report.SetSelection( 0 )
+		fgSizer25.Add( self.comb_delivery_report, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_staticText4011111 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Report Format"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4011111.Wrap( -1 )

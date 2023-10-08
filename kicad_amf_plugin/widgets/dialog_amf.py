@@ -56,7 +56,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
         self.SetMinTrace(pcbnew.ToMils(minTraceWidth),
                          pcbnew.ToMils(minTraceClearance))
         self.SetMinHole(pcbnew.ToMM(minHoleSize))
-        self.m_pcbPackaingCtrl.SetSelection(0)
+        self.combo_pcb_package_kind.SetSelection(0)
         self.OnPcbPackagingChanged(None)
         self.comb_margin_mode.SetSelection(0)
         self.OnMarginModeChanged(None)
@@ -94,7 +94,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.m_notebook.AddPage(self.m_panelAsm, _(u"PCB Assembly"), True)
 
     def OnPcbPackagingChanged(self, event):
-        if self.m_pcbPackaingCtrl.GetSelection() == 0:
+        if self.combo_pcb_package_kind.GetSelection() == 0:
             self.m_sizeLabel.SetLabel('Size (single)')
             self.m_quantityLbel.SetLabel('Qty(single)')
             self.m_quantityUnit.SetLabel('Pcs')
@@ -169,7 +169,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.combo_hdi_structure.Enabled = False
 
     def OnReportChanged(self, event):
-        if self.m_deliveryReportCtrl.GetSelection() == 0 and self.comb_delivery_report.GetSelection() == 0:
+        if self.comb_delivery_report.GetSelection() == 0 and self.combo_microsection_report.GetSelection() == 0:
             self.m_reportFormatLabel.Enabled = False
             self.comb_report_format.Enabled = False
         else:
@@ -214,7 +214,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
     #         self.m_dipPadCountCtrl.SetEditable(True)
 
     def GetInfoFromSetting(self):
-        if self.m_pcbPackaingCtrl.GetSelection() == 1 or self.m_pcbPackaingCtrl.GetSelection() == 2:
+        if self.combo_pcb_package_kind.GetSelection() == 1 or self.combo_pcb_package_kind.GetSelection() == 2:
             if not self.edit_panel_x.Validate():
                 wx.MessageBox(
                     "Panel Type X value isn't valid. Please input valid value.", "Error", wx.OK | wx.ICON_ERROR)
@@ -237,15 +237,15 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.combo_layer_count.GetSelection()))
         form.add_field('blayer', str(layercount))
         form.add_field('board_tg', 'TG130')  # TODO
-        if self.m_pcbPackaingCtrl.GetSelection() == 0:
+        if self.combo_pcb_package_kind.GetSelection() == 0:
             form.add_field('units', '1')
-        elif self.m_pcbPackaingCtrl.GetSelection() == 1:
+        elif self.combo_pcb_package_kind.GetSelection() == 1:
             form.add_field('units', '3')
         else:
             form.add_field('units', '2')
         form.add_field('blength', str(round(self.GetPcbLength() / 10, 2)))
         form.add_field('bwidth', str(round(self.GetPcbWidth() / 10, 2)))
-        if self.m_pcbPackaingCtrl.GetSelection() == 1 or self.m_pcbPackaingCtrl.GetSelection() == 2:
+        if self.combo_pcb_package_kind.GetSelection() == 1 or self.combo_pcb_package_kind.GetSelection() == 2:
             form.add_field('layoutx', self.edit_panel_x.GetValue())
             form.add_field('layouty', self.edit_panel_y.GetValue())
         form.add_field('bcount', self.m_quantityCtrl.GetString(
@@ -285,9 +285,9 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
 
         form.add_field('test', self.GetTestMethod())
         form.add_field('shipment_report', str(
-            self.m_deliveryReportCtrl.GetSelection()))
-        form.add_field('slice_report', str(
             self.comb_delivery_report.GetSelection()))
+        form.add_field('slice_report', str(
+            self.combo_microsection_report.GetSelection()))
         form.add_field('report_type', str(self.GetReportType()))
         form.add_field('beveledge', str(self.combo_goldFinger.GetSelection()))
         form.add_field('review_file', self.GetReviewFile())
@@ -418,13 +418,13 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
     def GetPcbQuantity(self):
         n = int(self.m_quantityCtrl.GetString(
             self.m_quantityCtrl.GetSelection()))
-        if self.m_pcbPackaingCtrl.GetSelection() == 1 or self.m_pcbPackaingCtrl.GetSelection() == 2:
+        if self.combo_pcb_package_kind.GetSelection() == 1 or self.combo_pcb_package_kind.GetSelection() == 2:
             return n * int(self.edit_panel_x.GetValue()) * int(self.edit_panel_y.GetValue())
         else:
             return n
 
     def GetPcbLength(self):
-        if self.m_pcbPackaingCtrl.GetSelection() == 0:
+        if self.combo_pcb_package_kind.GetSelection() == 0:
             if self.comb_margin_mode.GetSelection() == 1 or self.comb_margin_mode.GetSelection() == 3:
                 return float(self.edit_size_x.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
             else:
@@ -436,7 +436,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
                 return float(self.edit_size_x.GetValue()) * int(self.edit_panel_x.GetValue())
 
     def GetPcbWidth(self):
-        if self.m_pcbPackaingCtrl.GetSelection() == 0:
+        if self.combo_pcb_package_kind.GetSelection() == 0:
             if self.comb_margin_mode.GetSelection() == 1 or self.comb_margin_mode.GetSelection() == 3:
                 return float(self.edit_size_y.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
             else:
@@ -554,7 +554,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             return 'Have'
 
     def GetReportType(self):
-        if self.m_deliveryReportCtrl.GetSelection() == 0 and self.comb_delivery_report.GetSelection() == 0:
+        if self.comb_delivery_report.GetSelection() == 0 and self.combo_microsection_report.GetSelection() == 0:
             return 0
         elif self.comb_report_format.GetSelection() == 0:
             return 2

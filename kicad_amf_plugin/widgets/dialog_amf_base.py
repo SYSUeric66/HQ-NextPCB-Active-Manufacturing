@@ -98,10 +98,10 @@ class AmfDialogBase (wx.Dialog):
 
         m_pcbPackaingCtrlChoices = [_(u"Single Piece"), _(
             u"Panel by Customer"), _(u"Panel by NextPCB")]
-        self.m_pcbPackaingCtrl = wx.Choice(m_fabBaseInfo.GetStaticBox(
+        self.combo_pcb_package_kind = wx.Choice(m_fabBaseInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_pcbPackaingCtrlChoices, 0)
-        self.m_pcbPackaingCtrl.SetSelection(0)
-        m_fabBaseInfoSizer.Add(self.m_pcbPackaingCtrl, wx.GBPosition(
+        self.combo_pcb_package_kind.SetSelection(0)
+        m_fabBaseInfoSizer.Add(self.combo_pcb_package_kind, wx.GBPosition(
             2, 1), wx.GBSpan(1, 2), wx.ALL | wx.EXPAND, 5)
 
         self.m_panelizeRuleLbel = wx.StaticText(m_fabBaseInfo.GetStaticBox(
@@ -579,10 +579,10 @@ class AmfDialogBase (wx.Dialog):
             2, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         m_deliveryReportCtrlChoices = [_(u"No"), _(u"Yes")]
-        self.m_deliveryReportCtrl = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.comb_delivery_report = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), m_deliveryReportCtrlChoices, 0)
-        self.m_deliveryReportCtrl.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.m_deliveryReportCtrl, wx.GBPosition(
+        self.comb_delivery_report.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.comb_delivery_report, wx.GBPosition(
             2, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_analysisReportLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(), wx.ID_ANY, _(
@@ -593,10 +593,10 @@ class AmfDialogBase (wx.Dialog):
             3, 0), wx.GBSpan(1, 1), wx.ALL, 5)
 
         comb_analysis_report = [_(u"No"), _(u"Yes")]
-        self.comb_delivery_report = wx.Choice(m_fabServiceInfo.GetStaticBox(
+        self.combo_microsection_report = wx.Choice(m_fabServiceInfo.GetStaticBox(
         ), wx.ID_ANY, wx.DefaultPosition, wx.Size(100, -1), comb_analysis_report, 0)
-        self.comb_delivery_report.SetSelection(0)
-        m_fabServiceInfoSizer.Add(self.comb_delivery_report, wx.GBPosition(
+        self.combo_microsection_report.SetSelection(0)
+        m_fabServiceInfoSizer.Add(self.combo_microsection_report, wx.GBPosition(
             3, 1), wx.GBSpan(1, 3), wx.ALL | wx.EXPAND, 5)
 
         self.m_reportFormatLabel = wx.StaticText(m_fabServiceInfo.GetStaticBox(
@@ -788,7 +788,7 @@ class AmfDialogBase (wx.Dialog):
 
         # Connect Events
         self.m_template.Bind(wx.EVT_CHOICE, self.OnTemplateChanged)
-        self.m_pcbPackaingCtrl.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
+        self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
         # self.edit_panel_x.Bind(wx.EVT_TEXT, self.OnPanelizeXChanged)
         # self.edit_panel_y.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
         # self.m_quantityCtrl.Bind(wx.EVT_CHOICE, self.OnPcbQuantityChanged)
@@ -796,8 +796,8 @@ class AmfDialogBase (wx.Dialog):
         self.combo_surface_process.Bind(
             wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         self.combo_blind_via.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
-        self.m_deliveryReportCtrl.Bind(wx.EVT_CHOICE, self.OnReportChanged)
-        self.comb_delivery_report.Bind(
+        self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
+        self.combo_microsection_report.Bind(
             wx.EVT_CHOICE, self.OnReportChanged)
         self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
         self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
