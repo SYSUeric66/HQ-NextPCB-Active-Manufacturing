@@ -34,7 +34,7 @@ from pcbnew import (
 from .helpers import get_exclude_from_pos, get_footprint_by_ref, get_smd, is_nightly
 
 
-class Fabrication:
+class FabricationDataGenerator:
     def __init__(self, parent):
         self.logger = logging.getLogger(__name__)
         self.parent = parent

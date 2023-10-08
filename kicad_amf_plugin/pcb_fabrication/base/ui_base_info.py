@@ -10,8 +10,6 @@
 import wx
 import wx.xrc
 
-import gettext
-_ = gettext.gettext
 
 ###########################################################################
 ## Class UiBaseInfo

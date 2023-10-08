@@ -6,7 +6,7 @@ import urllib.request
 import urllib.parse
 import json
 import re
-from .urlencodeform import UrlEncodeForm
+from kicad_amf_plugin.utils.urlencodeform  import UrlEncodeForm
 from collections import defaultdict
 import locale
 from datetime import datetime
@@ -15,7 +15,7 @@ import webbrowser
 
 import pcbnew
 from . import dialog_amf_base
-from .fabrication import Fabrication
+from kicad_amf_plugin.utils.fabrication_data_generator import FabricationDataGenerator
 import gettext
 _ = gettext.gettext
 
@@ -203,7 +203,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
     def init_fabrication(self):
         """Initialize the fabrication"""
         if not self.fabrication:
-            self.fabrication = Fabrication(self)
+            self.fabrication = FabricationDataGenerator(self)
 
     # def OnDoDIPChanged( self, event ):
     #     if self.m_doDIPCtrl.GetSelection() == 0:
