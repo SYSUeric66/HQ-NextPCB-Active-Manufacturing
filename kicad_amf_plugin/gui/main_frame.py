@@ -41,9 +41,10 @@ class MainFrame (wx.Frame):
             pcb_fab_panel)
         lay_pcb_fab_panel.Add(service_panel, 0, wx.ALL | wx.EXPAND, 5)
 
+
         pcb_fab_panel.SetSizer(lay_pcb_fab_panel)
         pcb_fab_panel.Layout()
-        
+
         order_info_view = OrderInfoView(self)
 
         main_sizer.Add(pcb_fab_panel, 1, wx.EXPAND, 8)

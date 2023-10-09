@@ -17,7 +17,7 @@ import wx.xrc
 
 class UiSpecialProcess ( wx.Panel ):
 
-	def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 475,269 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+	def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
 		wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
 		labelProcessInfo = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Special Process") ), wx.VERTICAL )
@@ -103,6 +103,7 @@ class UiSpecialProcess ( wx.Panel ):
 
 		self.SetSizer( labelProcessInfo )
 		self.Layout()
+		labelProcessInfo.Fit( self )
 
 	def __del__( self ):
 		pass

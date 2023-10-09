@@ -10,13 +10,16 @@
 import wx
 import wx.xrc
 
+import gettext
+_ = gettext.gettext
+
 ###########################################################################
 ## Class UiPersonalizedService
 ###########################################################################
 
 class UiPersonalizedService ( wx.Panel ):
 
-	def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 459,389 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+	def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
 		wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
 
 		labelProcessInfo = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Personalized Service") ), wx.VERTICAL )
@@ -101,7 +104,9 @@ class UiPersonalizedService ( wx.Panel ):
 
 		sbSizer15 = wx.StaticBoxSizer( wx.StaticBox( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Special Request") ), wx.VERTICAL )
 
-		self.edit_special_request = wx.TextCtrl( sbSizer15.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.edit_special_request = wx.TextCtrl( sbSizer15.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		self.edit_special_request.SetMinSize( wx.Size( -1,60 ) )
+
 		sbSizer15.Add( self.edit_special_request, 1, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -110,6 +115,7 @@ class UiPersonalizedService ( wx.Panel ):
 
 		self.SetSizer( labelProcessInfo )
 		self.Layout()
+		labelProcessInfo.Fit( self )
 
 	def __del__( self ):
 		pass
