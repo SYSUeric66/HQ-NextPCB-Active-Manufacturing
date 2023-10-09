@@ -788,13 +788,13 @@ class AmfDialogBase (wx.Dialog):
 
         # Connect Events
         self.m_template.Bind(wx.EVT_CHOICE, self.OnTemplateChanged)
-        self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
+        # self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
         # self.edit_panel_x.Bind(wx.EVT_TEXT, self.OnPanelizeXChanged)
         # self.edit_panel_y.Bind(wx.EVT_TEXT, self.OnPanelizeYChanged)
         # self.m_quantityCtrl.Bind(wx.EVT_CHOICE, self.OnPcbQuantityChanged)
-        self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
-        self.combo_surface_process.Bind(
-            wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
+        # self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
+        # self.combo_surface_process.Bind(
+        #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
         self.combo_blind_via.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
         self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
         self.combo_microsection_report.Bind(

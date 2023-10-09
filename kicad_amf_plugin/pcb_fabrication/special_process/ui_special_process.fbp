@@ -3,7 +3,7 @@
     <FileVersion major="1" minor="16" />
     <object class="Project" expanded="1">
         <property name="class_decoration">; </property>
-        <property name="code_generation">C++</property>
+        <property name="code_generation">Python</property>
         <property name="disconnect_events">1</property>
         <property name="disconnect_mode">source_name</property>
         <property name="disconnect_php_events">0</property>
@@ -16,7 +16,7 @@
         <property name="help_provider">none</property>
         <property name="image_path_wrapper_function_name"></property>
         <property name="indent_with_spaces"></property>
-        <property name="internationalize">0</property>
+        <property name="internationalize">1</property>
         <property name="name">UiSpecialProcess</property>
         <property name="namespace"></property>
         <property name="path">.</property>
@@ -45,7 +45,7 @@
             <property name="minimum_size"></property>
             <property name="name">UiSpecialProcess</property>
             <property name="pos"></property>
-            <property name="size">477,255</property>
+            <property name="size">471,291</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="tooltip"></property>
             <property name="two_step_creation">0</property>

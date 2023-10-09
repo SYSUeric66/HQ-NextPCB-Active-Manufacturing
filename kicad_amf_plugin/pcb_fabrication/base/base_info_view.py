@@ -1,8 +1,9 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.utils.two_step_setup import TwoStepSetup
 from .base_info_model import BaseInfoModel
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE , LayerCountChange
 from .ui_base_info import UiBaseInfo , BOX_SIZE_SETTING , BOX_PANEL_SETTING ,BOX_BREAK_AWAY
 import pcbnew
-
 import wx
 
 
@@ -23,18 +24,19 @@ MARGIN_MODE_CHOICE = [
     _(u"N/A"), _(u"Left & Right"), _(u"Top & Bottom"), _(u"All 4 sides")]
 
 
-class BaseInfoView(UiBaseInfo):
+class BaseInfoView(UiBaseInfo,TwoStepSetup):
     def __init__(self, parent, board_manager : BoardManager  ):
         super().__init__(parent)
         self.base_info = None
         self.board_manager = board_manager
+
+        self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
+        self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
+        self.combo_layer_count.Bind(wx.EVT_CHOICE , self.on_layer_count_changed)
+
+    def init(self):
         self.initUI()
         self.loadBoardInfo()
-        self.Fit()
-
-        self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.OnPcbPackagingChanged)
-        self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
-
 
     @property
     def board(self):
@@ -43,22 +45,6 @@ class BaseInfoView(UiBaseInfo):
     def getBaseInfo(self):
         return self.base_info
         
-    def loadBoardInfo(self):
-        boardWidth = pcbnew.ToMM(
-            self.board.GetBoardEdgesBoundingBox().GetWidth())
-        boardHeight = pcbnew.ToMM(
-            self.board.GetBoardEdgesBoundingBox().GetHeight())
-        layerCount = self.board.GetCopperLayerCount()
-        self.combo_layer_count.SetSelection(
-            self.combo_layer_count.FindString(str(layerCount)))
-        self.combo_layer_count.Enabled = False
-        self.edit_size_x.SetValue(str(boardWidth))
-        self.edit_size_y.SetValue(str(boardHeight))
-        for i in self.edit_panel_x  , self.edit_panel_y:
-            i.SetEditable(False)
-        self.edit_margin_size.Enabled = False
-        self.box_panel_setting.Enabled = False
-
     def initUI(self):
         self.combo_material_type.Append(AVAILABLE_MATERIAL_TYPES)
         self.combo_material_type.SetSelection(0)
@@ -75,6 +61,24 @@ class BaseInfoView(UiBaseInfo):
         self.comb_margin_mode.Append(MARGIN_MODE_CHOICE)
         self.comb_margin_mode.SetSelection(0)
 
+        for i in self.edit_panel_x  , self.edit_panel_y:
+            i.SetEditable(False)
+        self.edit_margin_size.Enabled = False
+        self.box_panel_setting.Enabled = False        
+        
+    def loadBoardInfo(self):
+        boardWidth = pcbnew.ToMM(
+            self.board.GetBoardEdgesBoundingBox().GetWidth())
+        boardHeight = pcbnew.ToMM(
+            self.board.GetBoardEdgesBoundingBox().GetHeight())
+        layerCount = self.board.GetCopperLayerCount()
+        self.combo_layer_count.SetSelection(
+            self.combo_layer_count.FindString(str(layerCount)))
+        # self.combo_layer_count.Enabled = False
+        self.edit_size_x.SetValue(str(boardWidth))
+        self.edit_size_y.SetValue(str(boardHeight))
+
+
     @property
     def box_piece_or_panel_size(self):
         return  self.FindWindowById(BOX_SIZE_SETTING)
@@ -88,7 +92,7 @@ class BaseInfoView(UiBaseInfo):
         return  self.FindWindowById(BOX_BREAK_AWAY)    
 
 
-    def OnPcbPackagingChanged(self , evt = None):
+    def on_pcb_packaging_changed(self , evt = None):
         if self.combo_pcb_package_kind.GetSelection() == 0:
             self.box_piece_or_panel_size.SetLabelText(_('Size (single)'))
             self.label_quantity.SetLabel(_('Qty(single)'))
@@ -100,7 +104,15 @@ class BaseInfoView(UiBaseInfo):
         
         self.box_panel_setting.Enabled = self.combo_pcb_package_kind.GetSelection() == 2 # Only while the option is by HuaQiu
         self.box_break_away.Enabled = self.combo_pcb_package_kind.GetSelection() != 1  # Only Disabled while the option is by customer
-        self.OnMarginModeChanged()
+        self.on_margin_mode_changed()
    
-    def OnMarginModeChanged(self, event = None):
+    def on_margin_mode_changed(self, event = None):
         self.edit_margin_size.Enabled = self.comb_margin_mode.GetSelection() != 0
+
+    def on_layer_count_changed(self, evt):
+        evt = LayerCountChange(id = -1)
+        evt.SetInt(int(self.combo_layer_count.GetStringSelection()))
+        wx.PostEvent(self.Parent ,evt)
+
+
+

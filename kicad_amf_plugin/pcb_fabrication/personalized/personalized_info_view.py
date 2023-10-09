@@ -25,9 +25,6 @@ class PersonalizedInfoView(UiPersonalizedService):
         self.special_process: PersonalizedInfoModel = None
         self.initUI()
 
-    def getInfo(self):
-        return self.special_process
-
     def initUI(self):
         self.comb_test_method.Append(TEST_METHOD_CHOICE)
         self.comb_test_method.SetSelection(0)

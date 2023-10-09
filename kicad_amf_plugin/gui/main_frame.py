@@ -5,6 +5,7 @@ from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessIn
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.pcb_fabrication.order.order_info_view import OrderInfoView
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE , LayerCountChange
 
 import wx
 import wx.xrc
@@ -28,6 +29,7 @@ class MainFrame (wx.Frame):
 
         base_info_panel = BaseInfoView(pcb_fab_panel , self.board_manager)
         lay_pcb_fab_panel.Add(base_info_panel, 0, wx.ALL | wx.EXPAND, 5)
+        
 
         process_info_panel = ProcessInfoView(pcb_fab_panel , self.board_manager)
         lay_pcb_fab_panel.Add(process_info_panel, 0, wx.ALL | wx.EXPAND, 5)
@@ -46,9 +48,15 @@ class MainFrame (wx.Frame):
 
         main_sizer.Add(pcb_fab_panel, 1, wx.EXPAND, 8)
         main_sizer.Add(order_info_view, 0, wx.EXPAND, 8)
+
+        self.Bind(EVT_LAYER_COUNT_CHANGE , process_info_panel.on_layer_count_changed )
+
+
+        for i in base_info_panel , : 
+            i.init()
+
         self.SetSizer(main_sizer)
         self.Layout()
-
         self.Centre(wx.BOTH)
 
 

@@ -6,9 +6,19 @@ from .ui_process_info import UiProcessInfo
 import wx
 
 
-
-BOARD_THICKNESS_CHOICE = [0.6, 0.8, 1.0,
-    1.2, 1.6, 2.0, 2.5, 3.0, 3.2]
+THICKNESS_SETTING = {
+            "1":["0.6","0.8","1.0","1.2","1.6"],
+            "2":["0.6","0.8","1.0","1.2","1.6"],
+            "4":["0.6","0.8","1.0","1.2","1.6","2.0","2.5"],
+            "6":["1.0","1.2","1.6","2.0","2.5"],
+            "8":["1.2","1.6","2.0","2.5"],
+            "10":["1.2","1.6","2.0","2.5"],
+            "12":["1.6","2.0","2.5"],
+            "14":["1.6","2.0","2.5","3.0"],
+            "16":["2.0","2.5","3.0"],
+            "18":["2.0","2.5","3.0","3.2"],
+            "20":["2.0","2.5","3.0","3.2"]
+}
 
 OZ = "oz"
 
@@ -46,16 +56,18 @@ class ProcessInfoView(UiProcessInfo):
         super().__init__(parent)
         self.info: ProcessInfoModel = None
         self.board_manager = board_manager
+
         self.initUI()
+        self.combo_surface_process.Bind(wx.EVT_CHOICE  , self.on_surface_process_changed)
+
+
+
         self.loadBoardInfo()
         self.Fit()
 
 
-    def getInfo(self):
-        return self.info
-
     def initUI(self):
-        self.combo_board_thickness.Append([str(i) for i in BOARD_THICKNESS_CHOICE])
+        self.combo_board_thickness.Append(THICKNESS_SETTING["1"])
         self.combo_board_thickness.SetSelection(4)
 
         self.combo_outer_copper_thickness.Append( [f'{i}{OZ}' for i in OUTER_THICKNESS_CHOICE])
@@ -86,12 +98,19 @@ class ProcessInfoView(UiProcessInfo):
         self.combo_gold_thickness.Append([f'{i}{GOLD_THICKNESS_CHOICE_UNIT}'  for i in GOLD_THICKNESS_CHOICE ])
         self.combo_gold_thickness.SetSelection(0)   
 
-    def loadBoardInfo(self):
-        self
+      
 
-    def OnThicknessChangebyLayer(self, event):
-        layer = self.combo_layer_count.GetString(
-            self.combo_layer_count.GetSelection())
+    def loadBoardInfo(self):
+        for i in self.label_immersion_gold , self.combo_gold_thickness : 
+            i.Enabled = False  
+
+    def on_layer_count_changed(self, event):
+        layer_count =  event.GetInt()
         self.combo_board_thickness.Clear()
-        val_list = self.config_json["rule"]["thickness"][layer]
+        val_list =THICKNESS_SETTING[str(layer_count)]
         self.combo_board_thickness.Append(val_list)
+        self.combo_board_thickness.SetSelection(0)
+
+    def on_surface_process_changed(self , evt = None  ):
+        for i in self.label_immersion_gold , self.combo_gold_thickness : 
+            i.Enabled = self.combo_surface_process.GetSelection() == 2

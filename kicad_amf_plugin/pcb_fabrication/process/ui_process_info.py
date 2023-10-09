@@ -11,8 +11,6 @@ import wx
 import wx.xrc
 
 
-
-
 ###########################################################################
 ## Class UiProcessInfo
 ###########################################################################
@@ -132,10 +130,10 @@ class UiProcessInfo ( wx.Panel ):
 		self.combo_surface_process.SetSelection( 0 )
 		fgSizer25.Add( self.combo_surface_process, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText40111111111 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Immersion Gold Thickness"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText40111111111.Wrap( -1 )
+		self.label_immersion_gold = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Immersion Gold Thickness"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_immersion_gold.Wrap( -1 )
 
-		fgSizer25.Add( self.m_staticText40111111111, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.label_immersion_gold, 0, wx.ALL, 5 )
 
 		combo_gold_thicknessChoices = []
 		self.combo_gold_thickness = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_gold_thicknessChoices, 0 )
