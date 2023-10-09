@@ -6,7 +6,7 @@ from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view impor
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.pcb_fabrication.order.order_info_view import OrderInfoView
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE , LayerCountChange
-
+from kicad_amf_plugin.utils.base_request import BaseRequest
 import wx
 import wx.xrc
 import wx.dataview
@@ -59,47 +59,11 @@ class MainFrame (wx.Frame):
         self.Layout()
         self.Centre(wx.BOTH)
 
+    def get_query_price_form(self):
+        
+        request = BaseRequest()
+        
 
-    def __del__(self):
+    def place_order_form(self):
         pass
 
-
-    # Virtual event handlers, override them in your derived class
-    def OnTemplateChanged(self, event):
-        event.Skip()
-
-    def OnPcbPackagingChanged(self, event):
-        event.Skip()
-
-    def OnPanelizeXChanged(self, event):
-        event.Skip()
-
-    def OnPanelizeYChanged(self, event):
-        event.Skip()
-
-    def OnPcbQuantityChanged(self, event):
-        event.Skip()
-
-    def OnMarginModeChanged(self, event):
-        event.Skip()
-
-    def OnSurfaceProcessChanged(self, event):
-        event.Skip()
-
-    def OnHDIChanged(self, event):
-        event.Skip()
-
-    def OnReportChanged(self, event):
-        event.Skip()
-
-    def OnUpdatePrice(self, event):
-        event.Skip()
-
-    def OnPlaceOrder(self, event):
-        event.Skip()
-
-    def OnMaskColorChange(self, event):
-        event.Skip()
-
-    def OnThicknessChangebyLayer(self, event):
-        event.Skip()

@@ -1,8 +1,9 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.utils.two_step_setup import TwoStepSetup
 from .base_info_model import BaseInfoModel
-from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE , LayerCountChange
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LayerCountChange
 from .ui_base_info import UiBaseInfo , BOX_SIZE_SETTING , BOX_PANEL_SETTING ,BOX_BREAK_AWAY
+from kicad_amf_plugin.utils.validators  import  NumericTextCtrlValidator
 import pcbnew
 import wx
 
@@ -33,14 +34,14 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
         self.combo_layer_count.Bind(wx.EVT_CHOICE , self.on_layer_count_changed)
-
+        for editor in self.edit_panel_x , self.edit_panel_y:
+            editor.SetValidator(NumericTextCtrlValidator())
 
     @property
     def data(self):
         return BaseInfoModel(
+            self.combo_layer_count.GetStringSelection(),
 
-
-            
         )
 
 
