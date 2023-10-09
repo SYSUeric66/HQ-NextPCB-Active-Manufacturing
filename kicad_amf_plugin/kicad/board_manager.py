@@ -13,6 +13,7 @@ class BoardManager :
         return self._board
         
 def load_board_manager(parent ):
+    return BoardManager(LoadBoard('C:\\Program Files\\KiCad\\7.0\\share\\kicad\\demos\\complex_hierarchy\\complex_hierarchy.kicad_pcb'))
     #Setup board
     board = GetBoard()
     if board:

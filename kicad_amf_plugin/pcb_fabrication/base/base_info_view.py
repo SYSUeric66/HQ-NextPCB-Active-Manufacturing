@@ -70,7 +70,7 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         layerCount = self.board_manager.board.GetCopperLayerCount()
         self.combo_layer_count.SetSelection(
             self.combo_layer_count.FindString(str(layerCount)))
-        self.combo_layer_count.Enabled = False
+        # self.combo_layer_count.Enabled = False
         self.edit_size_x.SetValue(str(boardWidth))
         self.edit_size_y.SetValue(str(boardHeight))
 

@@ -50,7 +50,7 @@ class MainFrame (wx.Frame):
         main_sizer.Add(order_info_view, 0, wx.EXPAND, 8)
 
         self.Bind(EVT_LAYER_COUNT_CHANGE , process_info_panel.on_layer_count_changed )
-
+        self.Bind(EVT_LAYER_COUNT_CHANGE , special_process_panel.on_layer_count_changed )
 
         for i in base_info_panel , process_info_panel : 
             i.init()

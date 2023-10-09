@@ -20,7 +20,7 @@ class SpecialProcessView(UiSpecialProcess):
         super().__init__(parent)
         self.board_manager = board_manager
         self.special_process: SpecialProcessModel = None
-        
+
         self.initUI()
 
         self.combo_blind_via.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
@@ -38,8 +38,15 @@ class SpecialProcessView(UiSpecialProcess):
 
         self.combo_stackup.Append(STACKUP_CHOICE)
         self.combo_stackup.SetSelection(0)
-        self.combo_hdi_structure.Enabled = True
+        self.combo_hdi_structure.Enabled = False
 
     
     def on_HDI_changed(self, event):
         self.combo_hdi_structure.Enabled = self.combo_blind_via.GetSelection() == 1
+
+    def on_layer_count_changed(self, event):
+        self.combo_blind_via.Enabled = event.GetInt() > 2 
+        if not  self.combo_blind_via.Enabled :
+            self.combo_blind_via.SetSelection(0)
+            self.combo_hdi_structure.Enabled = False
+                
