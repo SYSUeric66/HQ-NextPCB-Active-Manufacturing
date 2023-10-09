@@ -1,5 +1,30 @@
 from dataclasses import dataclass
 
+'''
+from dataclasses import dataclass
+import json
+
+@dataclass
+class AAA:
+    a : int = 1
+    b  : int = 2
+
+@dataclass
+class CC:
+    c : str = '3w2'
+    d : str = '3w3e'
+
+
+a = AAA( ).__dict__
+b = CC().__dict__
+
+c = { ** a , ** b}
+
+s = json.dumps(c, indent=4)
+j = json.loads(s)
+print(j)
+
+'''
 
 @dataclass
 class BaseInfoModel:
