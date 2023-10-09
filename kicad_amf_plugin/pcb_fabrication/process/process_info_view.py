@@ -1,9 +1,11 @@
 
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from .process_info_model import ProcessInfoModel
+from kicad_amf_plugin.utils.two_step_setup import TwoStepSetup
 
 from .ui_process_info import UiProcessInfo
 import wx
+import pcbnew
 
 
 THICKNESS_SETTING = {
@@ -37,9 +39,6 @@ MM="mm"
 SOLDER_COLOR_CHOICE = [_(u"Green"), _(u"Red"), _(u"Yellow"), _(
     u"Blue"), _(u"White"), _(u"Matte Black"), _(u"Black")]
 
-SILK_SCREEN_COLOR_CHOICE = [_(u"White")]
-
-
 SOLDER_COVER_CHOICE = [_(u"Tenting Vias"), _(u"Vias not covered"), _(
     u"Solder Mask Plug (IV-B)"), _(u"Non-Conductive Fill")]
 
@@ -50,20 +49,30 @@ GOLD_THICKNESS_CHOICE = [1, 2, 3]
 
 GOLD_THICKNESS_CHOICE_UNIT = "µm"
 
+SILK_SCREEN_COLOR_BY_SOLDER_COLOR = {
+    _("Green") :[_("White")],
+    _("Red"):[_("White")],
+    _("Yellow"):[_("White")],
+    _("Blue"):[_("White")],
+    _("White"):[_("Black")],
+    _("Matte Black"):[_("White")],
+    _("Black"):[_("White")]
+}
 
-class ProcessInfoView(UiProcessInfo):
+class ProcessInfoView(UiProcessInfo ,TwoStepSetup):
     def __init__(self, parent , board_manager : BoardManager ):
         super().__init__(parent)
         self.info: ProcessInfoModel = None
         self.board_manager = board_manager
 
-        self.initUI()
         self.combo_surface_process.Bind(wx.EVT_CHOICE  , self.on_surface_process_changed)
+        self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
 
-
-
-        self.loadBoardInfo()
         self.Fit()
+
+    def init(self):
+        self.initUI()
+        self.loadBoardInfo()
 
 
     def initUI(self):
@@ -86,7 +95,7 @@ class ProcessInfoView(UiProcessInfo):
         self.combo_solder_color.Append(SOLDER_COLOR_CHOICE)
         self.combo_solder_color.SetSelection(0)
 
-        self.combo_silk_screen_color.Append(SILK_SCREEN_COLOR_CHOICE)
+        self.combo_silk_screen_color.Append(SILK_SCREEN_COLOR_BY_SOLDER_COLOR[self.combo_solder_color.GetStringSelection()])
         self.combo_silk_screen_color.SetSelection(0)
 
         self.combo_solder_cover.Append(SOLDER_COVER_CHOICE)
@@ -96,13 +105,23 @@ class ProcessInfoView(UiProcessInfo):
         self.combo_surface_process.SetSelection(0)
 
         self.combo_gold_thickness.Append([f'{i}{GOLD_THICKNESS_CHOICE_UNIT}'  for i in GOLD_THICKNESS_CHOICE ])
-        self.combo_gold_thickness.SetSelection(0)   
-
-      
+        self.combo_gold_thickness.SetSelection(0) 
+              
 
     def loadBoardInfo(self):
         for i in self.label_immersion_gold , self.combo_gold_thickness : 
-            i.Enabled = False  
+            i.Enabled = False    
+        designSettings = self.board_manager.board.GetDesignSettings()
+        boardThickness = designSettings.GetBoardThickness()
+        minTraceWidth = designSettings.m_TrackMinWidth
+        minTraceClearance = designSettings.m_MinClearance
+        minHoleSize = designSettings.m_MinThroughDrill
+        self.combo_inner_copper_thickness.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
+
+        self.set_board_thickness(pcbnew.ToMM(boardThickness))
+        self.set_min_trace(pcbnew.ToMils(minTraceWidth),
+                         pcbnew.ToMils(minTraceClearance))
+        self.set_min_hole(pcbnew.ToMM(minHoleSize))
 
     def on_layer_count_changed(self, event):
         layer_count =  event.GetInt()
@@ -114,3 +133,64 @@ class ProcessInfoView(UiProcessInfo):
     def on_surface_process_changed(self , evt = None  ):
         for i in self.label_immersion_gold , self.combo_gold_thickness : 
             i.Enabled = self.combo_surface_process.GetSelection() == 2
+
+
+    def set_board_thickness(self, thickness):
+        for i in range(self.combo_board_thickness.GetCount()):
+            if thickness <= float(self.combo_board_thickness.GetString(i)):
+                self.combo_board_thickness.SetSelection(i)
+                break
+
+    def set_min_trace(self, minTraceWidth, minTraceClearance):
+        if minTraceWidth == 0 and minTraceClearance == 0:
+            minTrace = 6
+        elif minTraceWidth == 0:
+            minTrace = minTraceClearance
+        elif minTraceClearance == 0:
+            minTrace = minTraceWidth
+        else:
+            minTrace = min(minTraceWidth, minTraceClearance)
+
+        if minTrace == 0:
+            minTrace = 6
+            self.combo_min_trace_width_clearance.SetSelection(2)
+        elif minTrace >= 10:
+            minTrace = 10
+            self.combo_min_trace_width_clearance.SetSelection(0)
+        elif minTrace >= 8:
+            minTrace = 8
+            self.combo_min_trace_width_clearance.SetSelection(1)
+        elif minTrace >= 6:
+            minTrace = 6
+            self.combo_min_trace_width_clearance.SetSelection(2)
+        elif minTrace >= 5:
+            minTrace = 5
+            self.combo_min_trace_width_clearance.SetSelection(3)
+        elif minTrace >= 4:
+            minTrace = 4
+            self.combo_min_trace_width_clearance.SetSelection(4)
+        else:
+            minTrace = 3.5
+            self.combo_min_trace_width_clearance.SetSelection(5)
+
+    def set_min_hole(self, minHoleSize):
+        if minHoleSize == 0:
+            minHoleSize = 0.3
+            self.combo_min_hole_size.SetSelection(0)
+        elif minHoleSize >= 0.3:
+            minHoleSize = 0.3
+            self.combo_min_hole_size.SetSelection(0)
+        elif minHoleSize >= 0.25:
+            minHoleSize = 0.25
+            self.combo_min_hole_size.SetSelection(1)
+        elif minHoleSize >= 0.2:
+            minHoleSize = 0.2
+            self.combo_min_hole_size.SetSelection(2)
+        else:
+            minHoleSize = 0.15
+            self.combo_min_hole_size.SetSelection(3)
+
+    def OnMaskColorChange(self, event):
+        self.combo_silk_screen_color.Clear()
+        self.combo_silk_screen_color.Append(SILK_SCREEN_COLOR_BY_SOLDER_COLOR[self.combo_solder_color.GetStringSelection()])
+        self.combo_silk_screen_color.SetSelection(0)

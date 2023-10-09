@@ -28,45 +28,8 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
 
         self.board = pcbnew.GetBoard()
 
-        boardWidth = pcbnew.ToMM(
-            self.board.GetBoardEdgesBoundingBox().GetWidth())
-        boardHeight = pcbnew.ToMM(
-            self.board.GetBoardEdgesBoundingBox().GetHeight())
-        designSettings = self.board.GetDesignSettings()
-        boardThickness = designSettings.GetBoardThickness()
-        minTraceWidth = designSettings.m_TrackMinWidth
-        minTraceClearance = designSettings.m_MinClearance
-        minHoleSize = designSettings.m_MinThroughDrill
         layerCount = self.board.GetCopperLayerCount()
-        self.load_config_file()
-        self.combo_layer_count.SetSelection(
-            self.combo_layer_count.FindString(str(layerCount)))
-        self.OnThicknessChangebyLayer(None)
-        self.combo_layer_count.Enabled = False
-        # self.m_placeOrderButton.Enabled = False
-        self.edit_size_x.SetValue(str(boardWidth))
-        self.edit_size_x.SetEditable(False)
-        self.edit_size_y.SetValue(str(boardHeight))
-        self.edit_size_y.SetEditable(False)
-        # self.m_asmSizeXCtrl.SetValue(str(boardWidth))
-        # self.m_asmSizeXCtrl.SetEditable(False)
-        # self.m_asmSizeYCtrl.SetValue(str(boardHeight))
-        # self.m_asmSizeYCtrl.SetEditable(False)
-        self.SetBoardThickness(pcbnew.ToMM(boardThickness))
-        self.SetMinTrace(pcbnew.ToMils(minTraceWidth),
-                         pcbnew.ToMils(minTraceClearance))
-        self.SetMinHole(pcbnew.ToMM(minHoleSize))
-        self.combo_pcb_package_kind.SetSelection(0)
-        self.OnPcbPackagingChanged(None)
-        self.comb_margin_mode.SetSelection(0)
-        self.OnMarginModeChanged(None)
-        self.combo_surface_process.SetSelection(0)
-        self.OnSurfaceProcessChanged(None)
-        self.numericValidator = validators.NumericTextCtrlValidator()
-        self.edit_panel_x.SetValidator(self.numericValidator)
-        self.edit_panel_y.SetValidator(self.numericValidator)
-        self.floatValidator = validators.FloatTextCtrlValidator()
-        self.edit_margin_size.SetValidator(self.floatValidator)
+
         if layerCount == 2:
             self.m_innerCopperThicknessLabel.Enabled = False
             self.combo_inner_copper_thickness.Enabled = False
@@ -77,14 +40,19 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
             self.combo_inner_copper_thickness.Enabled = True
             self.m_blindViaLabel.Enabled = True
             self.combo_blind_via.Enabled = True
-        self.m_template.SetSelection(0)
-        self.OnTemplateChanged(None)
-        self.OnPcbQuantityChanged(None)
+
         self.OnHDIChanged(None)
         # self.OnMaskColorChange(None)
         self.fabrication = None
-        # self.SetSMTInfo()
-        # self.SetDIPInfo()
+
+        self.combo_blind_via.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
+        self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
+        self.combo_microsection_report.Bind(
+            wx.EVT_CHOICE, self.OnReportChanged)
+        self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
+        self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
+        self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
+     
 
     # Handlers for AmfDialogBase events.
     def OnTemplateChanged(self, event):

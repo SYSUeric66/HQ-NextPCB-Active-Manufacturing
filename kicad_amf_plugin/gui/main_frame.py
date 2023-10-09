@@ -34,7 +34,7 @@ class MainFrame (wx.Frame):
         process_info_panel = ProcessInfoView(pcb_fab_panel , self.board_manager)
         lay_pcb_fab_panel.Add(process_info_panel, 0, wx.ALL | wx.EXPAND, 5)
 
-        special_process_panel = SpecialProcessView(pcb_fab_panel)
+        special_process_panel = SpecialProcessView(pcb_fab_panel, self.board_manager)
         lay_pcb_fab_panel.Add(special_process_panel, 0, wx.ALL | wx.EXPAND, 5)
 
         service_panel = PersonalizedInfoView(
@@ -52,7 +52,7 @@ class MainFrame (wx.Frame):
         self.Bind(EVT_LAYER_COUNT_CHANGE , process_info_panel.on_layer_count_changed )
 
 
-        for i in base_info_panel , : 
+        for i in base_info_panel , process_info_panel : 
             i.init()
 
         self.SetSizer(main_sizer)

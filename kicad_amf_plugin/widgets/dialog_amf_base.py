@@ -795,16 +795,7 @@ class AmfDialogBase (wx.Dialog):
         # self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.OnMarginModeChanged)
         # self.combo_surface_process.Bind(
         #     wx.EVT_CHOICE, self.OnSurfaceProcessChanged)
-        self.combo_blind_via.Bind(wx.EVT_CHOICE, self.OnHDIChanged)
-        self.comb_delivery_report.Bind(wx.EVT_CHOICE, self.OnReportChanged)
-        self.combo_microsection_report.Bind(
-            wx.EVT_CHOICE, self.OnReportChanged)
-        self.m_updatePriceButton.Bind(wx.EVT_BUTTON, self.OnUpdatePrice)
-        self.m_placeOrderButton.Bind(wx.EVT_BUTTON, self.OnPlaceOrder)
-        self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
-        # self.combo_layer_count.Bind( wx.EVT_CHOICE, self.OnTGChangebyLayer )
-        self.combo_layer_count.Bind(
-            wx.EVT_CHOICE, self.OnThicknessChangebyLayer)
+
 
     def __del__(self):
         pass

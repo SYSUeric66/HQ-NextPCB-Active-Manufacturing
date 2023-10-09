@@ -1,12 +1,11 @@
 
+from kicad_amf_plugin.kicad.board_manager import BoardManager
 from .ui_special_process import UiSpecialProcess
 from .special_process_model import SpecialProcessModel
 import wx
 import wx.xrc
 import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
-
-
 
 
 
@@ -17,13 +16,16 @@ STACKUP_CHOICE = [_(u"No Requirement"), _(
 
 
 class SpecialProcessView(UiSpecialProcess):
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
+    def __init__(self, parent, board_manager : BoardManager ):
+        super().__init__(parent)
+        self.board_manager = board_manager
         self.special_process: SpecialProcessModel = None
+        
         self.initUI()
 
-    def getBaseInfo(self):
-        return self.special_process
+        self.combo_blind_via.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
+        self.combo_blind_via.Bind(wx.EVT_CHOICE, self.on_HDI_changed)
+
 
     def initUI(self):
         for ctrl in self.combo_impedance, self.combo_goldFinger, self.combo_halfHole,  self.combo_pad_hole, self.combo_blind_via:
@@ -36,3 +38,8 @@ class SpecialProcessView(UiSpecialProcess):
 
         self.combo_stackup.Append(STACKUP_CHOICE)
         self.combo_stackup.SetSelection(0)
+        self.combo_hdi_structure.Enabled = True
+
+    
+    def on_HDI_changed(self, event):
+        self.combo_hdi_structure.Enabled = self.combo_blind_via.GetSelection() == 1

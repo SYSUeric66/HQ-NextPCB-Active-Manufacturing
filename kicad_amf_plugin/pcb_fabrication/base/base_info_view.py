@@ -38,10 +38,6 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         self.initUI()
         self.loadBoardInfo()
 
-    @property
-    def board(self):
-        return self.board_manager.board
-
     def getBaseInfo(self):
         return self.base_info
         
@@ -68,13 +64,13 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         
     def loadBoardInfo(self):
         boardWidth = pcbnew.ToMM(
-            self.board.GetBoardEdgesBoundingBox().GetWidth())
+            self.board_manager.board.GetBoardEdgesBoundingBox().GetWidth())
         boardHeight = pcbnew.ToMM(
-            self.board.GetBoardEdgesBoundingBox().GetHeight())
-        layerCount = self.board.GetCopperLayerCount()
+            self.board_manager.board.GetBoardEdgesBoundingBox().GetHeight())
+        layerCount = self.board_manager.board.GetCopperLayerCount()
         self.combo_layer_count.SetSelection(
             self.combo_layer_count.FindString(str(layerCount)))
-        # self.combo_layer_count.Enabled = False
+        self.combo_layer_count.Enabled = False
         self.edit_size_x.SetValue(str(boardWidth))
         self.edit_size_y.SetValue(str(boardHeight))
 
