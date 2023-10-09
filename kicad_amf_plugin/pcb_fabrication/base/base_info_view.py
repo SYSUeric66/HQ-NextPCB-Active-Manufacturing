@@ -27,12 +27,22 @@ MARGIN_MODE_CHOICE = [
 class BaseInfoView(UiBaseInfo,TwoStepSetup):
     def __init__(self, parent, board_manager : BoardManager  ):
         super().__init__(parent)
-        self.base_info = None
+        self.base_info : BaseInfoModel = None
         self.board_manager = board_manager
 
         self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
         self.combo_layer_count.Bind(wx.EVT_CHOICE , self.on_layer_count_changed)
+
+
+    @property
+    def data(self):
+        return BaseInfoModel(
+
+
+            
+        )
+
 
     def init(self):
         self.initUI()
@@ -70,7 +80,7 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         layerCount = self.board_manager.board.GetCopperLayerCount()
         self.combo_layer_count.SetSelection(
             self.combo_layer_count.FindString(str(layerCount)))
-        # self.combo_layer_count.Enabled = False
+        self.combo_layer_count.Enabled = False
         self.edit_size_x.SetValue(str(boardWidth))
         self.edit_size_y.SetValue(str(boardHeight))
 

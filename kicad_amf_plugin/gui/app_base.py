@@ -40,7 +40,7 @@ class BaseApp(wx.App, InspectionMixin):
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
-        self.board_manager = load_board_manager(self)
+        self.board_manager = load_board_manager()
         self.startup_dialog()
         return True
     
