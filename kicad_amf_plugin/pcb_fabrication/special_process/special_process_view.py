@@ -6,6 +6,7 @@ import wx
 import wx.xrc
 import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
+from .special_process_model import SpecialProcessModel
 
 
 
@@ -26,6 +27,18 @@ class SpecialProcessView(UiSpecialProcess):
         self.combo_blind_via.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
         self.combo_blind_via.Bind(wx.EVT_CHOICE, self.on_HDI_changed)
 
+    
+    def special_process(self):
+        info = SpecialProcessModel(
+
+        )
+        if self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
+            info.pressing =  'Customer Specified Stack up'
+        return info
+
+    @property
+    def layer_count(self):
+        return self.board_manager.board.GetCopperLayerCount()
 
     def initUI(self):
         for ctrl in self.combo_impedance, self.combo_goldFinger, self.combo_halfHole,  self.combo_pad_hole, self.combo_blind_via:

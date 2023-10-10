@@ -1,5 +1,6 @@
 
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.utils.roles import EditDisplayRole
 from .process_info_model import ProcessInfoModel
 from kicad_amf_plugin.utils.two_step_setup import TwoStepSetup
 
@@ -62,13 +63,34 @@ SILK_SCREEN_COLOR_BY_SOLDER_COLOR = {
 class ProcessInfoView(UiProcessInfo ,TwoStepSetup):
     def __init__(self, parent , board_manager : BoardManager ):
         super().__init__(parent)
-        self.info: ProcessInfoModel = None
         self.board_manager = board_manager
 
         self.combo_surface_process.Bind(wx.EVT_CHOICE  , self.on_surface_process_changed)
         self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
 
         self.Fit()
+
+    @property
+    def process_info(self):
+        info = ProcessInfoModel(
+            bheight = self.combo_board_thickness.GetStringSelection(),
+            copper= str(self.combo_outer_copper_thickness.GetStringSelection()).removesuffix(OZ) ,
+            lineweight= str(self.combo_min_trace_width_clearance.GetStringSelection()).split('/')[0],
+            vias=str(self.combo_min_hole_size.GetStringSelection()).removesuffix(MM),
+
+            color = self.combo_solder_color.GetStringSelection(),
+            charcolor= self.combo_silk_screen_color.GetStringSelection(),
+            cover= self.combo_solder_cover.GetStringSelection(),
+            spray= self.combo_surface_process.GetStringSelection(),
+
+        )
+
+        if(self.layer_count > 2):
+            info.insidecopper = str(self.combo_inner_copper_thickness.GetStringSelection()).removesuffix(OZ)
+        
+        if(self.combo_surface_process.GetCurrentSelection() == 2):
+            info.cjh =  str(self.combo_gold_thickness.GetCurrentSelection() + 1)
+
 
     def init(self):
         self.initUI()
@@ -107,6 +129,9 @@ class ProcessInfoView(UiProcessInfo ,TwoStepSetup):
         self.combo_gold_thickness.Append([f'{i}{GOLD_THICKNESS_CHOICE_UNIT}'  for i in GOLD_THICKNESS_CHOICE ])
         self.combo_gold_thickness.SetSelection(0) 
               
+    @property
+    def layer_count(self):
+        return self.board_manager.board.GetCopperLayerCount()
 
     def loadBoardInfo(self):
         for i in self.label_immersion_gold , self.combo_gold_thickness : 
@@ -116,7 +141,7 @@ class ProcessInfoView(UiProcessInfo ,TwoStepSetup):
         minTraceWidth = designSettings.m_TrackMinWidth
         minTraceClearance = designSettings.m_MinClearance
         minHoleSize = designSettings.m_MinThroughDrill
-        self.combo_inner_copper_thickness.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
+        self.combo_inner_copper_thickness.Enabled = self.layer_count > 2
 
         self.set_board_thickness(pcbnew.ToMM(boardThickness))
         self.set_min_trace(pcbnew.ToMils(minTraceWidth),

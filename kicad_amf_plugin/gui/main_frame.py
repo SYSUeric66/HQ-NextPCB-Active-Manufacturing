@@ -27,8 +27,8 @@ class MainFrame (wx.Frame):
         pcb_fab_panel.SetScrollRate(10, 10)
         lay_pcb_fab_panel = wx.BoxSizer(wx.VERTICAL)
 
-        base_info_panel = BaseInfoView(pcb_fab_panel , self.board_manager)
-        lay_pcb_fab_panel.Add(base_info_panel, 0, wx.ALL | wx.EXPAND, 5)
+        self.base_info_panel = BaseInfoView(pcb_fab_panel , self.board_manager)
+        lay_pcb_fab_panel.Add(self.base_info_panel, 0, wx.ALL | wx.EXPAND, 5)
         
 
         process_info_panel = ProcessInfoView(pcb_fab_panel , self.board_manager)
@@ -53,16 +53,19 @@ class MainFrame (wx.Frame):
         self.Bind(EVT_LAYER_COUNT_CHANGE , process_info_panel.on_layer_count_changed )
         self.Bind(EVT_LAYER_COUNT_CHANGE , special_process_panel.on_layer_count_changed )
 
-        for i in base_info_panel , process_info_panel : 
+        for i in self.base_info_panel , process_info_panel : 
             i.init()
 
         self.SetSizer(main_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
 
-    def get_query_price_form(self):
-        
-        request = BaseRequest()
+    @property
+    def query_price_form(self):
+        return  { 
+            **(BaseRequest().__dict__) , 
+            **(self.base_info_panel.base_info.__dict__) 
+        }
         
 
     def place_order_form(self):
