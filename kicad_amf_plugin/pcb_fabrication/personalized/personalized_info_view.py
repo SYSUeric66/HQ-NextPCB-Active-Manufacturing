@@ -27,7 +27,7 @@ class PersonalizedInfoView(UiPersonalizedService):
         self.initUI()
 
     def initUI(self):
-        self.comb_test_method.Append(TEST_METHOD_CHOICE)
+        self.comb_test_method.Append([ i for i in   TEST_METHOD_CHOICE])
         self.comb_test_method.SetSelection(0)
         for ctrl in (self.comb_approve_gerber, self.combo_microsection_report, self.comb_film, self.comb_delivery_report):
             for i in BOOLEAN_CHOICE:
@@ -43,15 +43,14 @@ class PersonalizedInfoView(UiPersonalizedService):
     @property
     def personalized_info(self):
         info = PersonalizedInfoModel(
-            test=TEST_METHOD_CHOICE[self.comb_test_method.GetCurrentSelection(
-            )],
-            shipment_report=self.comb_delivery_report.GetSelection(),
-            slice_report=self.combo_microsection_report.GetSelection(),
+            test=TEST_METHOD_CHOICE[self.comb_test_method.StringSelection],
+            shipment_report=str(self.comb_delivery_report.GetSelection()),
+            slice_report=str(self.combo_microsection_report.GetSelection()),
             report_type=str(self.GetReportType()),
             review_file=str(self.GetReviewFile()),
             has_period=str(self.GetHasPeriod()),
             period_format=self.GetPeriodFormat() if self.comb_ul_mark.GetSelection() else None,
-            film_report=self.comb_film.GetSelection(),
+            film_report=str(self.comb_film.GetSelection()),
             pcb_note=self.edit_special_request.GetValue()
         )
         return info

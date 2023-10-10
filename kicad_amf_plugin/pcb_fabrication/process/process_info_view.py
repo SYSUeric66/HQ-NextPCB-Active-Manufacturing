@@ -112,6 +112,8 @@ class ProcessInfoView(UiProcessInfo, TwoStepSetup):
         if (self.combo_surface_process.GetCurrentSelection() == 2):
             info.cjh = str(self.combo_gold_thickness.GetCurrentSelection() + 1)
 
+        return info
+
     def init(self):
         self.initUI()
         self.loadBoardInfo()

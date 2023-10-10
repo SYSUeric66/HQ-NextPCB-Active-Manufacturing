@@ -40,8 +40,8 @@ class SpecialProcessView(UiSpecialProcess):
     @property
     def special_process_info(self):
         info = SpecialProcessModel(
-            impendance=self.combo_impedance.GetSelection(),
-            bankong=self.combo_halfHole.GetSelection(),
+            impendance= str(self.combo_impedance.GetSelection()),
+            bankong= str(self.combo_halfHole.GetSelection()),
             blind=self.GetBlindValue(),
             via_in_pad='N/A' if self.combo_pad_hole.GetStringSelection() else 'Have',
             beveledge=str(self.combo_goldFinger.GetSelection())

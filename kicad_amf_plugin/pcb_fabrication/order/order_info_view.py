@@ -7,6 +7,7 @@ from .price_summary_model import PriceSummaryModel, ItemPrice
 
 import wx.dataview as dv
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import UpdatePrice ,PlaceOrder
 
 
 class OrderInfoView(UiOrderInfo):
@@ -38,6 +39,16 @@ class OrderInfoView(UiOrderInfo):
         self.btn_set_language.Bind(wx.EVT_BUTTON, self.on_set_lang_clicked)
 
         self.radio_box_order_region.Bind
+
+        self.btn_update_price.Bind(wx.EVT_BUTTON , self.on_update_price_clicked )
+
+    def on_update_price_clicked(self ,ev):
+        evt =  UpdatePrice(id= -1)
+        wx.PostEvent(self.Parent , evt)
+
+    def on_place_order_clicked(self ,ev):
+        evt =  PlaceOrder(id= -1)
+        wx.PostEvent(self.Parent , evt)        
 
     def GetImagePath(self, bitmap_path):
         return GetImagePath(bitmap_path)
