@@ -7,5 +7,5 @@ class SpecialProcessModel:
     bankong: str  # Plated Half Holes:
     blind: str  # HDI(Buried/blind vias):
     via_in_pad: str  # Pad Hole:
-    pressing : str = ''
-
+    beveledge: str  # Beveling of G/F:
+    pressing: str = ''  # Stack up
