@@ -26,8 +26,7 @@ class MainFrame (wx.Frame):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
                           pos=wx.DefaultPosition, size=wx.Size(900, 600), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self._board_manager = board_manager
-        self._fabrication_data_gen : FabricationDataGenerator = None
-    
+        self._fabrication_data_gen = None
         self.init_ui()
 
     def init_ui(self):
@@ -96,20 +95,24 @@ class MainFrame (wx.Frame):
             **(self.personalized_service.personalized_info.__dict__),
         }.items()))
     
+
     @property
     def place_order_form(self):
-        return {
-            ** self.query_price_form,
-            'type' : 'pcbfile',
-            'blength' : str(self.base_info_panel.get_pcb_length()),
-            'bwidth' : str(self.base_info_panel.get_pcb_width())
+        return  {
+            **(BaseRequest().__dict__),
+            **(self.base_info_panel.base_info.__dict__),
+            **(self.process_info_panel.process_info.__dict__),
+            **(self.special_process_panel.special_process_info.__dict__),
+            **(self.personalized_service.personalized_info.__dict__),
+            'type' : 'pcbfile'
         }
 
-    def on_update_price(self, event):
+    def on_update_price(self, evt):
         url = OrderRegion.get_order_url(SETTING_MANAGER.order_region)
         if url is None:
             # NOTE shall not come here
             return
+        print(RequestHelper.convert_dict_to_request_data(self.query_price_form))
         rep = urllib.request.Request(url, data= RequestHelper.convert_dict_to_request_data(self.query_price_form))
         fp = urllib.request.urlopen(rep)
         data = fp.read()
@@ -117,23 +120,19 @@ class MainFrame (wx.Frame):
         quote = json.loads(data.decode(encoding))
         print(quote)
 
-    def on_place_order(self):
+    def on_place_order(self , evt):
         with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
-            with open(zipfile, 'rb') as stream:
-                files = {'file':stream}
-                upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
-                self.form.add_field('type', 'pcbfile')
-                self.form.convert_to_dict()
-                self.form.form_dict['blength'] = str(round(self.GetPcbLength(), 2))
-                self.form.form_dict['bwidth'] = str(round(self.GetPcbWidth(), 2))
-                rsp = requests.post(
-                    upload_url,
-                    files=files,
-                    data= RequestHelper.convert_dict_to_request_data(self.place_order_form)
-                )
-                urls = json.loads(rsp.content)
-                uat_url = str(urls['redirect'])
-                webbrowser.open(uat_url)        
+            upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
+            rsp = requests.post(
+                upload_url,
+                files = {
+                    "file" :  open(zipfile, 'rb')
+                },
+                data = self.place_order_form
+            )
+            urls = json.loads(rsp.content)
+            uat_url = str(urls['redirect'])
+            webbrowser.open(uat_url)        
 
 
 

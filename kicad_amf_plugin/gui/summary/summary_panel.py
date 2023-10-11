@@ -40,6 +40,8 @@ class SummaryPanel(UiSummaryPanel):
         self.btn_set_language.Bind(wx.EVT_BUTTON, self.on_set_lang_clicked)
         self.radio_box_order_region.Bind(wx.EVT_RADIOBOX , self.on_region_changed)
         self.btn_update_price.Bind(wx.EVT_BUTTON , self.on_update_price_clicked )
+        self.btn_place_order.Bind(wx.EVT_BUTTON , self.on_place_order_clicked )
+
 
     def on_update_price_clicked(self ,ev):
         evt =  UpdatePrice(id= -1)

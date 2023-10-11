@@ -638,7 +638,7 @@ class AmfDialog(dialog_amf_base.AmfDialogBase):
 
     def place_order_request(self):
         zipname = f"GERBER-{self.fabrication.filename.split('.')[0]}.zip"
-        zipfile = os.path.join(self.fabrication.outputdir, zipname)
+        zipfile = os.path.join(self.fabrication.output_dir, zipname)
         files = {'file': open(zipfile, 'rb')}
         upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
         self.GetInfoFromSetting()

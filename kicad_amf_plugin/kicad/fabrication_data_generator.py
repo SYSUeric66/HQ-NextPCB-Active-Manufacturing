@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from zipfile import ZipFile
 import contextlib
+import shutil
 
 from pcbnew import (
     EXCELLON_WRITER,
@@ -41,17 +42,26 @@ class FabricationDataGenerator:
         self.board = board
         self.corrections = []
         self.path, self.filename = os.path.split(self.board.GetFileName())
-        self.create_folders()
 
+    def __del__(self)        :
+        if os.path.exists(self.nextpcb_root):
+            shutil.rmtree(self.nextpcb_root)
+
+    @property
+    def nextpcb_root(self):
+        return os.path.join(self.path, "nextpcb_amf")
+
+    @property
+    def output_dir(self):
+        return os.path.join(self.nextpcb_root, "output_files")
 
     def __del__(self):
-        if os.path.exists(self.zip_file_path):
-            os.remove(self.zip_file_path)
+        if os.path.exists(self.output_dir):
+            os.remove(self.output_dir)
 
     def create_folders(self):
         """Create output folders if they not already exist."""
-        self.outputdir = os.path.join(self.path, "nextpcb_amf", "output_files")
-        Path(self.outputdir).mkdir(parents=True, exist_ok=True)
+        Path(self.output_dir).mkdir(parents=True, exist_ok=True)
         self.gerberdir = os.path.join(self.path, "nextpcb_amf", "gerber")
         Path(self.gerberdir).mkdir(parents=True, exist_ok=True)
 
@@ -225,7 +235,7 @@ class FabricationDataGenerator:
         #self.corrections = self.parent.library.get_all_correction_data()
         aux_orgin = self.board.GetDesignSettings().GetAuxOrigin()
         with open(
-            os.path.join(self.outputdir, cplname), "w", newline="", encoding="utf-8"
+            os.path.join(self.output_dir, cplname), "w", newline="", encoding="utf-8"
         ) as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
             writer.writerow(
@@ -253,7 +263,7 @@ class FabricationDataGenerator:
         """Generate BOM file."""
         bomname = f"BOM-{self.filename.split('.')[0]}.csv"
         with open(
-            os.path.join(self.outputdir, bomname), "w", newline="", encoding="utf-8"
+            os.path.join(self.output_dir, bomname), "w", newline="", encoding="utf-8"
         ) as csvfile:
             writer = csv.writer(csvfile, delimiter=",")
             writer.writerow(["Value", "Designator", "Footprint", "MPN"])
@@ -264,11 +274,12 @@ class FabricationDataGenerator:
     
     @property
     def zip_file_path(self):
-        return  os.path.join(self.outputdir, f"GERBER-{self.filename.split('.')[0]}.zip")  
+        return  os.path.join(self.output_dir, f"GERBER-{self.filename.split('.')[0]}.zip")  
 
     @contextlib.contextmanager
     def create_kicad_pcb_file(self):
         try:
+            self.create_folders()            
             self.fill_zones()
             self.generate_geber(None)
             self.generate_excellon()
@@ -276,7 +287,6 @@ class FabricationDataGenerator:
             yield self.zip_file_path
         except Exception as error:
             logging.error(f"Error while processing kicad pcb file ,detail :  {error}")
-        finally:
-            os.remove(self.zip_file_path)
+
 
 
