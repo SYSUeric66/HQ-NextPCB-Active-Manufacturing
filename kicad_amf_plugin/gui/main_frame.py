@@ -4,7 +4,7 @@ from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
-from kicad_amf_plugin.pcb_fabrication.order.order_info_view import OrderInfoView
+from kicad_amf_plugin.gui.summary.order_info_view import OrderInfoView
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.base_request import BaseRequest
