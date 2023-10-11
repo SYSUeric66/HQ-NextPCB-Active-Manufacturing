@@ -108,7 +108,7 @@ class MainFrame (wx.Frame):
         }
 
     def on_update_price(self, evt):
-        url = OrderRegion.get_order_url(SETTING_MANAGER.order_region)
+        url = OrderRegion.get_query_price_url(SETTING_MANAGER.order_region)
         if url is None:
             # NOTE shall not come here
             return
@@ -121,6 +121,10 @@ class MainFrame (wx.Frame):
         print(quote)
 
     def on_place_order(self , evt):
+        url = OrderRegion.get_place_order_url(SETTING_MANAGER.order_region)
+        if url is None:
+            # NOTE shall not come here
+            return        
         with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
             upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
             rsp = requests.post(

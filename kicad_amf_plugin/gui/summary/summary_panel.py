@@ -15,6 +15,14 @@ class SummaryPanel(UiSummaryPanel):
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
 
+        self.init_ui()
+        self.btn_set_language.Bind(wx.EVT_BUTTON, self.on_set_lang_clicked)
+        self.radio_box_order_region.Bind(wx.EVT_RADIOBOX , self.on_region_changed)
+        self.btn_update_price.Bind(wx.EVT_BUTTON , self.on_update_price_clicked )
+        self.btn_place_order.Bind(wx.EVT_BUTTON , self.on_place_order_clicked )
+
+
+    def init_ui(self):
         self.list_order_summary.AppendTextColumn(
             "ITEM",  1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
         self.list_order_summary.AppendTextColumn(
@@ -35,12 +43,8 @@ class SummaryPanel(UiSummaryPanel):
         for i in range(1, 10):
             price.append(ItemPrice(f'TestItem{i}', i * 100))
         self.model_price_summary = PriceSummaryModel(price)
-        self.list_price_detail.AssociateModel(self.model_price_summary)
-
-        self.btn_set_language.Bind(wx.EVT_BUTTON, self.on_set_lang_clicked)
-        self.radio_box_order_region.Bind(wx.EVT_RADIOBOX , self.on_region_changed)
-        self.btn_update_price.Bind(wx.EVT_BUTTON , self.on_update_price_clicked )
-        self.btn_place_order.Bind(wx.EVT_BUTTON , self.on_place_order_clicked )
+        self.list_price_detail.AssociateModel(self.model_price_summary)  
+        self.radio_box_order_region.SetSelection(SETTING_MANAGER.order_region)
 
 
     def on_update_price_clicked(self ,ev):
@@ -67,5 +71,4 @@ class SummaryPanel(UiSummaryPanel):
         menu.Destroy()
 
     def on_region_changed(self, evt):
-        current = self.radio_box_order_region.GetStringSelection()
-        SETTING_MANAGER.set_order_region(1)        
+        SETTING_MANAGER.set_order_region(self.radio_box_order_region.GetSelection())        
