@@ -7,7 +7,9 @@ from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import
 from kicad_amf_plugin.gui.summary.summary_panel import SummaryPanel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
-from kicad_amf_plugin.utils.base_request import BaseRequest
+from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
+from kicad_amf_plugin.api.base_request import BaseRequest
+from kicad_amf_plugin.utils.request_helper import RequestHelper
 import wx
 import wx.xrc
 import wx.dataview
@@ -23,8 +25,13 @@ class MainFrame (wx.Frame):
     def __init__(self, board_manager: BoardManager,  parent=None):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
                           pos=wx.DefaultPosition, size=wx.Size(900, 600), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+        self._board_manager = board_manager
+        self._fabrication_data_gen : FabricationDataGenerator = None
+    
+        self.init_ui()
+
+    def init_ui(self):
         wx.SizerFlags.DisableConsistencyChecks()
-        self.board_manager = board_manager
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -33,16 +40,16 @@ class MainFrame (wx.Frame):
         pcb_fab_panel.SetScrollRate(10, 10)
         lay_pcb_fab_panel = wx.BoxSizer(wx.VERTICAL)
 
-        self.base_info_panel = BaseInfoView(pcb_fab_panel, self.board_manager)
+        self.base_info_panel = BaseInfoView(pcb_fab_panel, self._board_manager)
         lay_pcb_fab_panel.Add(self.base_info_panel, 0, wx.ALL | wx.EXPAND, 5)
 
         self.process_info_panel = ProcessInfoView(
-            pcb_fab_panel, self.board_manager)
+            pcb_fab_panel, self._board_manager)
         lay_pcb_fab_panel.Add(self.process_info_panel,
                               0, wx.ALL | wx.EXPAND, 5)
 
         self.special_process_panel = SpecialProcessView(
-            pcb_fab_panel, self.board_manager)
+            pcb_fab_panel, self._board_manager)
         lay_pcb_fab_panel.Add(self.special_process_panel,
                               0, wx.ALL | wx.EXPAND, 5)
 
@@ -74,29 +81,59 @@ class MainFrame (wx.Frame):
         self.Centre(wx.BOTH)
 
     @property
+    def fabrication_data_generator(self):
+        if self._fabrication_data_gen is None:
+            self._fabrication_data_gen = FabricationDataGenerator(self._board_manager.board)
+        return self._fabrication_data_gen
+
+    @property
     def query_price_form(self):
-        return  list(dict(filter(lambda elem: elem[1] is not None, {
+        return  dict(filter(lambda elem: elem[1] is not None, {
             **(BaseRequest().__dict__),
             **(self.base_info_panel.base_info.__dict__),
             **(self.process_info_panel.process_info.__dict__),
             **(self.special_process_panel.special_process_info.__dict__),
             **(self.personalized_service.personalized_info.__dict__),
-        }.items())).items())
+        }.items()))
+    
+    @property
+    def place_order_form(self):
+        return {
+            ** self.query_price_form,
+            'type' : 'pcbfile',
+            'blength' : str(self.base_info_panel.get_pcb_length()),
+            'bwidth' : str(self.base_info_panel.get_pcb_width())
+        }
 
     def on_update_price(self, event):
         url = OrderRegion.get_order_url(SETTING_MANAGER.order_region)
         if url is None:
             # NOTE shall not come here
             return
-        form = self.query_price_form
-        print(form)
-        print( parse.urlencode(form).encode())
-        req1 = urllib.request.Request(url, data= parse.urlencode(form).encode())
-        fp = urllib.request.urlopen(req1)
+        rep = urllib.request.Request(url, data= RequestHelper.convert_dict_to_request_data(self.query_price_form))
+        fp = urllib.request.urlopen(rep)
         data = fp.read()
         encoding = fp.info().get_content_charset('utf-8')
         quote = json.loads(data.decode(encoding))
         print(quote)
 
     def on_place_order(self):
-        pass
+        with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
+            with open(zipfile, 'rb') as stream:
+                files = {'file':stream}
+                upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
+                self.form.add_field('type', 'pcbfile')
+                self.form.convert_to_dict()
+                self.form.form_dict['blength'] = str(round(self.GetPcbLength(), 2))
+                self.form.form_dict['bwidth'] = str(round(self.GetPcbWidth(), 2))
+                rsp = requests.post(
+                    upload_url,
+                    files=files,
+                    data= RequestHelper.convert_dict_to_request_data(self.place_order_form)
+                )
+                urls = json.loads(rsp.content)
+                uat_url = str(urls['redirect'])
+                webbrowser.open(uat_url)        
+
+
+

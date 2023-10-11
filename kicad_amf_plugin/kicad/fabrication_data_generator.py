@@ -4,6 +4,7 @@ import os
 import re
 from pathlib import Path
 from zipfile import ZipFile
+import contextlib
 
 from pcbnew import (
     EXCELLON_WRITER,
@@ -41,6 +42,11 @@ class FabricationDataGenerator:
         self.corrections = []
         self.path, self.filename = os.path.split(self.board.GetFileName())
         self.create_folders()
+
+
+    def __del__(self):
+        if os.path.exists(self.zip_file_path):
+            os.remove(self.zip_file_path)
 
     def create_folders(self):
         """Create output folders if they not already exist."""
@@ -204,8 +210,7 @@ class FabricationDataGenerator:
 
     def zip_gerber_excellon(self):
         """Zip Gerber and Excellon files, ready for upload."""
-        zipname = f"GERBER-{self.filename.split('.')[0]}.zip"
-        with ZipFile(os.path.join(self.outputdir, zipname), "w") as zipfile:
+        with ZipFile(self.zip_file_path, "w") as zipfile:
             for folderName, subfolders, filenames in os.walk(self.gerberdir):
                 for filename in filenames:
                     if not filename.endswith(("gbr", "drl", "pdf")):
@@ -255,3 +260,23 @@ class FabricationDataGenerator:
             for part in self.parent.store.read_bom_parts():
                 writer.writerow(part)
         self.logger.info("Finished generating BOM file")
+
+    
+    @property
+    def zip_file_path(self):
+        return  os.path.join(self.outputdir, f"GERBER-{self.filename.split('.')[0]}.zip")  
+
+    @contextlib.contextmanager
+    def create_kicad_pcb_file(self):
+        try:
+            self.fill_zones()
+            self.generate_geber(None)
+            self.generate_excellon()
+            self.zip_gerber_excellon()
+            yield self.zip_file_path
+        except Exception as error:
+            logging.error(f"Error while processing kicad pcb file ,detail :  {error}")
+        finally:
+            os.remove(self.zip_file_path)
+
+
