@@ -10,6 +10,7 @@ from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import UpdatePrice ,PlaceOrder
 
 
+
 class OrderInfoView(UiOrderInfo):
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
@@ -37,9 +38,7 @@ class OrderInfoView(UiOrderInfo):
         self.list_price_detail.AssociateModel(self.model_price_summary)
 
         self.btn_set_language.Bind(wx.EVT_BUTTON, self.on_set_lang_clicked)
-
-        self.radio_box_order_region.Bind
-
+        self.radio_box_order_region.Bind(wx.EVT_RADIOBOX , self.on_region_changed)
         self.btn_update_price.Bind(wx.EVT_BUTTON , self.on_update_price_clicked )
 
     def on_update_price_clicked(self ,ev):
@@ -64,3 +63,7 @@ class OrderInfoView(UiOrderInfo):
         menu = LangSettingPopMenu(SETTING_MANAGER.language)
         self.PopupMenu(menu)
         menu.Destroy()
+
+    def on_region_changed(self, evt):
+        current = self.radio_box_order_region.GetStringSelection()
+        SETTING_MANAGER.set_order_region(1)        

@@ -6,6 +6,7 @@ from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view impor
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.pcb_fabrication.order.order_info_view import OrderInfoView
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.base_request import BaseRequest
 import wx
 import wx.xrc
@@ -15,6 +16,7 @@ import requests
 import webbrowser
 import json
 from urllib import parse
+from kicad_amf_plugin.order.order_region import  OrderRegion
 
 class MainFrame (wx.Frame):
 
@@ -82,7 +84,10 @@ class MainFrame (wx.Frame):
         }.items())).items())
 
     def on_update_price(self, event):
-        url = 'https://www.nextpcb.com/ajax/valuation'
+        url = OrderRegion.get_order_url(SETTING_MANAGER.order_region)
+        if url is None:
+            # NOTE shall not come here
+            return
         form = self.query_price_form
         print(form)
         print( parse.urlencode(form).encode())

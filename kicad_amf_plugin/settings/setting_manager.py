@@ -11,6 +11,7 @@ LANGUAGE = 'language'
 
 
 ORDER_REGION = "order_region"
+AVAILABLE_REGIONS = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
 
 
 class _SettingManager(wx.EvtHandler) :
@@ -55,7 +56,7 @@ class _SettingManager(wx.EvtHandler) :
         self.app_conf.WriteInt(key=ORDER_REGION, value=region)
 
     @property
-    def get_order_region(self):
+    def order_region(self):
         return self.app_conf.ReadInt(ORDER_REGION)
 
 
