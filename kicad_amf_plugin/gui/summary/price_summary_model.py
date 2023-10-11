@@ -3,63 +3,59 @@ import wx.dataview as dv
 from .bom_price_model import BomPriceModel
 from .pcb_price_model import PCBPriceModel
 from .smt_price_model import SmtPriceModel
+from .price_model_base import PriceModelCol
+from .price_model_base import PriceModelBase ,PriceItem
+from enum import Enum
+
+class PriceCategory(Enum):
+    PCB = 0
+    SMT = 1
+    BOM = 2
+
+
+PRICE_KIND = 3
 
 @dataclass
-class OrderSummary:
+class PriceSummary:
     pcb_quantity: int = 0
     days: int = 0
     cost: int = 0
 
-
-class OrderSummaryModel(dv.PyDataViewModel):
+class PriceSummaryModel(dv.PyDataViewModel):
     def __init__(self):
         dv.PyDataViewModel.__init__(self)
-        self.UseWeakRefs(True)        
-        self.pcb = PCBPriceModel()
-        self.smt = SmtPriceModel()
-        self.bom = BomPriceModel()
+        self.UseWeakRefs(True) 
+        self.price_category : 'dict[int,PriceModelBase]' = {
+            PriceCategory.PCB : PCBPriceModel() ,
+            PriceCategory.SMT : SmtPriceModel(),
+            PriceCategory.BOM : BomPriceModel()
+        }       
+    def sum(self):
+        return self.pcb.sum() + self.smt.sum() + self.bom.sum()
 
-
-    # Report how many columns this model provides data for.
     def GetColumnCount(self):
-        return 6
+        return PriceModelCol.COL_COUNT
 
-    # Map the data column numbers to the data type
     def GetColumnType(self, col):
         mapper = { 0 : 'string',
-                   1 : 'string',
-                   2 : 'string',
-                   3.: 'string', # the real value is an int, but the renderer should convert it okay
-                   4 : 'datetime',
-                   5 : 'bool',
-                   }
+            1 : 'float',
+            }
         return mapper[col]
 
 
     def GetChildren(self, parent, children):
-        # The view calls this method to find the children of any node in the
-        # control. There is an implicit hidden root node, and the top level
-        # item(s) should be reported as children of this node. A List view
-        # simply provides all items as children of this hidden root. A Tree
-        # view adds additional items as children of the other items, as needed,
-        # to provide the tree hierarchy.
-        ##self.log.write("GetChildren\n")
-
-        # If the parent item is invalid then it represents the hidden root
-        # item, so we'll use the genre objects as its children and they will
-        # end up being the collection of visible roots in our tree.
         if not parent:
-            for genre in self.data:
-                children.append(self.ObjectToItem(genre))
-            return len(self.data)
+            for cat in self.price_category:
+                children.append(self.ObjectToItem(self.price_category[cat]))
+            return PRICE_KIND
 
         # Otherwise we'll fetch the python object associated with the parent
         # item and make DV items for each of its child objects.
         node = self.ItemToObject(parent)
-        if isinstance(node, Genre):
-            for song in node.songs:
-                children.append(self.ObjectToItem(song))
-            return len(node.songs)
+        if isinstance(node, PriceModelBase):
+            for i in node.get_items():
+                children.append(self.ObjectToItem(i))
+            return len(node.get_items())
         return 0
 
 
@@ -72,7 +68,7 @@ class OrderSummaryModel(dv.PyDataViewModel):
             return True
         # and in this model the genre objects are containers
         node = self.ItemToObject(item)
-        if isinstance(node, Genre):
+        if isinstance(node, PriceModelBase):
             return True
         # but everything else (the song objects) are not
         return False
@@ -91,12 +87,12 @@ class OrderSummaryModel(dv.PyDataViewModel):
             return dv.NullDataViewItem
 
         node = self.ItemToObject(item)
-        if isinstance(node, Genre):
+        if isinstance(node, PriceModelBase):
             return dv.NullDataViewItem
-        elif isinstance(node, Song):
-            for g in self.data:
-                if g.name == node.genre:
-                    return self.ObjectToItem(g)
+        elif isinstance(node, PriceItem):
+            for g in self.price_category:
+                if node.id in self.price_category[g].item_names() :
+                    return self.ObjectToItem(self.price_category[g])
 
 
     def HasValue(self, item, col):
@@ -104,9 +100,11 @@ class OrderSummaryModel(dv.PyDataViewModel):
         # data at all in the cell. If it returns False then GetValue will not be
         # called for this item and column.
         node = self.ItemToObject(item)
-        if isinstance(node, Genre) and col > 0:
-            return False
-        return True
+        if isinstance(node, PriceModelBase) :
+            return col == 0
+        if isinstance(node, PriceItem) :
+            return True        
+        return False
 
 
     def GetValue(self, item, col):
@@ -117,32 +115,26 @@ class OrderSummaryModel(dv.PyDataViewModel):
         # Fetch the data object for this item.
         node = self.ItemToObject(item)
 
-        if isinstance(node, Genre):
+        if isinstance(node, PriceModelBase):
             # Due to the HasValue implementation above, GetValue should only
-            # be called for the first column for Genre objects. We'll verify
+            # be called for the first column for PriceModelBase objects. We'll verify
             # that with this assert.
-            assert col == 0, "Unexpected column value for Genre objects"
-            return node.name
+            assert col == 0, "Unexpected column value for PriceModelBase objects"
+            return node.name()
 
-        elif isinstance(node, Song):
-            mapper = { 0 : node.genre,
-                       1 : node.artist,
-                       2 : node.title,
-                       3 : node.id,
-                       4 : node.date,
-                       5 : node.like,
+        elif isinstance(node , PriceItem):
+            mapper = { 0 : node.desc,
+                       1 : node.value,
                        }
             return mapper[col]
 
         else:
             raise RuntimeError("unknown node type")
 
-
-
     def GetAttr(self, item, col, attr):
         ##self.log.write('GetAttr')
         node = self.ItemToObject(item)
-        if isinstance(node, Genre):
+        if isinstance(node, PCBPriceModel)  or isinstance(node, SmtPriceModel)  or isinstance(node ,BomPriceModel):
             attr.SetColour('blue')
             attr.SetBold(True)
             return True

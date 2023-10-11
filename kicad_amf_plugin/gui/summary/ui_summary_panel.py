@@ -13,8 +13,6 @@ from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT
 import wx.dataview
 from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT,PB_STYLE_SQUARE
 
-import gettext
-_ = gettext.gettext
 
 ###########################################################################
 ## Class UiSummaryPanel
@@ -50,7 +48,7 @@ class UiSummaryPanel ( wx.Panel ):
 
 		sbSizer1 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, _(u"Cost detail") ), wx.VERTICAL )
 
-		self.list_price_detail = wx.dataview.DataViewCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
+		self.list_price_detail = wx.dataview.DataViewCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.dataview.DV_NO_HEADER|wx.dataview.DV_ROW_LINES|wx.dataview.DV_VERT_RULES )
 		sbSizer1.Add( self.list_price_detail, 1, wx.ALL|wx.EXPAND, 5 )
 
 
