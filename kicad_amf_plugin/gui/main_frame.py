@@ -18,7 +18,7 @@ import requests
 import webbrowser
 import json
 from urllib import parse
-from kicad_amf_plugin.order.order_region import  OrderRegion
+from kicad_amf_plugin.order.order_region import  OrderRegion ,URL_KIND
 
 class MainFrame (wx.Frame):
 
@@ -108,9 +108,9 @@ class MainFrame (wx.Frame):
         }
 
     def on_update_price(self, evt):
-        url = OrderRegion.get_query_price_url(SETTING_MANAGER.order_region)
+        url = OrderRegion.get_url(SETTING_MANAGER.order_region ,URL_KIND.QUERY_PRICE)
         if url is None:
-            # NOTE shall not come here
+            wx.MessageBox(_("No available url for querying price in current region"))
             return
         print(RequestHelper.convert_dict_to_request_data(self.query_price_form))
         rep = urllib.request.Request(url, data= RequestHelper.convert_dict_to_request_data(self.query_price_form))
@@ -121,9 +121,9 @@ class MainFrame (wx.Frame):
         print(quote)
 
     def on_place_order(self , evt):
-        url = OrderRegion.get_place_order_url(SETTING_MANAGER.order_region)
+        url = OrderRegion.get_url(SETTING_MANAGER.order_region ,URL_KIND.PLACE_ORDER)
         if url is None:
-            # NOTE shall not come here
+            wx.MessageBox(_("No available url for placing order in current region"))
             return        
         with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
             upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
