@@ -30,6 +30,3 @@ class OrderRegion :
     def get_url(region : int , kind : URL_KIND):
         if region in OrderRegion.AVAILABLE_URLS:
             return OrderRegion.AVAILABLE_URLS[region][kind]
-                
-        
-
