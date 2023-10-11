@@ -60,10 +60,10 @@ class MainFrame (wx.Frame):
         pcb_fab_panel.SetSizer(lay_pcb_fab_panel)
         pcb_fab_panel.Layout()
 
-        self.order_info_view = SummaryPanel(self)
+        self.summary_view = SummaryPanel(self)
 
         main_sizer.Add(pcb_fab_panel, 1, wx.EXPAND, 8)
-        main_sizer.Add(self.order_info_view, 0, wx.EXPAND, 8)
+        main_sizer.Add(self.summary_view, 0, wx.EXPAND, 8)
 
         self.Bind(EVT_LAYER_COUNT_CHANGE,
                   self.process_info_panel.on_layer_count_changed)
@@ -118,13 +118,24 @@ class MainFrame (wx.Frame):
         data = fp.read()
         encoding = fp.info().get_content_charset('utf-8')
         quote = json.loads(data.decode(encoding))
-        print(quote)
+        summary = quote['data']['list']
+        summary['pcb_count'] = self.base_info_panel.get_pcb_count()
+        summary['day'] = 0
+        if 'pcb' in summary and 'deltime' in summary['pcb']:
+            day = str(summary['pcb']['deltime']).split(' ')
+            if len(day) == 2:
+                if day[1] ==  'hours':
+                     days = int(day[0])/24
+                     summary['day'] =  int(days) if int(days) != 0 else  days
+                else:
+                    summary['day'] = int(day[0])
+        self.summary_view.on_price_updated(summary)
 
     def on_place_order(self , evt):
         url = OrderRegion.get_url(SETTING_MANAGER.order_region ,URL_KIND.PLACE_ORDER)
         if url is None:
             wx.MessageBox(_("No available url for placing order in current region"))
-            return        
+            return
         with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
             upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
             rsp = requests.post(

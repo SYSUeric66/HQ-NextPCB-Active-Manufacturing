@@ -6,11 +6,11 @@ from .smt_price_model import SmtPriceModel
 from .price_model_base import PriceModelCol
 from .price_model_base import PriceModelBase ,PriceItem
 from enum import Enum
-
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 class PriceCategory(Enum):
-    PCB = 0
-    SMT = 1
-    BOM = 2
+    PCB = 'pcb'
+    SMT = 'smt'
+    BOM = 'bom'
 
 
 PRICE_KIND = 3
@@ -29,16 +29,37 @@ class PriceSummaryModel(dv.PyDataViewModel):
             PriceCategory.PCB : PCBPriceModel() ,
             PriceCategory.SMT : SmtPriceModel(),
             PriceCategory.BOM : BomPriceModel()
-        }       
-    def sum(self):
-        return self.pcb.sum() + self.smt.sum() + self.bom.sum()
+        }
+        self._days_cost = 0
+        self._pcb_quantity = 0
+
+    @property
+    def day_cost(self):
+        return self._days_cost
+
+    @property
+    def pcb_count(self):
+        return self._pcb_quantity
+
+    def update_price(self, price : 'dict'):
+        print(price)
+        for i in  PriceCategory.PCB,  PriceCategory.SMT ,   PriceCategory.BOM:
+            if i.value in price:
+                self.price_category[i].update(price[i.value])
+                self.ItemChanged(self.ObjectToItem(self.price_category[i]))
+ 
+    def get_sum(self):
+        s = 0
+        for i in self.price_category:
+            s = s + self.price_category[i].sum()
+        return s
 
     def GetColumnCount(self):
         return PriceModelCol.COL_COUNT
 
     def GetColumnType(self, col):
         mapper = { 0 : 'string',
-            1 : 'float',
+            1 : 'string',
             }
         return mapper[col]
 
@@ -100,10 +121,8 @@ class PriceSummaryModel(dv.PyDataViewModel):
         # data at all in the cell. If it returns False then GetValue will not be
         # called for this item and column.
         node = self.ItemToObject(item)
-        if isinstance(node, PriceModelBase) :
-            return col == 0
-        if isinstance(node, PriceItem) :
-            return True        
+        if isinstance(node, PriceModelBase) or isinstance(node, PriceItem)  :
+            return True
         return False
 
 
@@ -119,12 +138,14 @@ class PriceSummaryModel(dv.PyDataViewModel):
             # Due to the HasValue implementation above, GetValue should only
             # be called for the first column for PriceModelBase objects. We'll verify
             # that with this assert.
-            assert col == 0, "Unexpected column value for PriceModelBase objects"
-            return node.name()
+            if 0 == col:
+                return node.name()
+            else:
+                return f'{node.sum()}{SETTING_MANAGER.get_price_unit()}'
 
         elif isinstance(node , PriceItem):
             mapper = { 0 : node.desc,
-                       1 : node.value,
+                       1 : f'{node.value}{SETTING_MANAGER.get_price_unit()}',
                        }
             return mapper[col]
 

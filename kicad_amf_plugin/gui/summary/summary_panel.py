@@ -21,7 +21,6 @@ class SummaryPanel(UiSummaryPanel):
         self.btn_update_price.Bind(wx.EVT_BUTTON , self.on_update_price_clicked )
         self.btn_place_order.Bind(wx.EVT_BUTTON , self.on_place_order_clicked )
 
-
     def init_ui(self):
         self.list_order_summary.AppendTextColumn(
             "ITEM",  1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
@@ -36,14 +35,17 @@ class SummaryPanel(UiSummaryPanel):
         self.list_order_summary.AssociateModel(self.model_order_summary)
 
         self.list_price_detail.AppendTextColumn(
-            "ItemDescriptions",  0, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            "ItemDescriptions",  0, width=180 , mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
         self.list_price_detail.AppendTextColumn(
-            "Price",   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_CENTER)
+            "Price",   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_RIGHT)
 
-        self.model_price_summary = PriceSummaryModel()
-        self.list_price_detail.AssociateModel(self.model_price_summary)  
+        self._model_price_summary = PriceSummaryModel()
+        self.list_price_detail.AssociateModel(self._model_price_summary)
         self.radio_box_order_region.SetSelection(SETTING_MANAGER.order_region)
 
+    def on_price_updated(self, price : 'dict'):
+        self._model_price_summary.update_price(price)
+        self.model_order_summary.update_order_info(OrderSummary(cost= self._model_price_summary.get_sum() ,days= price['day'] , pcb_quantity= price['pcb_count'] ))
 
     def on_update_price_clicked(self ,ev):
         evt =  UpdatePrice(id= -1)

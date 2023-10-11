@@ -39,7 +39,7 @@ class PcbPackageKind:
 class MarginMode:
     NA = "N/A"
     LEFT_RIGHT =  "X" 
-    TOP_BOTTOM =  "Y" 
+    TOP_BOTTOM =  "Y"
     ALL_4_SIDE = "XY"
 
     MARGIN_MODE_CHOICE = [  
@@ -197,6 +197,13 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         evt = LayerCountChange(id = -1)
         evt.SetInt(int(self.combo_layer_count.GetStringSelection()))
         wx.PostEvent(self.Parent ,evt)
+
+    def get_pcb_count(self):
+        n = int(self.combo_quantity.GetStringSelection())
+        if self.combo_pcb_package_kind.GetSelection() == 1 or self.combo_pcb_package_kind.GetSelection() == 2:
+            return n * int(self.edit_panel_x.GetValue()) * int(self.edit_panel_y.GetValue())
+        else:
+            return n
 
 
 

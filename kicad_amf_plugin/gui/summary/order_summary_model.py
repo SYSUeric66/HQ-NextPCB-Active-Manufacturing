@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import wx.dataview as dv
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 
 
 @dataclass
@@ -81,6 +82,6 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
         #     return True
         return False
 
-    def Update(self, data: OrderSummary):
+    def update_order_info(self, data: OrderSummary):
         self.summary = data
         self.Reset(ORDER_SUMMARY_ROW_COUNT)

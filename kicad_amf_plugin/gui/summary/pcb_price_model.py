@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 
 from .price_model_base import PriceModelBase ,PriceModelCol ,PriceItem
-
+from kicad_amf_plugin.utils.number_round import number_round
 
 TRANSLATED = {
     0 : _("testfee") , 
@@ -97,19 +97,20 @@ class PCBPriceModel(PriceModelBase):
     def name(self):
         return ('PCB')
 
+    @number_round()
     def sum(self):
         num = 0
         for i in self.prices_item:
-                num = num + i
+                num = num + i.value
         return num
-    
-    def get_items(self) -> 'list[PriceItem]':
-        return self.prices_item
 
-    def update(self , data : dict):   
+    def get_items(self) -> 'list[PriceItem]':
+        return [i for i in self.prices_item  if i.value  ]
+
+    def update(self , data : dict):
         for i in PROS: 
             if PROS[i] in data:
-                self.prices_item[i].value = data[i]
+                self.prices_item[i].value = data[PROS[i]]
 
     def item_names(self):
         return PROS
