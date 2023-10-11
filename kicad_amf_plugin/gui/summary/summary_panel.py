@@ -1,4 +1,4 @@
-from .ui_order_info import UiOrderInfo
+from .ui_summary_panel import UiSummaryPanel
 from kicad_amf_plugin.icon import GetImagePath
 from kicad_amf_plugin.language.lang_setting_pop_menu import LangSettingPopMenu
 import wx
@@ -11,7 +11,7 @@ from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import UpdatePrice ,Pla
 
 
 
-class OrderInfoView(UiOrderInfo):
+class SummaryPanel(UiSummaryPanel):
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
 
@@ -23,7 +23,7 @@ class OrderInfoView(UiOrderInfo):
             "UNIT",   3, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
 
         self.list_order_summary.SetMinSize(
-            wx.Size(-1, OrderInfoView.GetLineHeight(self) * 3 + 30))
+            wx.Size(-1, SummaryPanel.GetLineHeight(self) * 3 + 30))
         self.model_order_summary = OrderSummaryModel(OrderSummary())
         self.list_order_summary.AssociateModel(self.model_order_summary)
 

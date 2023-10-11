@@ -13,12 +13,14 @@ from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT
 import wx.dataview
 from kicad_amf_plugin.utils.platebtn import PlateButton ,PB_STYLE_GRADIENT,PB_STYLE_SQUARE
 
+import gettext
+_ = gettext.gettext
 
 ###########################################################################
-## Class UiOrderInfo
+## Class UiSummaryPanel
 ###########################################################################
 
-class UiOrderInfo ( wx.Panel ):
+class UiSummaryPanel ( wx.Panel ):
 
 	def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( -1,-1 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
 		wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )

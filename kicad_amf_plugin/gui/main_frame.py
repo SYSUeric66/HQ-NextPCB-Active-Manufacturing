@@ -4,7 +4,7 @@ from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
-from kicad_amf_plugin.gui.summary.order_info_view import OrderInfoView
+from kicad_amf_plugin.gui.summary.summary_panel import SummaryPanel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.base_request import BaseRequest
@@ -54,7 +54,7 @@ class MainFrame (wx.Frame):
         pcb_fab_panel.SetSizer(lay_pcb_fab_panel)
         pcb_fab_panel.Layout()
 
-        self.order_info_view = OrderInfoView(self)
+        self.order_info_view = SummaryPanel(self)
 
         main_sizer.Add(pcb_fab_panel, 1, wx.EXPAND, 8)
         main_sizer.Add(self.order_info_view, 0, wx.EXPAND, 8)
