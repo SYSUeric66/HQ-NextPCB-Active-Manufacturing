@@ -1,4 +1,5 @@
 
+from logging import Logger
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
@@ -6,7 +7,7 @@ from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view impor
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.gui.summary.summary_panel import SummaryPanel
 from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
-from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER ,EVT_ORDER_REGION_CHANGED
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
 from kicad_amf_plugin.api.base_request import BaseRequest
@@ -35,6 +36,8 @@ PCB_PANEL_CTORS = {
     PCBFormPart.PERSONALIZED : PersonalizedInfoView,
 }
 
+DATA = 'data'
+LIST ='list'
 
 class MainFrame (wx.Frame):
 
@@ -73,6 +76,8 @@ class MainFrame (wx.Frame):
                   self._pcb_form_parts[PCBFormPart.SPECIAL_PROCESS].on_layer_count_changed)
         self.Bind(EVT_UPDATE_PRICE , self.on_update_price)
         self.Bind(EVT_PLACE_ORDER , self.on_place_order)
+        self.Bind(EVT_ORDER_REGION_CHANGED , self.on_order_region_changed)
+
 
         for i in self._pcb_form_parts.values():
             i.init()
@@ -109,43 +114,60 @@ class MainFrame (wx.Frame):
         if url is None:
             wx.MessageBox(_("No available url for querying price in current region"))
             return
-        rep = urllib.request.Request(url, data= RequestHelper.convert_dict_to_request_data(self.get_query_price_form()))
-        fp = urllib.request.urlopen(rep)
-        data = fp.read()
-        encoding = fp.info().get_content_charset('utf-8')
-        quote = json.loads(data.decode(encoding))
-        summary = quote['data']['list']
-        summary['pcb_count'] = self._pcb_form_parts[PCBFormPart.BASE_INFO].get_pcb_count()
-        summary['day'] = 0
-        if 'pcb' in summary and 'deltime' in summary['pcb']:
-            day = str(summary['pcb']['deltime']).split(' ')
-            if len(day) == 2:
-                if day[1] ==  'hours':
-                     days = int(day[0])/24
-                     summary['day'] =  int(days) if int(days) != 0 else  days
-                else:
-                    summary['day'] = int(day[0])
-        self.summary_view.on_price_updated(summary)
+        try:
+            form =self.get_query_price_form()
+            rep = urllib.request.Request(url, data= RequestHelper.convert_dict_to_request_data(form))
+            fp = urllib.request.urlopen(rep)
+            data = fp.read()
+            encoding = fp.info().get_content_charset('utf-8')
+            quote = json.loads(data.decode(encoding))
+            if DATA in quote and LIST in quote[DATA]:
+                summary = quote[DATA][LIST]
+                summary['pcb_count'] = self._pcb_form_parts[PCBFormPart.BASE_INFO].get_pcb_count()
+                summary['day'] = 0
+                if 'pcb' in summary and 'deltime' in summary['pcb']:
+                    day = str(summary['pcb']['deltime']).split(' ')
+                    if len(day) == 2:
+                        if day[1] ==  'hours':
+                            days = int(day[0])/24
+                            summary['day'] =  int(days) if int(days) != 0 else  days
+                        else:
+                            summary['day'] = int(day[0])
+                self.summary_view.on_price_updated(summary)
+            else :
+                print(quote)
+                err_msg = quote
+                if 'msg' in quote:
+                    err_msg = quote['msg']
+                wx.MessageBox(_("Incorrect form parameter: ") + err_msg)
+        except Exception as e :
+            wx.MessageBox(str(e))
+            
 
     def on_place_order(self , evt):
         if not self.form_is_valid():
             return        
-        url = OrderRegion.get_url(SETTING_MANAGER.order_region ,URL_KIND.PLACE_ORDER)
-        if url is None:
-            wx.MessageBox(_("No available url for placing order in current region"))
-            return
-        with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
-            upload_url = "https://www.nextpcb.com/Upfile/kiCadUpFile"
-            rsp = requests.post(
-                upload_url,
-                files = {
-                    "file" :  open(zipfile, 'rb')
-                },
-                data = self.get_place_order_form()
-            )
-            urls = json.loads(rsp.content)
-            uat_url = str(urls['redirect'])
-            webbrowser.open(uat_url)        
+        try:
+            url = OrderRegion.get_url(SETTING_MANAGER.order_region ,URL_KIND.PLACE_ORDER)
+            if url is None:
+                wx.MessageBox(_("No available url for placing order in current region"))
+                return
+            with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile :
+                rsp = requests.post(
+                    url,
+                    files = {
+                        "file" :  open(zipfile, 'rb')
+                    },
+                    data = self.get_place_order_form()
+                )
+                urls = json.loads(rsp.content)
+                uat_url = str(urls['redirect'])
+                webbrowser.open(uat_url)        
+        except Exception as e :
+            wx.MessageBox(str(e))
 
+    def on_order_region_changed(self,ev):
+        for i in self._pcb_form_parts.values() :
+            i.on_region_changed()
 
 

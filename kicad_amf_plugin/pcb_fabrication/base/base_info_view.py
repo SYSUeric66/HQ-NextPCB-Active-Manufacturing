@@ -21,7 +21,7 @@ def convert_pcb_geometry( base = 10, digit = 2):
 
 AVAILABLE_MATERIAL_TYPES = ["FR-4"]
 
-AVAILABLE_BOARD_TG_TYPES = ["TG130"]
+AVAILABLE_BOARD_TG_TYPES = ["TG130" , "TG150" , "TG170"]
 
 AVAILABLE_LAYER_COUNTS = [1, 2, 4, 6,
     8, 10, 12, 14, 16, 18, 20]
@@ -64,7 +64,7 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
         self.combo_layer_count.Bind(wx.EVT_CHOICE , self.on_layer_count_changed)
-        for editor in self.edit_panel_x , self.edit_panel_y :
+        for editor in self.edit_panel_x , self.edit_panel_y  ,self.edit_test_point_count , self.edit_pbnum:
             editor.SetValidator(NumericTextCtrlValidator())
         self.edit_margin_size.SetValidator(FloatTextCtrlValidator())
 
@@ -79,7 +79,13 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         if self.edit_margin_size.Enabled:
             if not self.edit_margin_size.Validate():
                 wx.MessageBox(_("Break-away Rail value isn't valid. Please input valid value."), _("Error"), wx.OK | wx.ICON_ERROR)
-                return False       
+                return False     
+        if not self.edit_test_point_count.Validate():
+            wx.MessageBox(_("Test point count isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
+            return False       
+        if not self.edit_pbnum.Validate():
+            wx.MessageBox(_("PCB design count isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
+            return False                       
         return True
 
     @property
@@ -133,12 +139,14 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         data = BaseInfoModel(
             blayer=  self.combo_layer_count.GetStringSelection() ,
             plate_type=AVAILABLE_MATERIAL_TYPES[0] , 
-            board_tg =AVAILABLE_BOARD_TG_TYPES[0],
+            board_tg = self.combo_board_tg.GetStringSelection() if self.combo_board_tg.Enabled else None  ,
             units = str(self.pcb_package_kind),
             blength = str(self.get_pcb_length()),
             bwidth= str(self.get_pcb_width()),
             bcount= self.combo_quantity.GetStringSelection(),
-            sidedirection= str(self.margin_mode)
+            sidedirection= str(self.margin_mode),
+            pbnum= int(self.edit_pbnum.GetValue()),
+            testpoint= int(self.edit_test_point_count.GetValue())
         )
 
         if self.pcb_package_kind in (PcbPackageKind.PANEL_BY_CUSTOMER , PcbPackageKind.PANEL_BY_NEXT_PCB) :
@@ -171,9 +179,12 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
 
         self.combo_quantity.Append([  str(i)  for i in AVAILABLE_QUANTITY ])
         self.combo_quantity.SetSelection(0)
-
         self.comb_margin_mode.SetSelection(0)
         self.combo_pcb_package_kind.SetSelection(0)
+
+        self.combo_board_tg.Append(AVAILABLE_BOARD_TG_TYPES)
+        self.combo_board_tg.SetSelection(0)
+        
 
         for i in self.edit_size_x  , self.edit_size_y:
             i.SetEditable(False)
@@ -190,7 +201,8 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
             self.combo_layer_count.FindString(str(layerCount)))
         self.combo_layer_count.Enabled = False
         self.edit_size_x.SetValue(str(boardWidth))
-        self.edit_size_y.SetValue(str(boardHeight))              
+        self.edit_size_y.SetValue(str(boardHeight))     
+        self.combo_board_tg.Enabled = layerCount > 3
 
 
     def on_pcb_packaging_changed(self , evt = None):
@@ -212,7 +224,9 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
 
     def on_layer_count_changed(self, evt):
         evt = LayerCountChange(id = -1)
-        evt.SetInt(int(self.combo_layer_count.GetStringSelection()))
+        count  = int(self.combo_layer_count.GetStringSelection())
+        evt.SetInt(count)
+        self.combo_board_tg.Enabled = count > 3
         wx.PostEvent(self.Parent ,evt)
 
     def get_pcb_count(self):

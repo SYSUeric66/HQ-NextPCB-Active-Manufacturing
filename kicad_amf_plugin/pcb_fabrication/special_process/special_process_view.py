@@ -1,5 +1,7 @@
 
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.order.order_region import SupportedRegion
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
 from .ui_special_process import UiSpecialProcess
 from .special_process_model import SpecialProcessModel
@@ -9,6 +11,7 @@ import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .special_process_model import SpecialProcessModel
 from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
+from kicad_amf_plugin.utils.validators import NumericTextCtrlValidator , FloatTextCtrlValidator
 
 HDI_STRUCTURE_CHOICE = [_(u"Rank 1"), _(u"Rank 2"), _(u"Rank 3")]
 
@@ -24,6 +27,19 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
         self.initUI()
         self.combo_blind_via.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
         self.combo_blind_via.Bind(wx.EVT_CHOICE, self.on_HDI_changed)
+        self.edit_bga.SetValidator(FloatTextCtrlValidator())
+        self.edit_turnhole_density.SetValidator(NumericTextCtrlValidator())
+
+    def is_valid(self) -> bool:
+        if  len(self.edit_bga.GetValue()) :
+            if not self.edit_bga.Validate():
+                wx.MessageBox(_("BGA isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
+                return False
+        if len(self.edit_turnhole_density.GetValue()):
+            if not self.edit_turnhole_density.Validate():
+                wx.MessageBox(_("Turnhole density isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
+                return False
+        return True
 
     def initUI(self):
         for ctrl in self.combo_impedance, self.combo_goldFinger, self.combo_halfHole,  self.combo_pad_hole, self.combo_blind_via:
@@ -37,6 +53,8 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
         self.combo_stackup.Append(STACKUP_CHOICE)
         self.combo_stackup.SetSelection(0)
         self.combo_hdi_structure.Enabled = False
+        self.combo_baobian.Append([ str(i) for i in range(0 , 5)])
+        self.combo_baobian.SetSelection(0)
         
     @none_value_fitter    
     def get_from(self) -> 'dict' :
@@ -45,7 +63,10 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
             bankong= str(self.combo_halfHole.GetSelection()),
             blind=self.GetBlindValue(),
             via_in_pad='N/A' if self.combo_pad_hole.GetStringSelection() else 'Have',
-            beveledge=str(self.combo_goldFinger.GetSelection())
+            beveledge=str(self.combo_goldFinger.GetSelection()) ,
+            baobian= self.combo_baobian.GetStringSelection(),
+            bga= self.edit_bga.GetValue(),
+            zknum= self.edit_turnhole_density.GetValue()
         )
         if self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
             info.pressing = 'Customer Specified Stack up'
@@ -75,4 +96,4 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
             return "3"
         
     def on_region_changed(self):
-        pass
+        self.edit_bga.Enabled = SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND

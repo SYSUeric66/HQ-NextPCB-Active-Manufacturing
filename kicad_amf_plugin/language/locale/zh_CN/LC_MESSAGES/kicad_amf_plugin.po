@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-10-12 13:43+0800\n"
-"PO-Revision-Date: 2023-10-12 13:51+0800\n"
+"POT-Creation-Date: 2023-10-12 18:00+0800\n"
+"PO-Revision-Date: 2023-10-12 18:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -24,16 +24,19 @@ msgstr "重启插件以应用新的语言配置？"
 msgid "Tip"
 msgstr "提示"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:42
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:25
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:45
 msgid "HQ NextPCB Active Manufacturing"
 msgstr "HQ NextPCB Active Manufacturing"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:110
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:115
 msgid "No available url for querying price in current region"
 msgstr "当前区域无可询价接口"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:135
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:142
+msgid "Incorrect form parameter: "
+msgstr "无效的表单参数"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:153
 msgid "No available url for placing order in current region"
 msgstr "当前区域无可下单接口"
 
@@ -46,11 +49,8 @@ msgid "PCB Quantity"
 msgstr "PCB数量"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\order_summary_model.py:41
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:128
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:149
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:128
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:148
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:698
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:139
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:160
 msgid "pcs"
 msgstr "片"
 
@@ -239,7 +239,6 @@ msgid "Order Summary"
 msgstr "订单信息汇总"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\ui_summary_panel.py:67
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:747
 msgid "Update Price"
 msgstr "更新价格"
 
@@ -260,37 +259,30 @@ msgid "zh_CN"
 msgstr "中文简体"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:36
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:99
 msgid "Single Piece"
 msgstr "单片出货"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:37
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:99
 msgid "Panel by Customer"
 msgstr "连片(按文件)"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:38
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:100
 msgid "Panel by NextPCB"
 msgstr "连片(华秋代拼)"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:48
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:231
 msgid "N/A"
 msgstr "无"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:49
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:231
 msgid "Left & Right"
 msgstr "左右"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:50
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:231
 msgid "Top & Bottom"
 msgstr "上下"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:51
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:231
 msgid "All 4 sides"
 msgstr "四边"
 
@@ -301,6 +293,10 @@ msgstr "连片长度无效,请输入有效整数"
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:74
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:77
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:81
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:84
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:87
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:36
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:40
 msgid "Error"
 msgstr "错误"
 
@@ -312,148 +308,189 @@ msgstr "连片宽度无效,请输入有效整数"
 msgid "Break-away Rail value isn't valid. Please input valid value."
 msgstr "工艺边框尺寸无效,请输入有效数字"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:198
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:163
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:84
+msgid "Test point count isn't valid. Please input valid number."
+msgstr "测试点数量无效，请输入数字"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:87
+msgid "PCB design count isn't valid. Please input valid number."
+msgstr "PCB设计稿数量无效，请输入数字"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:210
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:174
 msgid "Size (single)"
 msgstr "单片尺寸"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:199
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:80
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:211
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:91
 msgid "Qty(single)"
 msgstr "连片数量"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:200
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:95
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:217
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:212
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:106
 msgid "Pcs"
 msgstr "片"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:202
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:214
 msgid "Size (set)"
 msgstr "单片尺寸"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:203
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:215
 msgid "Qty(Set)"
 msgstr "连片数量"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:204
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:216
 msgid "Set"
 msgstr "Set"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:27
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:50
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:28
 msgid "Base Info"
 msgstr "基础信息"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:34
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:35
 msgid "Material Type"
 msgstr "板材"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:37
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:44
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:60
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:38
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:45
 msgid "Non-conductive base material"
 msgstr "非导电基材"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:48
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:49
 msgid "Layer Count"
 msgstr "板子层数"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:66
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:59
+msgid "Board TG"
+msgstr "板子TG"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:77
 msgid "Board Type"
 msgstr "出货形式"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:69
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:76
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:94
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:80
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:87
 msgid "The finished PCB are by single or by panel"
 msgstr "单片或者连片出货"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:108
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:119
 msgid "Panel Type"
 msgstr "拼版规则"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:115
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:170
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:115
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:162
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:126
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:181
 msgid "X:"
 msgstr "X:"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:136
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:191
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:141
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:182
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:147
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:202
 msgid "Y:"
 msgstr "Y:"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:183
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:204
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:236
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:194
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:215
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:247
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\ui_process_info.py:45
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:175
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:195
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:245
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:281
 msgid "mm"
 msgstr "mm"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:221
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:232
 msgid "Break-away Rail"
 msgstr "工艺边框"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:13
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:552
-msgid "Sample Test Free"
-msgstr "AOl+飞针抽测(免费)"
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:265
+msgid "Designs Count"
+msgstr "设计稿数量"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:14
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:552
-msgid "AOI+Flying Test"
-msgstr "AOI+飞针全测"
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:270
+msgid "1"
+msgstr ""
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:15
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:553
-msgid "AOI+Fixture"
-msgstr "AOI+测试架"
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:273
+msgid "Test Point Count"
+msgstr "测试点数量"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:19
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:609
-msgid "Electronic"
-msgstr "电子"
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:278
+msgid "0"
+msgstr ""
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:19
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:609
-msgid "Paper"
-msgstr "纸质"
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:16
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:28
+msgid "Need"
+msgstr "需要"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:21
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:17
+msgid "Need & Auto Confirm"
+msgstr "需要&自动确认"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:18
+msgid "Need & Manual Confirm"
+msgstr "需要&手动确认"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:22
+msgid "Accept"
+msgstr "接受"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:23
+msgid "Reject"
+msgstr "拒绝"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:29
+msgid "No need"
+msgstr "不需要"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:33
+msgid "Add customer stamp"
+msgstr "客编"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:34
+msgid "Add it to specified location"
+msgstr "加入客编到指定位置"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:35
+msgid "Don't add customer stamp"
+msgstr "不加客编"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:39
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\utils\constraint.py:6
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:439
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:453
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:467
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:481
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:495
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:567
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:581
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:595
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:623
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:638
+msgid "Yes"
+msgstr "是"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:40
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:54
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\utils\constraint.py:6
 msgid "No"
 msgstr "否"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:21
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:623
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:46
+msgid "Sample Test Free"
+msgstr "AOl+飞针抽测(免费)"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:47
+msgid "AOI+Flying Test"
+msgstr "AOI+飞针全测"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:48
+msgid "AOI+Fixture"
+msgstr "AOI+测试架"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:52
+msgid "Electronic"
+msgstr "电子"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:52
+msgid "Paper"
+msgstr "纸质"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:54
 msgid "UL+Week/Year"
 msgstr "UL+周/年"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:22
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:624
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:55
 msgid "UL+Year/Week"
 msgstr "UL+年/周"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:23
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:538
 msgid "Personalized Service"
 msgstr "服务信息"
 
@@ -485,35 +522,47 @@ msgstr "UL 标志"
 msgid "Film"
 msgstr "感光膜"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:103
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:100
+msgid "Cross Board"
+msgstr "打叉板"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:110
+msgid "Bulkhead Paper"
+msgstr "隔板纸"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:120
+msgid "User Stamp Process"
+msgstr "客编处理"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:130
+msgid "HQ Pack"
+msgstr "华秋包装"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\ui_personalized.py:143
 msgid "Special Request"
 msgstr "特殊要求"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:42
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:51
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:66
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:352
 msgid "Green"
 msgstr "绿"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:43
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:51
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:67
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:352
 msgid "Red"
 msgstr "红"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:44
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:51
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:68
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:352
 msgid "Yellow"
 msgstr "黄"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:45
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:51
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:69
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:352
 msgid "Blue"
 msgstr "蓝"
 
@@ -526,15 +575,12 @@ msgstr "蓝"
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:70
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:71
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:72
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:353
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:367
 msgid "White"
 msgstr "白"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:47
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:52
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:71
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:353
 msgid "Matte Black"
 msgstr "哑光黑"
 
@@ -542,52 +588,42 @@ msgstr "哑光黑"
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:52
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:70
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:72
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:353
 msgid "Black"
 msgstr "黑"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:55
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:381
 msgid "Solder Mask Plug (IV-B)"
 msgstr "过孔塞油墨"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:55
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:381
 msgid "Tenting Vias"
 msgstr "过孔盖油"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:55
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:381
 msgid "Vias not covered"
 msgstr "过孔开窗"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:56
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:382
 msgid "Non-Conductive Fill"
 msgstr "过孔塞树脂+电镀填平"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:58
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:396
 msgid "HASL"
 msgstr "有铅喷锡"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:58
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:396
 msgid "Lead free HASL"
 msgstr "无铅喷锡"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:59
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:397
 msgid "ENIG"
 msgstr "沉金"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\process_info_view.py:59
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:397
 msgid "OSP"
 msgstr "OSP"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\process\ui_process_info.py:23
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:258
 msgid "Process info"
 msgstr "工艺信息"
 
@@ -631,33 +667,35 @@ msgstr "表面处理"
 msgid "Immersion Gold Thickness"
 msgstr "沉金厚度"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:13
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:509
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:16
 msgid "Rank 1"
 msgstr "一阶"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:13
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:509
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:16
 msgid "Rank 2"
 msgstr "二阶"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:13
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:509
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:16
 msgid "Rank 3"
 msgstr "三阶"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:15
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:523
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:18
 msgid "Customer Specified Stack up"
 msgstr "自定义堆叠方式"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:15
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:523
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:18
 msgid "No Requirement"
 msgstr "无需求"
 
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:36
+msgid "BGA isn't valid. Please input valid number."
+msgstr "BGA无效,请输入有效数字"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:40
+msgid "Turnhole density isn't valid. Please input valid number."
+msgstr "通孔密度无效,请输入有效数字"
+
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\ui_special_process.py:23
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\widgets\dialog_amf_base.py:425
 msgid "Special Process"
 msgstr "特殊要求"
 
@@ -689,11 +727,23 @@ msgstr "HDI结构"
 msgid "Stack up"
 msgstr "堆叠"
 
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\ui_special_process.py:100
+msgid "Metallized Sides Count"
+msgstr "金属化边框数量"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\ui_special_process.py:110
+msgid "BGA"
+msgstr "BGA"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\ui_special_process.py:118
+msgid "Turnhole Density"
+msgstr "通孔密度"
+
+#~ msgid "Unexpected response from server"
+#~ msgstr "不符合预期的服务器响应"
+
 #~ msgid "$"
 #~ msgstr "元"
-
-#~ msgid "Yes"
-#~ msgstr "是"
 
 #~ msgid "Material Type:"
 #~ msgstr "板材:"

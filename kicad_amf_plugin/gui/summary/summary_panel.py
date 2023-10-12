@@ -7,7 +7,7 @@ from .price_summary_model import PriceSummaryModel
 
 import wx.dataview as dv
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
-from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import UpdatePrice ,PlaceOrder
+from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import UpdatePrice ,PlaceOrder , OrderRegionChanged
 
 
 
@@ -74,3 +74,5 @@ class SummaryPanel(UiSummaryPanel):
         SETTING_MANAGER.set_order_region(self.radio_box_order_region.GetSelection())    
         for i in self.model_order_summary , self.model_price_summary:
             i.Cleared()
+        ev = OrderRegionChanged(-1)
+        wx.PostEvent(self.Parent , ev)

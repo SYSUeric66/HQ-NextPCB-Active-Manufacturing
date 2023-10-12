@@ -16,5 +16,5 @@ class PersonalizedInfoModel:
     cross_board : int # 打叉板 1接受 2不接受
     paper : int # 隔白纸 1无需 2需要
     user_stamp : int # 不加客编 1无要求 2指定位置加客编 3不加客编
-    hq_pack : int = 1 # 包装要求，默认 1华秋包装，0中性包装  #CN only
+    hq_pack : int = None # 包装要求，默认 1华秋包装，0中性包装  #CN only
 

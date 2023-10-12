@@ -105,9 +105,9 @@ class UiPersonalizedService ( wx.Panel ):
 		combo_cross_boardChoices = []
 		self.combo_cross_board = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_cross_boardChoices, 0 )
 		self.combo_cross_board.SetSelection( 0 )
-		fgSizer25.Add( self.combo_cross_board, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.combo_cross_board, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText9 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Paper"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText9 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Bulkhead Paper"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText9.Wrap( -1 )
 
 		fgSizer25.Add( self.m_staticText9, 0, wx.ALL, 5 )
@@ -115,9 +115,9 @@ class UiPersonalizedService ( wx.Panel ):
 		combo_paperChoices = []
 		self.combo_paper = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_paperChoices, 0 )
 		self.combo_paper.SetSelection( 0 )
-		fgSizer25.Add( self.combo_paper, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.combo_paper, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText10 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"User Stamp"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText10 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"User Stamp Process"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText10.Wrap( -1 )
 
 		fgSizer25.Add( self.m_staticText10, 0, wx.ALL, 5 )
@@ -125,7 +125,7 @@ class UiPersonalizedService ( wx.Panel ):
 		combo_user_stampChoices = []
 		self.combo_user_stamp = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_user_stampChoices, 0 )
 		self.combo_user_stamp.SetSelection( 0 )
-		fgSizer25.Add( self.combo_user_stamp, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.combo_user_stamp, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_staticText11 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"HQ Pack"), wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText11.Wrap( -1 )
@@ -135,7 +135,7 @@ class UiPersonalizedService ( wx.Panel ):
 		combo_hq_packChoices = []
 		self.combo_hq_pack = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_hq_packChoices, 0 )
 		self.combo_hq_pack.SetSelection( 0 )
-		fgSizer25.Add( self.combo_hq_pack, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.combo_hq_pack, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		labelProcessInfo.Add( fgSizer25, 0, wx.EXPAND, 5 )
