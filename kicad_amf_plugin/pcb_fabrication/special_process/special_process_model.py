@@ -9,3 +9,7 @@ class SpecialProcessModel:
     via_in_pad: str  # Pad Hole:
     beveledge: str  # Beveling of G/F:
     pressing: str = ''  # Stack up
+        
+    baobian : int = None  #  包边，默认 0 无 1-4 边 
+    bga  : float = None # BGA，默认0 无，可选值 0.35 – 0.35及以上 0.25  #CN only
+    zknum : int  = None # 钻孔密度

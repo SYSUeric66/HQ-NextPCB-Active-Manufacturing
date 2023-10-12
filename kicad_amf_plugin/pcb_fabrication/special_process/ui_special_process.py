@@ -97,6 +97,32 @@ class UiSpecialProcess ( wx.Panel ):
 		self.combo_stackup.SetSelection( 0 )
 		fgSizer25.Add( self.combo_stackup, 0, wx.ALL|wx.EXPAND, 5 )
 
+		self.m_staticText8 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Metallized Sides"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8.Wrap( -1 )
+
+		fgSizer25.Add( self.m_staticText8, 0, wx.ALL, 5 )
+
+		combo_baobianChoices = []
+		self.combo_baobian = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_baobianChoices, 0 )
+		self.combo_baobian.SetSelection( 0 )
+		fgSizer25.Add( self.combo_baobian, 0, wx.ALL, 5 )
+
+		self.m_staticText9 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"BGA"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText9.Wrap( -1 )
+
+		fgSizer25.Add( self.m_staticText9, 0, wx.ALL, 5 )
+
+		self.edit_bga = wx.TextCtrl( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer25.Add( self.edit_bga, 0, wx.ALL, 5 )
+
+		self.label_foo1 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Turnhole Density"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_foo1.Wrap( -1 )
+
+		fgSizer25.Add( self.label_foo1, 0, wx.ALL, 5 )
+
+		self.edit_turnhole_density = wx.TextCtrl( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer25.Add( self.edit_turnhole_density, 0, wx.ALL, 5 )
+
 
 		labelProcessInfo.Add( fgSizer25, 0, wx.EXPAND, 5 )
 

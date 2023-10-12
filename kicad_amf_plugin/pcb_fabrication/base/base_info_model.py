@@ -35,8 +35,12 @@ class BaseInfoModel:
     sidedirection: str  # Decided by the marginMode automatically
 
     plate_type: str = 'Fr-4'  # Material Type
-    board_tg: str = 'TG130'  # TODO
     units: str = '2'  # Board Type
     layoutx: str = None  # X
     layouty: str = None  # Y
     sidewidth: str = None  # Break-away Rail
+    
+    testpoint : str = None  # 测试点数，默认为0 
+    pbnum : str = None # 拼版款数，指文件内不同款的板子个数， 不传默认为1
+    board_tg: str = None  # 4层及以上可选TG值，TG130、TG150、TG170
+
