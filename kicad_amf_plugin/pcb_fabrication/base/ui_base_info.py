@@ -11,10 +11,9 @@ import wx
 import wx.xrc
 
 
-BOX_PANEL_SETTING = 1000
-BOX_SIZE_SETTING = 1001
+BOX_SIZE_SETTING = 1000
+BOX_PANEL_SETTING = 1001
 BOX_BREAK_AWAY = 1002
-BASE_INFO_CN = 1003
 
 ###########################################################################
 ## Class UiBaseInfo
@@ -114,62 +113,7 @@ class UiBaseInfo ( wx.Panel ):
 
 		sbSizer2.Add( fgSizer3, 0, wx.EXPAND, 5 )
 
-		bSizer2 = wx.BoxSizer( wx.HORIZONTAL )
-
-		sbSizer21 = wx.StaticBoxSizer( wx.StaticBox( sbSizer2.GetStaticBox(), BOX_PANEL_SETTING, _(u"Panel Type") ), wx.VERTICAL )
-
-		fgSizer4 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer4.AddGrowableCol( 1 )
-		fgSizer4.SetFlexibleDirection( wx.BOTH )
-		fgSizer4.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText8 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"X:"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText8.Wrap( -1 )
-
-		fgSizer4.Add( self.m_staticText8, 0, wx.ALL, 5 )
-
-		fgSizer6 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer6.AddGrowableCol( 0 )
-		fgSizer6.SetFlexibleDirection( wx.BOTH )
-		fgSizer6.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.edit_panel_x = wx.TextCtrl( sbSizer21.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer6.Add( self.edit_panel_x, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_staticText10 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText10.Wrap( -1 )
-
-		fgSizer6.Add( self.m_staticText10, 0, wx.ALL, 5 )
-
-
-		fgSizer4.Add( fgSizer6, 1, wx.EXPAND, 5 )
-
-		self.m_staticText81 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"Y:"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText81.Wrap( -1 )
-
-		fgSizer4.Add( self.m_staticText81, 0, wx.ALL, 5 )
-
-		fgSizer61 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer61.AddGrowableCol( 0 )
-		fgSizer61.SetFlexibleDirection( wx.BOTH )
-		fgSizer61.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.edit_panel_y = wx.TextCtrl( sbSizer21.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer61.Add( self.edit_panel_y, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_staticText101 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText101.Wrap( -1 )
-
-		fgSizer61.Add( self.m_staticText101, 0, wx.ALL, 5 )
-
-
-		fgSizer4.Add( fgSizer61, 1, wx.EXPAND, 5 )
-
-
-		sbSizer21.Add( fgSizer4, 1, wx.EXPAND, 5 )
-
-
-		bSizer2.Add( sbSizer21, 1, wx.EXPAND, 5 )
+		bSizer2 = wx.BoxSizer( wx.VERTICAL )
 
 		box_piece_or_panel_size = wx.StaticBoxSizer( wx.StaticBox( sbSizer2.GetStaticBox(), BOX_SIZE_SETTING, _(u"Size (single)") ), wx.VERTICAL )
 
@@ -226,6 +170,61 @@ class UiBaseInfo ( wx.Panel ):
 
 		bSizer2.Add( box_piece_or_panel_size, 1, wx.EXPAND, 5 )
 
+		sbSizer21 = wx.StaticBoxSizer( wx.StaticBox( sbSizer2.GetStaticBox(), BOX_PANEL_SETTING, _(u"Panel Type") ), wx.VERTICAL )
+
+		fgSizer4 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer4.AddGrowableCol( 1 )
+		fgSizer4.SetFlexibleDirection( wx.BOTH )
+		fgSizer4.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.m_staticText8 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"X:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8.Wrap( -1 )
+
+		fgSizer4.Add( self.m_staticText8, 0, wx.ALL, 5 )
+
+		fgSizer6 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer6.AddGrowableCol( 0 )
+		fgSizer6.SetFlexibleDirection( wx.BOTH )
+		fgSizer6.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.edit_panel_x = wx.TextCtrl( sbSizer21.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer6.Add( self.edit_panel_x, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.m_staticText10 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText10.Wrap( -1 )
+
+		fgSizer6.Add( self.m_staticText10, 0, wx.ALL, 5 )
+
+
+		fgSizer4.Add( fgSizer6, 1, wx.EXPAND, 5 )
+
+		self.m_staticText81 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"Y:"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText81.Wrap( -1 )
+
+		fgSizer4.Add( self.m_staticText81, 0, wx.ALL, 5 )
+
+		fgSizer61 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer61.AddGrowableCol( 0 )
+		fgSizer61.SetFlexibleDirection( wx.BOTH )
+		fgSizer61.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.edit_panel_y = wx.TextCtrl( sbSizer21.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer61.Add( self.edit_panel_y, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.m_staticText101 = wx.StaticText( sbSizer21.GetStaticBox(), wx.ID_ANY, _(u"pcs"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText101.Wrap( -1 )
+
+		fgSizer61.Add( self.m_staticText101, 0, wx.ALL, 5 )
+
+
+		fgSizer4.Add( fgSizer61, 1, wx.EXPAND, 5 )
+
+
+		sbSizer21.Add( fgSizer4, 1, wx.EXPAND, 5 )
+
+
+		bSizer2.Add( sbSizer21, 1, wx.EXPAND, 5 )
+
 
 		sbSizer2.Add( bSizer2, 0, wx.EXPAND, 5 )
 
@@ -254,35 +253,6 @@ class UiBaseInfo ( wx.Panel ):
 
 
 		sbSizer2.Add( sbSizer12, 0, wx.EXPAND, 5 )
-
-		sbSizer7 = wx.StaticBoxSizer( wx.StaticBox( sbSizer2.GetStaticBox(), BASE_INFO_CN, wx.EmptyString ), wx.VERTICAL )
-
-		fgSizer11 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer11.AddGrowableCol( 1 )
-		fgSizer11.SetFlexibleDirection( wx.BOTH )
-		fgSizer11.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.flef = wx.StaticText( sbSizer7.GetStaticBox(), wx.ID_ANY, _(u"Designs Count"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.flef.Wrap( -1 )
-
-		fgSizer11.Add( self.flef, 0, wx.ALL, 5 )
-
-		self.edit_pbnum = wx.TextCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, _(u"1"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer11.Add( self.edit_pbnum, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_staticText16 = wx.StaticText( sbSizer7.GetStaticBox(), wx.ID_ANY, _(u"Test Point Count"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText16.Wrap( -1 )
-
-		fgSizer11.Add( self.m_staticText16, 0, wx.ALL, 5 )
-
-		self.edit_test_point_count = wx.TextCtrl( sbSizer7.GetStaticBox(), wx.ID_ANY, _(u"0"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		fgSizer11.Add( self.edit_test_point_count, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		sbSizer7.Add( fgSizer11, 1, wx.EXPAND, 5 )
-
-
-		sbSizer2.Add( sbSizer7, 0, wx.EXPAND, 5 )
 
 
 		self.SetSizer( sbSizer2 )

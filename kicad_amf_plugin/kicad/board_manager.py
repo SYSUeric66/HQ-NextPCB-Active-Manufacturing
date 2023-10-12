@@ -13,9 +13,9 @@ class BoardManager :
         return self._board
         
 def load_board_manager():
-    fp = 'D:\\complex_hierarchy\\complex_hierarchy.kicad_pcb'
-    if os.path.exists(fp):
-        return BoardManager(LoadBoard(fp))
+    for fp in  'D:\\complex_hierarchy\\complex_hierarchy.kicad_pcb' ,"D:/tmp/complex_hierarchy/complex_hierarchy.kicad_pcb":
+        if os.path.exists(fp):
+            return BoardManager(LoadBoard(fp))
     #Setup board
     board = GetBoard()
     if board:

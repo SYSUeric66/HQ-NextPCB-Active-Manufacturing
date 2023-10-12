@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-10-12 18:00+0800\n"
-"PO-Revision-Date: 2023-10-12 18:00+0800\n"
+"PO-Revision-Date: 2023-10-13 00:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -34,7 +34,7 @@ msgstr "当前区域无可询价接口"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:142
 msgid "Incorrect form parameter: "
-msgstr "无效的表单参数"
+msgstr "无效的表单参数:"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:153
 msgid "No available url for placing order in current region"
@@ -288,7 +288,7 @@ msgstr "四边"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:74
 msgid "Panel Type X value isn't valid. Please input valid value."
-msgstr "连片长度无效,请输入有效整数"
+msgstr "连片长度无效,请输入有效整数."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:74
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:77
@@ -302,19 +302,19 @@ msgstr "错误"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:77
 msgid "Panel Type Y value isn't valid. Please input valid value."
-msgstr "连片宽度无效,请输入有效整数"
+msgstr "连片宽度无效,请输入有效整数."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:81
 msgid "Break-away Rail value isn't valid. Please input valid value."
-msgstr "工艺边框尺寸无效,请输入有效数字"
+msgstr "工艺边框尺寸无效,请输入有效数字."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:84
 msgid "Test point count isn't valid. Please input valid number."
-msgstr "测试点数量无效，请输入数字"
+msgstr "测试点数量无效，请输入数字."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:87
 msgid "PCB design count isn't valid. Please input valid number."
-msgstr "PCB设计稿数量无效，请输入数字"
+msgstr "PCB设计稿数量无效，请输入数字."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:210
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:174
@@ -689,11 +689,11 @@ msgstr "无需求"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:36
 msgid "BGA isn't valid. Please input valid number."
-msgstr "BGA无效,请输入有效数字"
+msgstr "BGA无效,请输入有效数字."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\special_process_view.py:40
 msgid "Turnhole density isn't valid. Please input valid number."
-msgstr "通孔密度无效,请输入有效数字"
+msgstr "通孔密度无效,请输入有效数字."
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\special_process\ui_special_process.py:23
 msgid "Special Process"
