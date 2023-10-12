@@ -1,10 +1,12 @@
 
+from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
 from .personalized_info_model import PersonalizedInfoModel
 import wx.xrc
 import wx.dataview
 from .ui_personalized import UiPersonalizedService
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .personalized_info_model import PersonalizedInfoModel
+from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
 
 
 TEST_METHOD_CHOICE = {
@@ -20,9 +22,9 @@ UL_MARK_CHOICE = [_(u"No"), _(
     u"UL+Week/Year"), _(u"UL+Year/Week")]
 
 
-class PersonalizedInfoView(UiPersonalizedService):
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
+class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
+    def __init__(self, parent , _):
+        super().__init__(parent)
         self.special_process: PersonalizedInfoModel = None
         self.initUI()
 
@@ -39,9 +41,9 @@ class PersonalizedInfoView(UiPersonalizedService):
 
         self.comb_ul_mark.Append(UL_MARK_CHOICE)
         self.comb_ul_mark.SetSelection(0)
-
-    @property
-    def personalized_info(self):
+        
+    @none_value_fitter    
+    def get_from(self) -> 'dict' :
         info = PersonalizedInfoModel(
             test=TEST_METHOD_CHOICE[self.comb_test_method.StringSelection],
             shipment_report=str(self.comb_delivery_report.GetSelection()),
@@ -53,7 +55,7 @@ class PersonalizedInfoView(UiPersonalizedService):
             film_report=str(self.comb_film.GetSelection()),
             pcb_note=self.edit_special_request.GetValue()
         )
-        return info
+        return vars(info)
 
     def GetReportType(self):
         if self.comb_delivery_report.GetSelection() == 0 and self.combo_microsection_report.GetSelection() == 0:
@@ -80,3 +82,5 @@ class PersonalizedInfoView(UiPersonalizedService):
             return '2'
         elif self.comb_ul_mark.GetSelection() == 2:
             return '1'
+    def on_region_changed(self):
+        pass

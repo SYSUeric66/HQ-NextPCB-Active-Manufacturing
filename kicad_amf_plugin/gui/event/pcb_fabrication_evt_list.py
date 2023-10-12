@@ -19,3 +19,5 @@ PlaceOrder, EVT_PLACE_ORDER = ne.NewCommandEvent()
 MaskColorChange, EVT_MASK_COLOR_CHANGE = ne.NewCommandEvent()
 
 LayerCountChange, EVT_LAYER_COUNT_CHANGE = ne.NewCommandEvent()
+
+OrderRegionChanged, EVT_ORDER_REGION_CHANGED = ne.NewCommandEvent()

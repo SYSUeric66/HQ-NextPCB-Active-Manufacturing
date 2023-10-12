@@ -1,10 +1,12 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
-from kicad_amf_plugin.utils.two_step_setup import TwoStepSetup
+from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
 from .base_info_model import BaseInfoModel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LayerCountChange
 from .ui_base_info import UiBaseInfo , BOX_SIZE_SETTING , BOX_PANEL_SETTING ,BOX_BREAK_AWAY
-from kicad_amf_plugin.utils.validators  import  NumericTextCtrlValidator
+from kicad_amf_plugin.utils.validators  import  NumericTextCtrlValidator ,FloatTextCtrlValidator
 from kicad_amf_plugin.utils.roles import EditDisplayRole
+from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
+
 import pcbnew
 import wx
 
@@ -54,7 +56,7 @@ AVAILABLE_QUANTITY = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250
     700, 800, 900, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 9000, 10000]
 
 
-class BaseInfoView(UiBaseInfo,TwoStepSetup):
+class BaseInfoView(UiBaseInfo,FormPanelBase):
     def __init__(self, parent, board_manager : BoardManager  ):
         super().__init__(parent)
         self.board_manager = board_manager
@@ -62,8 +64,23 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
         self.combo_layer_count.Bind(wx.EVT_CHOICE , self.on_layer_count_changed)
-        for editor in self.edit_panel_x , self.edit_panel_y ,self.edit_margin_size:
+        for editor in self.edit_panel_x , self.edit_panel_y :
             editor.SetValidator(NumericTextCtrlValidator())
+        self.edit_margin_size.SetValidator(FloatTextCtrlValidator())
+
+    def is_valid(self) -> bool:
+        if self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE:
+            if not self.edit_panel_x.Validate():
+                wx.MessageBox(_("Panel Type X value isn't valid. Please input valid value."), _("Error"), wx.OK | wx.ICON_ERROR)
+                return False
+            if not self.edit_panel_y.Validate():
+                wx.MessageBox(_("Panel Type Y value isn't valid. Please input valid value."), _("Error"), wx.OK | wx.ICON_ERROR)
+                return False
+        if self.edit_margin_size.Enabled:
+            if not self.edit_margin_size.Validate():
+                wx.MessageBox(_("Break-away Rail value isn't valid. Please input valid value."), _("Error"), wx.OK | wx.ICON_ERROR)
+                return False       
+        return True
 
     @property
     def box_piece_or_panel_size(self):
@@ -109,10 +126,10 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
             if self.margin_mode in (  MarginMode.LEFT_RIGHT , MarginMode.ALL_4_SIDE ):
                 return float(self.edit_size_y.GetValue()) * int(self.edit_panel_y.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
             else:
-                return float(self.edit_size_y.GetValue()) * int(self.edit_panel_y.GetValue())                    
-
-    @property
-    def base_info(self):
+                return float(self.edit_size_y.GetValue()) * int(self.edit_panel_y.GetValue())    
+                     
+    @none_value_fitter
+    def get_from(self) -> 'dict' :
         data = BaseInfoModel(
             blayer=  self.combo_layer_count.GetStringSelection() ,
             plate_type=AVAILABLE_MATERIAL_TYPES[0] , 
@@ -131,7 +148,7 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         if self.margin_mode != MarginMode.NA:
             data.sidewidth = self.edit_margin_size.GetValue()
     
-        return data
+        return vars(data)
 
 
     def init(self):
@@ -186,7 +203,7 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
             self.label_quantity.SetLabel(_('Qty(Set)'))
             self.label_quantity_unit.SetLabel(_('Set'))
         
-        self.box_panel_setting.Enabled = self.pcb_package_kind  == PcbPackageKind.PANEL_BY_NEXT_PCB # Only while the option is by HuaQiu
+        self.box_panel_setting.Enabled = self.pcb_package_kind  != PcbPackageKind.SINGLE_PIECE 
         self.box_break_away.Enabled = self.pcb_package_kind  != PcbPackageKind.PANEL_BY_CUSTOMER  # Only Disabled while the option is by customer
         self.on_margin_mode_changed()
    
@@ -205,5 +222,6 @@ class BaseInfoView(UiBaseInfo,TwoStepSetup):
         else:
             return n
 
-
+    def on_region_changed(self):
+        pass
 

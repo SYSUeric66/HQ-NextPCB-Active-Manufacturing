@@ -9,15 +9,17 @@ VENDOR_NAME = 'NextPCB'
 
 LANGUAGE = 'language'
 
-
 ORDER_REGION = "order_region"
-AVAILABLE_REGIONS = [ _(u"CN"), _(u"JP"), _(u"EU/USA") ]
 
 PRICE_UNIT = {
     0 : '¥',
     1 : '$'
 }
 
+TRANSLATED_PRICE_UNIT = {
+    '¥' : '元',
+    '$' : '美元'
+}
 
 class _SettingManager(wx.EvtHandler) :
     def __init__(self) -> None:
@@ -64,8 +66,12 @@ class _SettingManager(wx.EvtHandler) :
     def order_region(self):
         return self.app_conf.ReadInt(ORDER_REGION)
 
-    def get_price_unit(self):
-        return PRICE_UNIT[0] if not self.order_region  else PRICE_UNIT[1]
-
+    def get_price_unit(self,translated = False):
+            sym = '¥' if not self.order_region  else '$'
+            if not translated:
+                return sym
+            if self.language == wx.LANGUAGE_CHINESE_SIMPLIFIED:
+                return TRANSLATED_PRICE_UNIT[sym]
+            return sym
 
 SETTING_MANAGER = _SettingManager()

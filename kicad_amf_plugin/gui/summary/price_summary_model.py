@@ -42,11 +42,10 @@ class PriceSummaryModel(dv.PyDataViewModel):
         return self._pcb_quantity
 
     def update_price(self, price : 'dict'):
-        print(price)
         for i in  PriceCategory.PCB,  PriceCategory.SMT ,   PriceCategory.BOM:
             if i.value in price:
                 self.price_category[i].update(price[i.value])
-                self.ItemChanged(self.ObjectToItem(self.price_category[i]))
+        self.Cleared()
  
     def get_sum(self):
         s = 0

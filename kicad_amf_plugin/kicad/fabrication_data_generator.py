@@ -43,10 +43,6 @@ class FabricationDataGenerator:
         self.corrections = []
         self.path, self.filename = os.path.split(self.board.GetFileName())
 
-    def __del__(self)        :
-        if os.path.exists(self.nextpcb_root):
-            shutil.rmtree(self.nextpcb_root)
-
     @property
     def nextpcb_root(self):
         return os.path.join(self.path, "nextpcb_amf")

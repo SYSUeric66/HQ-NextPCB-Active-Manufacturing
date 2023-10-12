@@ -1,5 +1,6 @@
 
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
 from .ui_special_process import UiSpecialProcess
 from .special_process_model import SpecialProcessModel
 import wx
@@ -7,7 +8,7 @@ import wx.xrc
 import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .special_process_model import SpecialProcessModel
-
+from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
 
 HDI_STRUCTURE_CHOICE = [_(u"Rank 1"), _(u"Rank 2"), _(u"Rank 3")]
 
@@ -15,7 +16,7 @@ STACKUP_CHOICE = [_(u"No Requirement"), _(
     u"Customer Specified Stack up")]
 
 
-class SpecialProcessView(UiSpecialProcess):
+class SpecialProcessView(UiSpecialProcess,FormPanelBase):
     def __init__(self, parent, board_manager: BoardManager):
         super().__init__(parent)
         self.board_manager = board_manager
@@ -36,9 +37,9 @@ class SpecialProcessView(UiSpecialProcess):
         self.combo_stackup.Append(STACKUP_CHOICE)
         self.combo_stackup.SetSelection(0)
         self.combo_hdi_structure.Enabled = False
-
-    @property
-    def special_process_info(self):
+        
+    @none_value_fitter    
+    def get_from(self) -> 'dict' :
         info = SpecialProcessModel(
             impendance= str(self.combo_impedance.GetSelection()),
             bankong= str(self.combo_halfHole.GetSelection()),
@@ -48,7 +49,7 @@ class SpecialProcessView(UiSpecialProcess):
         )
         if self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
             info.pressing = 'Customer Specified Stack up'
-        return info
+        return  vars(info)
 
     @property
     def layer_count(self):
@@ -72,3 +73,6 @@ class SpecialProcessView(UiSpecialProcess):
             return "2"
         elif self.combo_hdi_structure.GetSelection() == 2:
             return "3"
+        
+    def on_region_changed(self):
+        pass

@@ -1,8 +1,9 @@
 
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from .process_info_model import ProcessInfoModel
-from kicad_amf_plugin.utils.two_step_setup import TwoStepSetup
+from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
 
 from .ui_process_info import UiProcessInfo
 import wx
@@ -72,7 +73,7 @@ SILK_SCREEN_COLOR_BY_SOLDER_COLOR = {
 }
 
 
-class ProcessInfoView(UiProcessInfo, TwoStepSetup):
+class ProcessInfoView(UiProcessInfo, FormPanelBase):
     def __init__(self, parent, board_manager: BoardManager):
         super().__init__(parent)
         self.board_manager = board_manager
@@ -82,9 +83,9 @@ class ProcessInfoView(UiProcessInfo, TwoStepSetup):
         self.combo_solder_color.Bind(wx.EVT_CHOICE, self.OnMaskColorChange)
 
         self.Fit()
-
-    @property
-    def process_info(self):
+        
+    @none_value_fitter    
+    def get_from(self) -> 'dict' :
         info = ProcessInfoModel(
             bheight=self.combo_board_thickness.GetStringSelection(),
             copper=str(
@@ -104,15 +105,12 @@ class ProcessInfoView(UiProcessInfo, TwoStepSetup):
             )],
 
         )
-
         if (self.layer_count > 2):
             info.insidecopper = str(
                 self.combo_inner_copper_thickness.GetStringSelection()).removesuffix(OZ)
-
         if (self.combo_surface_process.GetCurrentSelection() == 2):
             info.cjh = str(self.combo_gold_thickness.GetCurrentSelection() + 1)
-
-        return info
+        return vars(info)
 
     def init(self):
         self.initUI()
@@ -245,3 +243,6 @@ class ProcessInfoView(UiProcessInfo, TwoStepSetup):
         self.combo_silk_screen_color.Append(
             SILK_SCREEN_COLOR_BY_SOLDER_COLOR[self.combo_solder_color.GetStringSelection()])
         self.combo_silk_screen_color.SetSelection(0)
+
+    def on_region_changed(self):
+        pass

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import wx.dataview as dv
-from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER ,TRANSLATED_PRICE_UNIT
 
 
 @dataclass
@@ -54,7 +54,7 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
             elif VALUE == col:
                 return f'{self.summary.cost}' if self.summary.pcb_quantity else "-"
             elif UNIT == col:
-                return _("$")
+                return SETTING_MANAGER.get_price_unit(True)
 
     # Report how many columns this model provides data for.
     def GetColumnCount(self):
@@ -84,4 +84,4 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
 
     def update_order_info(self, data: OrderSummary):
         self.summary = data
-        self.Reset(ORDER_SUMMARY_ROW_COUNT)
+        self.Cleared()
