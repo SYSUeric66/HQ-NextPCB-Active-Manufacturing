@@ -166,14 +166,15 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
         minTraceClearance = designSettings.m_MinClearance
         minHoleSize = designSettings.m_MinThroughDrill
         self.combo_inner_copper_thickness.Enabled = self.layer_count > 2
-
+        
+        self.setup_available_thickness(self.layer_count)
         self.set_board_thickness(pcbnew.ToMM(boardThickness))
         self.set_min_trace(pcbnew.ToMils(minTraceWidth),
                            pcbnew.ToMils(minTraceClearance))
         self.set_min_hole(pcbnew.ToMM(minHoleSize))
 
-    def on_layer_count_changed(self, event):
-        layer_count = event.GetInt()
+    def setup_available_thickness(self, event):
+        layer_count = event if  isinstance(event ,int)  else event.GetInt()
         self.combo_board_thickness.Clear()
         val_list = THICKNESS_SETTING[str(layer_count)]
         self.combo_board_thickness.Append(val_list)
