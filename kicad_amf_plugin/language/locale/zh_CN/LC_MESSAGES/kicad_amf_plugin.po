@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-10-13 17:19+0800\n"
-"PO-Revision-Date: 2023-10-13 17:20+0800\n"
+"POT-Creation-Date: 2023-10-13 18:34+0800\n"
+"PO-Revision-Date: 2023-10-13 18:36+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -24,19 +24,19 @@ msgstr "重启插件以应用新的语言配置？"
 msgid "Tip"
 msgstr "提示"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:52
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:53
 msgid "HQ NextPCB Active Manufacturing"
 msgstr "HQ NextPCB Active Manufacturing"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:125
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:126
 msgid "No available url for querying price in current region"
 msgstr "当前区域无可询价接口"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:161
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:163
 msgid "Incorrect form parameter: "
 msgstr "无效的表单参数: "
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:172
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:174
 msgid "No available url for placing order in current region"
 msgstr "当前区域无可下单接口"
 
@@ -205,8 +205,13 @@ msgid "Qty"
 msgstr "数量"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\summary_panel.py:30
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\summary_panel.py:40
 msgid "Price"
 msgstr "价格"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\summary_panel.py:38
+msgid "Item"
+msgstr "项目"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\ui_summary_panel.py:30
 msgid "Preference"

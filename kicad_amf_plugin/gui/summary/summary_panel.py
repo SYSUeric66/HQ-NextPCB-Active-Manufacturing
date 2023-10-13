@@ -35,9 +35,9 @@ class SummaryPanel(UiSummaryPanel):
         self.list_order_summary.AssociateModel(self.model_order_summary)
 
         self.list_price_detail.AppendTextColumn(
-            "Item",  0, width=120 , mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            _("Item"),  0, width=120 , mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
         self.list_price_detail.AppendTextColumn(
-            "Price",   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_RIGHT)
+            _("Price"),   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_RIGHT)
 
         self.model_price_summary = PriceSummaryModel()
         self.list_price_detail.AssociateModel(self.model_price_summary)
