@@ -1,15 +1,11 @@
 from enum import Enum
+from .supported_region import SupportedRegion
 import wx
 class URL_KIND(Enum):
     QUERY_PRICE =0
     PLACE_ORDER =1
 
 
-
-class SupportedRegion:
-    CHINA_MAINLAND = 0
-    JAPAN = 1
-    EUROPE_USA = 2
 
 
 class OrderRegion :

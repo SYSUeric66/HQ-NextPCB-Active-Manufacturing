@@ -55,9 +55,7 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
             blind=self.GetBlindValue(),
             via_in_pad='N/A' if self.combo_pad_hole.GetStringSelection() else 'Have',
             beveledge=str(self.combo_goldFinger.GetSelection()) ,
-            baobian= self.combo_baobian.GetStringSelection(),
-            bga= self.edit_bga.GetValue(),
-            zknum= self.edit_turnhole_density.GetValue()
+            baobian= self.combo_baobian.GetStringSelection()
         )
         if self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
             info.pressing = 'Customer Specified Stack up'

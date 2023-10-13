@@ -23,11 +23,11 @@ class SummaryPanel(UiSummaryPanel):
 
     def init_ui(self):
         self.list_order_summary.AppendTextColumn(
-            "ITEM",  1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            "Build Time",  0, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
         self.list_order_summary.AppendTextColumn(
-            "QUANTITY",   2, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_CENTER)
+            "Qty",   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_CENTER)
         self.list_order_summary.AppendTextColumn(
-            "UNIT",   3, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            "Price",   2, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
 
         self.list_order_summary.SetMinSize(
             wx.Size(-1, SummaryPanel.GetLineHeight(self) * 3 + 30))
@@ -45,7 +45,7 @@ class SummaryPanel(UiSummaryPanel):
 
     def on_price_updated(self, price : 'dict'):
         self.model_price_summary.update_price(price)
-        self.model_order_summary.update_order_info(OrderSummary(cost= self.model_price_summary.get_sum() ,days= price['day'] , pcb_quantity= price['pcb_count'] ))
+        self.model_order_summary.update_order_info(OrderSummary(price= self.model_price_summary.get_sum() ,build_time= price['day'] , pcb_quantity= price['pcb_count'] ))
 
     def on_update_price_clicked(self ,ev):
         evt =  UpdatePrice(id= -1)

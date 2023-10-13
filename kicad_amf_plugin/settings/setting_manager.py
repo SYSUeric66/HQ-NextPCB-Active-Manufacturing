@@ -3,6 +3,8 @@ import wx
 import os
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LocaleChangeEvent
 from .kicad_setting import KiCadSetting
+from kicad_amf_plugin.order.supported_region import SupportedRegion
+
 APP_NAME = 'kicad_amf_plugin'
 
 VENDOR_NAME = 'NextPCB'
@@ -24,6 +26,12 @@ TRANSLATED_PRICE_UNIT = {
     '¥' : '元',
     '$' : '美元'
 }
+
+
+CN_JP_BUILD_TIME_FORMATTER = '{time}{unit}'
+
+EN_BUILD_TIME_FORMATTER = '{time} {unit}'
+
 
 class _SettingManager(wx.EvtHandler) :
     def __init__(self) -> None:
@@ -87,6 +95,10 @@ class _SettingManager(wx.EvtHandler) :
             if self.language == wx.LANGUAGE_CHINESE_SIMPLIFIED:
                 return TRANSLATED_PRICE_UNIT[sym]
             return sym
+    
+    def get_build_time_formatter(self):
+        return EN_BUILD_TIME_FORMATTER if SupportedRegion.EUROPE_USA == self.order_region else CN_JP_BUILD_TIME_FORMATTER
+
     def set_window_size(self, s : 'tuple[int,int]'):
         self.app_conf.WriteInt(key= WIDTH, value= s[0])
         self.app_conf.WriteInt(key= HEIGHT, value= s[1])

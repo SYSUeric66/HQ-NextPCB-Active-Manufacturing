@@ -124,6 +124,8 @@ class MainFrame (wx.Frame):
             data = fp.read()
             encoding = fp.info().get_content_charset('utf-8')
             quote = json.loads(data.decode(encoding))
+            with open("D:/response.json",'w') as f:
+                f.write(data.decode(encoding))
             if DATA in quote and LIST in quote[DATA]:
                 summary = quote[DATA][LIST]
                 summary['pcb_count'] = self._pcb_form_parts[PCBFormPart.BASE_INFO].get_pcb_count()
@@ -138,7 +140,7 @@ class MainFrame (wx.Frame):
                             summary['day'] = int(day[0])
                 self.summary_view.on_price_updated(summary)
             else :
-                print(quote)
+                Logger.error(quote)
                 err_msg = quote
                 if 'msg' in quote:
                     err_msg = quote['msg']
