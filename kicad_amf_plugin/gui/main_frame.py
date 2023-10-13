@@ -43,7 +43,7 @@ class MainFrame (wx.Frame):
 
     def __init__(self, board_manager: BoardManager,  parent=None):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
-                          pos=wx.DefaultPosition, size=wx.Size(900, 600), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+                          pos=wx.DefaultPosition, size=wx.Size(800, 700), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self._board_manager = board_manager
         self._fabrication_data_gen = None
         self._pcb_form_parts : 'dict[PCBFormPart, FormPanelBase]' = {}

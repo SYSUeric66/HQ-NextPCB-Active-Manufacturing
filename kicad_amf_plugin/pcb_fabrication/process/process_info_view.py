@@ -159,7 +159,7 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
 
     def loadBoardInfo(self):
         for i in self.label_immersion_gold, self.combo_gold_thickness:
-            i.Enabled = False
+            i.Show(False)
         designSettings = self.board_manager.board.GetDesignSettings()
         boardThickness = designSettings.GetBoardThickness()
         minTraceWidth = designSettings.m_TrackMinWidth
@@ -182,7 +182,9 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
 
     def on_surface_process_changed(self, evt=None):
         for i in self.label_immersion_gold, self.combo_gold_thickness:
-            i.Enabled = self.combo_surface_process.GetSelection() == 2
+            i.Show(self.combo_surface_process.GetSelection() == 2)
+        self.Layout()
+        self.Parent.Layout()
 
     def set_board_thickness(self, thickness):
         for i in range(self.combo_board_thickness.GetCount()):

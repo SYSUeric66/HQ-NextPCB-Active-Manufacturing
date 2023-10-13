@@ -64,7 +64,7 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
         self.combo_layer_count.Bind(wx.EVT_CHOICE , self.on_layer_count_changed)
-        for editor in self.edit_panel_x , self.edit_panel_y  ,self.edit_test_point_count , self.edit_pbnum:
+        for editor in self.edit_panel_x , self.edit_panel_y :
             editor.SetValidator(NumericTextCtrlValidator())
         self.edit_margin_size.SetValidator(FloatTextCtrlValidator())
 
@@ -79,13 +79,7 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         if self.edit_margin_size.Enabled:
             if not self.edit_margin_size.Validate():
                 wx.MessageBox(_("Break-away Rail value isn't valid. Please input valid value."), _("Error"), wx.OK | wx.ICON_ERROR)
-                return False     
-        if not self.edit_test_point_count.Validate():
-            wx.MessageBox(_("Test point count isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
-            return False       
-        if not self.edit_pbnum.Validate():
-            wx.MessageBox(_("PCB design count isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
-            return False                       
+                return False
         return True
 
     @property
@@ -106,7 +100,7 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
 
     @property
     def margin_mode(self):
-        return  MarginMode.MARGIN_MODE_CHOICE[int(self.comb_margin_mode.GetSelection())].EditRole         
+        return  MarginMode.MARGIN_MODE_CHOICE[int(self.comb_margin_mode.GetSelection())].EditRole
 
     @convert_pcb_geometry()
     def get_pcb_length(self):
@@ -144,9 +138,7 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
             blength = str(self.get_pcb_length()),
             bwidth= str(self.get_pcb_width()),
             bcount= self.combo_quantity.GetStringSelection(),
-            sidedirection= str(self.margin_mode),
-            pbnum= int(self.edit_pbnum.GetValue()),
-            testpoint= int(self.edit_test_point_count.GetValue())
+            sidedirection= str(self.margin_mode)
         )
 
         if self.pcb_package_kind in (PcbPackageKind.PANEL_BY_CUSTOMER , PcbPackageKind.PANEL_BY_NEXT_PCB) :
@@ -189,7 +181,7 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         for i in self.edit_size_x  , self.edit_size_y:
             i.SetEditable(False)
         self.edit_margin_size.Enabled = False
-        self.box_panel_setting.Enabled = False  
+        self.box_panel_setting.Show(self.pcb_package_kind  != PcbPackageKind.SINGLE_PIECE)
 
     def loadBoardInfo(self):
         boardWidth = pcbnew.ToMM(
@@ -214,11 +206,13 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
             self.box_piece_or_panel_size.SetLabelText(_('Size (set)'))
             self.label_quantity.SetLabel(_('Qty(Set)'))
             self.label_quantity_unit.SetLabel(_('Set'))
-        
-        self.box_panel_setting.Enabled = self.pcb_package_kind  != PcbPackageKind.SINGLE_PIECE 
-        self.box_break_away.Enabled = self.pcb_package_kind  != PcbPackageKind.PANEL_BY_CUSTOMER  # Only Disabled while the option is by customer
+
+        self.box_panel_setting.Show(self.pcb_package_kind  != PcbPackageKind.SINGLE_PIECE)
+        self.box_break_away.Enabled = self.pcb_package_kind  != PcbPackageKind.PANEL_BY_CUSTOMER
         self.on_margin_mode_changed()
-   
+        self.Layout()
+        self.Parent.Layout()
+
     def on_margin_mode_changed(self, event = None):
         self.edit_margin_size.Enabled = self.margin_mode != MarginMode.NA
 
