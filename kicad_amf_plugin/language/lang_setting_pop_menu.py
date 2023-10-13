@@ -6,8 +6,8 @@ from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 class LangSettingPopMenu(wx.Menu):
     def __init__(self , current_lang_id  : int):
         super().__init__()
-        for idx ,lang in enumerate(SUPPORTED_LANG):
-            item = wx.MenuItem(self,  lang,  _(SUPPORTED_LANG[lang]) )
+        for lang in SUPPORTED_LANG:
+            item = wx.MenuItem(self,  lang,  _(SUPPORTED_LANG[lang].Name) )
             if current_lang_id == lang :
                 item.SetBitmap(Smiles.GetBitmap())
             self.Append(item)

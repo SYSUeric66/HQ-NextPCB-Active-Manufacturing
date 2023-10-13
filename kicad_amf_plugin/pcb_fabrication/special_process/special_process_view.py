@@ -27,18 +27,9 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
         self.initUI()
         self.combo_blind_via.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
         self.combo_blind_via.Bind(wx.EVT_CHOICE, self.on_HDI_changed)
-        self.edit_bga.SetValidator(FloatTextCtrlValidator())
-        self.edit_turnhole_density.SetValidator(NumericTextCtrlValidator())
+
 
     def is_valid(self) -> bool:
-        if  len(self.edit_bga.GetValue()) :
-            if not self.edit_bga.Validate():
-                wx.MessageBox(_("BGA isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
-                return False
-        if len(self.edit_turnhole_density.GetValue()):
-            if not self.edit_turnhole_density.Validate():
-                wx.MessageBox(_("Turnhole density isn't valid. Please input valid number."), _("Error"), wx.OK | wx.ICON_ERROR)
-                return False
         return True
 
     def initUI(self):
@@ -96,4 +87,4 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
             return "3"
         
     def on_region_changed(self):
-        self.edit_bga.Enabled = SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND
+        pass

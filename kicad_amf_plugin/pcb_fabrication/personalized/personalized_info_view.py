@@ -5,7 +5,7 @@ from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
 from .personalized_info_model import PersonalizedInfoModel
 import wx.xrc
 import wx.dataview
-from .ui_personalized import UiPersonalizedService
+from .ui_personalized import UiPersonalizedService , BOX_SP_REQUEST
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .personalized_info_model import PersonalizedInfoModel
 from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
@@ -59,6 +59,7 @@ class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
     def __init__(self, parent , _):
         super().__init__(parent)
         self.special_process: PersonalizedInfoModel = None
+        self.sp_box = self.FindWindowById(BOX_SP_REQUEST)
         self.initUI()
 
     def initUI(self):
@@ -104,11 +105,13 @@ class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
             has_period=str(self.GetHasPeriod()),
             period_format=self.GetPeriodFormat() if self.comb_ul_mark.GetSelection() else None,
             film_report=str(self.comb_film.GetSelection()),
-            pcb_note=self.edit_special_request.GetValue() if self.edit_special_request.Enabled else None,
             cross_board= CROSS_BOARD[self.combo_cross_board.GetSelection()].EditRole,
             paper = PAPER[self.combo_paper.GetSelection()].EditRole,
             user_stamp= USER_STAMP[self.combo_user_stamp.GetSelection()].EditRole,
-            hq_pack= HQ_PACK[int(self.combo_hq_pack.GetSelection())].EditRole  if self.combo_hq_pack.Enabled else None,
+
+            hq_pack= HQ_PACK[int(self.combo_hq_pack.GetSelection())].EditRole  if self.combo_hq_pack.Shown else None,
+            pcb_note=self.edit_special_request.GetValue() if self.edit_special_request.Shown else None,
+
         )
         return vars(info)
 
@@ -131,6 +134,10 @@ class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
             return '2'
         elif self.comb_ul_mark.GetSelection() == 2:
             return '1'
+        
     def on_region_changed(self):
-        self.combo_hq_pack.Enabled = SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND
-        self.edit_special_request.Enabled = SETTING_MANAGER.order_region != SupportedRegion.CHINA_MAINLAND
+        for i in self.combo_hq_pack , self.label_hq_pack:
+            i.Show(SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND)
+        self.sp_box.Show(SETTING_MANAGER.order_region != SupportedRegion.CHINA_MAINLAND)
+        if SETTING_MANAGER.get_main_wind() is not None:
+            SETTING_MANAGER.get_main_wind().adjust_size()        

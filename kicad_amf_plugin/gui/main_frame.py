@@ -47,6 +47,7 @@ class MainFrame (wx.Frame):
         self._board_manager = board_manager
         self._fabrication_data_gen = None
         self._pcb_form_parts : 'dict[PCBFormPart, FormPanelBase]' = {}
+        SETTING_MANAGER.register_main_wind(self)
         self.init_ui()
 
     def init_ui(self):
@@ -82,6 +83,7 @@ class MainFrame (wx.Frame):
 
         for i in self._pcb_form_parts.values():
             i.init()
+            i.on_region_changed()            
 
         self.SetSizer(main_sizer)
         self.Layout()
@@ -166,10 +168,16 @@ class MainFrame (wx.Frame):
                 webbrowser.open(uat_url)        
         except Exception as e :
             wx.MessageBox(str(e))
+    def adjust_size(self):
+        for i in self._pcb_form_parts.values() :
+            i.Layout()
+        self.Layout()
+
 
     def on_order_region_changed(self,ev):
         for i in self._pcb_form_parts.values() :
             i.on_region_changed()
+        self.adjust_size()
 
 
     def OnSize(self, evt ):

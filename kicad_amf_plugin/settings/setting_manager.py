@@ -28,6 +28,8 @@ TRANSLATED_PRICE_UNIT = {
 class _SettingManager(wx.EvtHandler) :
     def __init__(self) -> None:
         self.app : wx.App = None
+        self.wind : wx.TopLevelWindow = None
+
         sp = wx.StandardPaths.Get()
         config_loc = sp.GetUserConfigDir()
         config_loc = os.path.join(config_loc, APP_NAME)
@@ -43,11 +45,17 @@ class _SettingManager(wx.EvtHandler) :
         if not self.app_conf.HasEntry(LANGUAGE):
             self.set_language(KiCadSetting.read_lang_setting())
             self.app_conf.Flush()
-        if not self.app_conf.HasEntry(WIDTH) or self.app_conf.HasEntry(HEIGHT):
+        if not self.app_conf.HasEntry(WIDTH) or not self.app_conf.HasEntry(HEIGHT):
             self.set_window_size((660,700))
 
     def register_app(self, app : wx.App):
-        self.app = app            
+        self.app = app        
+
+    def register_main_wind(self , wind : wx.TopLevelWindow):
+        self.wind = wind
+
+    def get_main_wind(self ):
+        return self.wind
 
     def set_language( self, now : int ):
         old = self.language
@@ -83,7 +91,7 @@ class _SettingManager(wx.EvtHandler) :
         self.app_conf.WriteInt(key= WIDTH, value= s[0])
         self.app_conf.WriteInt(key= HEIGHT, value= s[1])
         self.app_conf.Flush()
-
+        
     def get_window_size(self) :
         return wx.Size(self.app_conf.ReadInt(WIDTH) , self.app_conf.ReadInt(HEIGHT))
     

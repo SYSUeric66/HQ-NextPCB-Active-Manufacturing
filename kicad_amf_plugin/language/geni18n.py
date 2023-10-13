@@ -24,7 +24,7 @@ from  lang_const import SUPPORTED_LANG ,LANG_DOMAIN
 supportedLang = []
 for l in SUPPORTED_LANG:
     if l != wx.LANGUAGE_ENGLISH:
-        supportedLang.append(SUPPORTED_LANG[l])
+        supportedLang.append(SUPPORTED_LANG[l].Code )
 
 import os
 import sys

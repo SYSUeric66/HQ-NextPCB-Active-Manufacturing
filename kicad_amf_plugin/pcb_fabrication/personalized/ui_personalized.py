@@ -10,6 +10,7 @@
 import wx
 import wx.xrc
 
+BOX_SP_REQUEST = 1030
 
 ###########################################################################
 ## Class UiPersonalizedService
@@ -127,10 +128,10 @@ class UiPersonalizedService ( wx.Panel ):
 		self.combo_user_stamp.SetSelection( 0 )
 		fgSizer25.Add( self.combo_user_stamp, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText11 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"HQ Pack"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText11.Wrap( -1 )
+		self.label_hq_pack = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"HQ Pack"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_hq_pack.Wrap( -1 )
 
-		fgSizer25.Add( self.m_staticText11, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.label_hq_pack, 0, wx.ALL, 5 )
 
 		combo_hq_packChoices = []
 		self.combo_hq_pack = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_hq_packChoices, 0 )
@@ -140,15 +141,15 @@ class UiPersonalizedService ( wx.Panel ):
 
 		labelProcessInfo.Add( fgSizer25, 0, wx.EXPAND, 5 )
 
-		sbSizer15 = wx.StaticBoxSizer( wx.StaticBox( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Special Request") ), wx.VERTICAL )
+		sp_box = wx.StaticBoxSizer( wx.StaticBox( labelProcessInfo.GetStaticBox(), BOX_SP_REQUEST, _(u"Special Request") ), wx.VERTICAL )
 
-		self.edit_special_request = wx.TextCtrl( sbSizer15.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		self.edit_special_request = wx.TextCtrl( sp_box.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
 		self.edit_special_request.SetMinSize( wx.Size( -1,60 ) )
 
-		sbSizer15.Add( self.edit_special_request, 1, wx.ALL|wx.EXPAND, 5 )
+		sp_box.Add( self.edit_special_request, 1, wx.ALL|wx.EXPAND, 5 )
 
 
-		labelProcessInfo.Add( sbSizer15, 1, wx.EXPAND, 5 )
+		labelProcessInfo.Add( sp_box, 1, wx.EXPAND, 5 )
 
 
 		self.SetSizer( labelProcessInfo )

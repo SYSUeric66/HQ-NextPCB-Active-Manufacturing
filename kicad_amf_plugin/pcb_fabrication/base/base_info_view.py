@@ -1,4 +1,5 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
 from .base_info_model import BaseInfoModel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LayerCountChange
@@ -210,8 +211,8 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
         self.box_panel_setting.Show(self.pcb_package_kind  != PcbPackageKind.SINGLE_PIECE)
         self.box_break_away.Enabled = self.pcb_package_kind  != PcbPackageKind.PANEL_BY_CUSTOMER
         self.on_margin_mode_changed()
-        self.Layout()
-        self.Parent.Layout()
+        if SETTING_MANAGER.get_main_wind() is not None:
+            SETTING_MANAGER.get_main_wind().adjust_size()
 
     def on_margin_mode_changed(self, event = None):
         self.edit_margin_size.Enabled = self.margin_mode != MarginMode.NA
