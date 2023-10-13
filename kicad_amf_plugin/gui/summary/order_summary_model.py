@@ -14,7 +14,7 @@ AVAILABLE_TIME_UNIT = {
 BuildTime = namedtuple('BuildTime' ,['Time' ,'Unit'])
 
 
-class OrderSummaryCol(Enum):
+class OrderSummaryCol:
     BUILD_TIME = 0
     QUANTITY = BUILD_TIME + 1
     PRICE = QUANTITY + 1
@@ -31,7 +31,7 @@ class OrderSummary:
 
 class OrderSummaryModel(dv.DataViewIndexListModel):
     def __init__(self):
-        dv.DataViewIndexListModel.__init__(self, 0)
+        dv.DataViewIndexListModel.__init__(self)
         self.orders_summary : 'list[OrderSummary]' = []
 
     # This method is called to provide the data object for a
@@ -39,9 +39,9 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
     def GetValueByRow(self, row  : int , col : int):
         order = self.orders_summary[row]
         map = {
-            OrderSummaryCol.BUILD_TIME : SETTING_MANAGER.get_build_time_formatter().format(time  = order.build_time.Time , unit = order.build_time.Unit),
-            OrderSummaryCol.QUANTITY : order.pcb_quantity,
-            OrderSummaryCol.PRICE :  f'{SETTING_MANAGER.get_price_unit(True)}{order.price}'
+            0 : SETTING_MANAGER.get_build_time_formatter().format(time  = order.build_time.Time , unit = _(order.build_time.Unit)),
+            1 : str(order.pcb_quantity),
+            2 :  f'{SETTING_MANAGER.get_price_unit()}{order.price}'
         }
         return map[col]
     
@@ -71,6 +71,9 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
         #     return True
         return False
 
-    def update_order_info(self, data: OrderSummary):
+    def update_order_info(self, data : 'list[OrderSummary]'):
         self.orders_summary = data
-        self.Cleared()
+        self.Reset(len(data))
+    
+    def clear_content(self):
+        self.orders_summary = []

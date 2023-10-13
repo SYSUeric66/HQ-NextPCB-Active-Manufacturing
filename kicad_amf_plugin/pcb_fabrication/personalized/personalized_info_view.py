@@ -59,7 +59,6 @@ class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
     def __init__(self, parent , _):
         super().__init__(parent)
         self.special_process: PersonalizedInfoModel = None
-        self.sp_box = self.FindWindowById(BOX_SP_REQUEST)
         self.initUI()
 
     def initUI(self):
@@ -128,6 +127,9 @@ class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
             return '2'
         else:
             return '6'
+    @property
+    def sp_box(self):
+        return self.FindWindowById(BOX_SP_REQUEST)
 
     def GetPeriodFormat(self):
         if self.comb_ul_mark.GetSelection() == 1:

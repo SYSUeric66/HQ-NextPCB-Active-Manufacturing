@@ -159,3 +159,7 @@ class PriceSummaryModel(dv.PyDataViewModel):
             attr.SetBold(True)
             return True
         return False
+    
+    def clear_content(self):
+        for i in  PriceCategory.PCB,  PriceCategory.SMT ,   PriceCategory.BOM:
+            self.price_category[i].clear() 

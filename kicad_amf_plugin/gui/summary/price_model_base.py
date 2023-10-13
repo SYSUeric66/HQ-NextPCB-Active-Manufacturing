@@ -37,3 +37,6 @@ class PriceModelBase :
 
     def item_names(self):
         return []
+    
+    def clear(self):
+        pass

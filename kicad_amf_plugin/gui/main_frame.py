@@ -12,6 +12,7 @@ from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
 from kicad_amf_plugin.api.base_request import BaseRequest
 from kicad_amf_plugin.utils.request_helper import RequestHelper
+from kicad_amf_plugin.gui.summary.order_summary_model import OrderSummary ,BuildTime
 import wx
 import wx.xrc
 import wx.dataview
@@ -38,6 +39,13 @@ PCB_PANEL_CTORS = {
 
 DATA = 'data'
 LIST ='list'
+SUGGEST = 'suggest'
+DEL_TIME ='deltime'
+NAME ='name'
+PCS_COUNT = 'pcs_count'
+TOTAL ='total'
+PCB ='pcb'
+
 
 class MainFrame (wx.Frame):
 
@@ -128,17 +136,25 @@ class MainFrame (wx.Frame):
                 f.write(data.decode(encoding))
             if DATA in quote and LIST in quote[DATA]:
                 summary = quote[DATA][LIST]
-                summary['pcb_count'] = self._pcb_form_parts[PCBFormPart.BASE_INFO].get_pcb_count()
-                summary['day'] = 0
-                if 'pcb' in summary and 'deltime' in summary['pcb']:
-                    day = str(summary['pcb']['deltime']).split(' ')
-                    if len(day) == 2:
-                        if day[1] ==  'hours':
-                            days = int(day[0])/24
-                            summary['day'] =  int(days) if int(days) != 0 else  days
-                        else:
-                            summary['day'] = int(day[0])
-                self.summary_view.on_price_updated(summary)
+                self.summary_view.update_price_detail(summary)
+                suggests = [] 
+                for item in summary:               
+                    if SUGGEST in summary[item] and DEL_TIME in summary[item][SUGGEST]:
+                        for suggest in summary[item][SUGGEST][DEL_TIME] :
+                            if NAME in suggest and TOTAL in suggest and PCS_COUNT in suggest:
+                                full_time_cost = str(suggest[NAME]).split(' ')
+                                if len(full_time_cost) > 1:
+                                    qty = int(suggest[PCS_COUNT])
+                                    price = float(suggest[TOTAL])
+                                    suggests.append(
+                                        OrderSummary(
+                                            pcb_quantity= qty,
+                                            price= price,
+                                            build_time= BuildTime(int(full_time_cost[0]), full_time_cost[1])
+                                        )
+                                    )
+                self.summary_view.update_order_summary(suggests)
+
             else :
                 Logger.error(quote)
                 err_msg = quote

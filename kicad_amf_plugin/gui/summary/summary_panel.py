@@ -23,19 +23,19 @@ class SummaryPanel(UiSummaryPanel):
 
     def init_ui(self):
         self.list_order_summary.AppendTextColumn(
-            "Build Time",  0, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            _("Build Time"),  0, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
         self.list_order_summary.AppendTextColumn(
-            "Qty",   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_CENTER)
+            _("Qty"),   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_CENTER)
         self.list_order_summary.AppendTextColumn(
-            "Price",   2, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            _("Price"),   2, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
 
         self.list_order_summary.SetMinSize(
             wx.Size(-1, SummaryPanel.GetLineHeight(self) * 3 + 30))
-        self.model_order_summary = OrderSummaryModel(OrderSummary())
+        self.model_order_summary = OrderSummaryModel()
         self.list_order_summary.AssociateModel(self.model_order_summary)
 
         self.list_price_detail.AppendTextColumn(
-            "ItemDescriptions",  0, width=120 , mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
+            "Item",  0, width=120 , mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_LEFT)
         self.list_price_detail.AppendTextColumn(
             "Price",   1, width=-1, mode=dv.DATAVIEW_CELL_ACTIVATABLE, align=wx.ALIGN_RIGHT)
 
@@ -43,9 +43,12 @@ class SummaryPanel(UiSummaryPanel):
         self.list_price_detail.AssociateModel(self.model_price_summary)
         self.radio_box_order_region.SetSelection(SETTING_MANAGER.order_region)
 
-    def on_price_updated(self, price : 'dict'):
+    def update_price_detail(self, price : 'dict'):
         self.model_price_summary.update_price(price)
-        self.model_order_summary.update_order_info(OrderSummary(price= self.model_price_summary.get_sum() ,build_time= price['day'] , pcb_quantity= price['pcb_count'] ))
+
+    def update_order_summary(self, price_summary : 'list'):
+        self.model_order_summary.update_order_info(price_summary)
+    
 
     def on_update_price_clicked(self ,ev):
         evt =  UpdatePrice(id= -1)
@@ -73,6 +76,7 @@ class SummaryPanel(UiSummaryPanel):
     def on_region_changed(self, evt):
         SETTING_MANAGER.set_order_region(self.radio_box_order_region.GetSelection())    
         for i in self.model_order_summary , self.model_price_summary:
+            i.clear_content()
             i.Cleared()
         ev = OrderRegionChanged(-1)
         wx.PostEvent(self.Parent , ev)

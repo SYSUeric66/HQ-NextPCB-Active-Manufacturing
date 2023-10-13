@@ -115,4 +115,5 @@ class PCBPriceModel(PriceModelBase):
     def item_names(self):
         return PROS
                       
-            
+    def clear(self):
+        self.prices_item = []         
