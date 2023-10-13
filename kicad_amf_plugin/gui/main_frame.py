@@ -71,7 +71,7 @@ class MainFrame (wx.Frame):
         main_sizer.Add(self.summary_view, 0, wx.EXPAND, 8)
 
         self.Bind(EVT_LAYER_COUNT_CHANGE,
-                   self._pcb_form_parts[PCBFormPart.PROCESS_INFO].on_layer_count_changed)
+                   self._pcb_form_parts[PCBFormPart.PROCESS_INFO].setup_board_thickness_choice)
         self.Bind(EVT_LAYER_COUNT_CHANGE,
                   self._pcb_form_parts[PCBFormPart.SPECIAL_PROCESS].on_layer_count_changed)
         self.Bind(EVT_UPDATE_PRICE , self.on_update_price)

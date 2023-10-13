@@ -156,29 +156,30 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
     @property
     def layer_count(self):
         return self.board_manager.board.GetCopperLayerCount()
+    
+    def get_board_thickness_in_kicad_setting(self):
+        return self.board_manager.board.GetDesignSettings().GetBoardThickness()
 
     def loadBoardInfo(self):
         for i in self.label_immersion_gold, self.combo_gold_thickness:
             i.Show(False)
         designSettings = self.board_manager.board.GetDesignSettings()
-        boardThickness = designSettings.GetBoardThickness()
         minTraceWidth = designSettings.m_TrackMinWidth
         minTraceClearance = designSettings.m_MinClearance
         minHoleSize = designSettings.m_MinThroughDrill
         self.combo_inner_copper_thickness.Enabled = self.layer_count > 2
         
-        self.setup_available_thickness(self.layer_count)
-        self.set_board_thickness(pcbnew.ToMM(boardThickness))
+        self.setup_board_thickness_choice(self.layer_count)
         self.set_min_trace(pcbnew.ToMils(minTraceWidth),
                            pcbnew.ToMils(minTraceClearance))
         self.set_min_hole(pcbnew.ToMM(minHoleSize))
 
-    def setup_available_thickness(self, event):
+    def setup_board_thickness_choice(self, event):
         layer_count = event if  isinstance(event ,int)  else event.GetInt()
         self.combo_board_thickness.Clear()
         val_list = THICKNESS_SETTING[str(layer_count)]
         self.combo_board_thickness.Append(val_list)
-        self.combo_board_thickness.SetSelection(0)
+        self.set_board_thickness(pcbnew.ToMM(self.get_board_thickness_in_kicad_setting()))
 
     def on_surface_process_changed(self, evt=None):
         for i in self.label_immersion_gold, self.combo_gold_thickness:
