@@ -41,9 +41,9 @@ LIST ='list'
 
 class MainFrame (wx.Frame):
 
-    def __init__(self, board_manager: BoardManager,  parent=None):
+    def __init__(self, board_manager: BoardManager,  size ,  parent=None ):
         wx.Frame.__init__(self, parent, id=wx.ID_ANY, title=_(u"HQ NextPCB Active Manufacturing"),
-                          pos=wx.DefaultPosition, size=wx.Size(800, 700), style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
+                          pos=wx.DefaultPosition, size=size, style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self._board_manager = board_manager
         self._fabrication_data_gen = None
         self._pcb_form_parts : 'dict[PCBFormPart, FormPanelBase]' = {}
@@ -77,6 +77,7 @@ class MainFrame (wx.Frame):
         self.Bind(EVT_UPDATE_PRICE , self.on_update_price)
         self.Bind(EVT_PLACE_ORDER , self.on_place_order)
         self.Bind(EVT_ORDER_REGION_CHANGED , self.on_order_region_changed)
+        self.Bind(wx.EVT_SIZE , self.OnSize, self)
 
 
         for i in self._pcb_form_parts.values():
@@ -171,3 +172,6 @@ class MainFrame (wx.Frame):
             i.on_region_changed()
 
 
+    def OnSize(self, evt ):
+        evt.Skip()
+        SETTING_MANAGER.set_window_size(self.Size)

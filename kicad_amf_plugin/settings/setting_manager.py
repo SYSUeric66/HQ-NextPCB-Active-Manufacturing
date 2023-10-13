@@ -11,6 +11,10 @@ LANGUAGE = 'language'
 
 ORDER_REGION = "order_region"
 
+WIDTH = 'width'
+
+HEIGHT = 'height'
+
 PRICE_UNIT = {
     0 : '¥',
     1 : '$'
@@ -39,6 +43,8 @@ class _SettingManager(wx.EvtHandler) :
         if not self.app_conf.HasEntry(LANGUAGE):
             self.set_language(KiCadSetting.read_lang_setting())
             self.app_conf.Flush()
+        if not self.app_conf.HasEntry(WIDTH) or self.app_conf.HasEntry(HEIGHT):
+            self.set_window_size((660,700))
 
     def register_app(self, app : wx.App):
         self.app = app            
@@ -73,5 +79,13 @@ class _SettingManager(wx.EvtHandler) :
             if self.language == wx.LANGUAGE_CHINESE_SIMPLIFIED:
                 return TRANSLATED_PRICE_UNIT[sym]
             return sym
+    def set_window_size(self, s : 'tuple[int,int]'):
+        self.app_conf.WriteInt(key= WIDTH, value= s[0])
+        self.app_conf.WriteInt(key= HEIGHT, value= s[1])
+        self.app_conf.Flush()
+
+    def get_window_size(self) :
+        return wx.Size(self.app_conf.ReadInt(WIDTH) , self.app_conf.ReadInt(HEIGHT))
+    
 
 SETTING_MANAGER = _SettingManager()

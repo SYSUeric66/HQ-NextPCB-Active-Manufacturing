@@ -76,5 +76,6 @@ class BaseApp(wx.App, InspectionMixin):
 
     def startup_dialog(self):
         from kicad_amf_plugin.gui.main_frame import MainFrame
-        self.main_wind = MainFrame(self.board_manager)
+        from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+        self.main_wind = MainFrame(self.board_manager,SETTING_MANAGER.get_window_size())
         self.main_wind.Show()
