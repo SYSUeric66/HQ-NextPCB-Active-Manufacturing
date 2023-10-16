@@ -12,8 +12,8 @@ class OrderRegion :
 
     AVAILABLE_URLS = {
         SupportedRegion.CHINA_MAINLAND :{
-            URL_KIND.PLACE_ORDER : None,
-            URL_KIND.QUERY_PRICE : None
+            URL_KIND.PLACE_ORDER : 'https://www.hqpcb.com/order',
+            URL_KIND.QUERY_PRICE : 'https://www.hqpcb.com/External/fileQuote'
         },
         SupportedRegion.JAPAN : {
             URL_KIND.PLACE_ORDER : None,

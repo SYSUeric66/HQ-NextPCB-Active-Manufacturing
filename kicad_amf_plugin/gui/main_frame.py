@@ -132,8 +132,7 @@ class MainFrame (wx.Frame):
             data = fp.read()
             encoding = fp.info().get_content_charset('utf-8')
             quote = json.loads(data.decode(encoding))
-            with open("D:/response.json",'w') as f:
-                f.write(data.decode(encoding))
+
             if DATA in quote and LIST in quote[DATA]:
                 summary = quote[DATA][LIST]
                 self.summary_view.update_price_detail(summary)
@@ -163,6 +162,8 @@ class MainFrame (wx.Frame):
                 wx.MessageBox(_("Incorrect form parameter: ") + err_msg)
         except Exception as e :
             wx.MessageBox(str(e))
+            raise e
+
             
 
     def on_place_order(self , evt):
@@ -186,6 +187,7 @@ class MainFrame (wx.Frame):
                 webbrowser.open(uat_url)        
         except Exception as e :
             wx.MessageBox(str(e))
+            raise e
             
     def adjust_size(self):
         for i in self._pcb_form_parts.values() :
