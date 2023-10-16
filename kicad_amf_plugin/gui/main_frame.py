@@ -162,7 +162,7 @@ class MainFrame (wx.Frame):
                 wx.MessageBox(_("Incorrect form parameter: ") + err_msg)
         except Exception as e :
             wx.MessageBox(str(e))
-            raise e
+            raise e #TODO remove me 
 
             
 
@@ -187,7 +187,7 @@ class MainFrame (wx.Frame):
                 webbrowser.open(uat_url)        
         except Exception as e :
             wx.MessageBox(str(e))
-            raise e
+            raise e #TODO remove me 
             
     def adjust_size(self):
         for i in self._pcb_form_parts.values() :
