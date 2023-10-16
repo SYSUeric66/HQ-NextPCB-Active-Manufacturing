@@ -15,9 +15,12 @@ import os
 from kicad_amf_plugin import PLUGIN_ROOT
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LOCALE_CHANGE
 from kicad_amf_plugin.kicad.board_manager import load_board_manager
+from kicad_amf_plugin.utils.combo_box_ignore_wheel import ComboBoxIgnoreWheel
 import wx
 # add translation macro to builtin similar to what gettext does
 builtins.__dict__['_'] = wx.GetTranslation
+builtins.__dict__['ComboBoxIgnoreWheel'] = ComboBoxIgnoreWheel
+
 
 
 def _displayHook(obj):
