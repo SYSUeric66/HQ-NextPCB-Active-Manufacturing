@@ -77,6 +77,5 @@ class SummaryPanel(UiSummaryPanel):
         SETTING_MANAGER.set_order_region(self.radio_box_order_region.GetSelection())    
         for i in self.model_order_summary , self.model_price_summary:
             i.clear_content()
-            i.Cleared()
         ev = OrderRegionChanged(-1)
         wx.PostEvent(self.Parent , ev)

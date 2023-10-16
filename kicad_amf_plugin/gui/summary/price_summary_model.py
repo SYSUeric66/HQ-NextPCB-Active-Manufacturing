@@ -163,3 +163,4 @@ class PriceSummaryModel(dv.PyDataViewModel):
     def clear_content(self):
         for i in  PriceCategory.PCB,  PriceCategory.SMT ,   PriceCategory.BOM:
             self.price_category[i].clear() 
+        self.Cleared()

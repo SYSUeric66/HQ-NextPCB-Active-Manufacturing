@@ -186,6 +186,7 @@ class MainFrame (wx.Frame):
                 webbrowser.open(uat_url)        
         except Exception as e :
             wx.MessageBox(str(e))
+            
     def adjust_size(self):
         for i in self._pcb_form_parts.values() :
             i.Layout()

@@ -77,3 +77,5 @@ class OrderSummaryModel(dv.DataViewIndexListModel):
     
     def clear_content(self):
         self.orders_summary = []
+        self.Reset(len(self.orders_summary))
+        self.Cleared()
