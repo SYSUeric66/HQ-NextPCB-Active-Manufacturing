@@ -249,15 +249,15 @@ msgstr "更新价格"
 msgid "Add to Cart"
 msgstr "加入购物车"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:14
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\amf_lang_const.py:14
 msgid "English"
 msgstr "英文"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:15
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\amf_lang_const.py:15
 msgid "Japanese"
 msgstr "日文"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:16
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\amf_lang_const.py:16
 msgid "Chinese"
 msgstr "简体中文"
 

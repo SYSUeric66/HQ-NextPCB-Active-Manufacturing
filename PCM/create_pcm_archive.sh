@@ -19,7 +19,6 @@ rm -rf $PLUGIN_PATH
 
 TRANSLATION_PATH="$PRJECT_ROOT/kicad_amf_plugin/language/geni18n.py"
 echo "Excuting the translation script  : $TRANSLATION_PATH"
-pip3 install wxPython
 python3 $TRANSLATION_PATH
 
 echo "Create folder structure for ZIP"
