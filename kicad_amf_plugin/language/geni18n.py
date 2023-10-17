@@ -17,13 +17,12 @@ file or to use the .pot to merge new translations into an existing language
 catalog.
 
 """
-import wx
-from  lang_const import SUPPORTED_LANG ,LANG_DOMAIN
+from  lang_const import SUPPORTED_LANG ,LANG_DOMAIN ,DEFAULT_LANG
 
 # we remove English as source code strings are in English
 supportedLang = []
-for l in SUPPORTED_LANG:
-    if l != wx.LANGUAGE_ENGLISH:
+for l in SUPPORTED_LANG.values():
+    if l.Name != DEFAULT_LANG:
         supportedLang.append(SUPPORTED_LANG[l].Code )
 
 import os

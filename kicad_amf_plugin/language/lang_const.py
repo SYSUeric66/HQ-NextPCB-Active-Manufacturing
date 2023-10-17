@@ -18,6 +18,10 @@ TRANSLATION = [
 
 from collections import  namedtuple
 
+ENGLISH = 'English'
+
+DEFAULT_LANG=ENGLISH
+
 LanguageCodeName = namedtuple('LanguageCodeName',['Code','Name'])
 
 
