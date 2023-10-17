@@ -5,7 +5,6 @@
 VERSION=$1
 PRJECT_ROOT=`pwd`
 PCM_ROOT="$PRJECT_ROOT/PCM"
-TRANSLATION_PATH="$PRJECT_ROOT/kicad_amf_plugin/language"
 ACHIEVE_PATH="$PRJECT_ROOT/PCM/archive"
 PLUGIN_PATH="$ACHIEVE_PATH/plugins"
 RESOURCE_PATH="$ACHIEVE_PATH/resources"
@@ -18,11 +17,9 @@ rm -f $PCM_ROOT/*.zip
 rm -rf $PLUGIN_PATH
 
 
-echo "Update translation : $TRANSLATION_PATH"
-
-pushd $TRANSLATION_PATH
-python3 geni18n.py
-popd
+TRANSLATION_PATH="$PRJECT_ROOT/kicad_amf_plugin/language/geni18n.py"
+echo "Excuting the translation script  : $TRANSLATION_PATH"
+python3 $TRANSLATION_PATH
 
 echo "Create folder structure for ZIP"
 mkdir -p $PLUGIN_PATH
