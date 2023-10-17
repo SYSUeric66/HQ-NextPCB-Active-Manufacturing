@@ -51,7 +51,7 @@ sed -i "/INSTALL_SIZE_HERE/d" $META_DATA_PATH
 
 echo "Zip PCM archive"
 pushd $ACHIEVE_PATH
-zip -r ../KiCAD-PCM-$VERSION.zip .
+zip -r $PCM_ROOT/KiCAD-PCM-$VERSION.zip .
 popd
 
 echo "Gather data for repo rebuild"
