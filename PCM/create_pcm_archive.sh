@@ -50,7 +50,7 @@ sed -i "/DOWNLOAD_URL_HERE/d" $META_DATA_PATH
 sed -i "/INSTALL_SIZE_HERE/d" $META_DATA_PATH
 
 echo "Zip PCM archive"
-zip -r $PCM_ROOT/KiCAD-PCM-$VERSION.zip . ACHIEVE_PATH/*
+zip -r $PCM_ROOT/KiCAD-PCM-$VERSION.zip ACHIEVE_PATH/*
 
 echo "Gather data for repo rebuild"
 echo VERSION=$VERSION >> $GITHUB_ENV
