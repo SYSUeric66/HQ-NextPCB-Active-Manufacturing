@@ -51,6 +51,7 @@ class SummaryPanel(UiSummaryPanel):
     
 
     def on_update_price_clicked(self ,ev):
+        self.clear_content()
         evt =  UpdatePrice(id= -1)
         wx.PostEvent(self.Parent , evt)
 
@@ -73,9 +74,13 @@ class SummaryPanel(UiSummaryPanel):
         self.PopupMenu(menu)
         menu.Destroy()
 
+    def clear_content(self):
+        for i in self.model_order_summary , self.model_price_summary:
+            i.clear_content()        
+
+
     def on_region_changed(self, evt):
         SETTING_MANAGER.set_order_region(self.radio_box_order_region.GetSelection())    
-        for i in self.model_order_summary , self.model_price_summary:
-            i.clear_content()
+        self.clear_content()
         ev = OrderRegionChanged(-1)
         wx.PostEvent(self.Parent , ev)
