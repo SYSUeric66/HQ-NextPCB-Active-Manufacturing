@@ -8,7 +8,7 @@
 #
 
 from wx.lib.mixins.inspection import InspectionMixin
-from kicad_amf_plugin.language.amf_lang_const import SUPPORTED_LANG
+from kicad_amf_plugin.language.lang_const import get_supported_language
 from kicad_amf_plugin.language.lang_const import LANG_DOMAIN
 
 import builtins
@@ -62,7 +62,7 @@ class BaseApp(wx.App, InspectionMixin):
             self.startup_dialog()
 
     def update_language(self, lang: int):
-        if lang in SUPPORTED_LANG:
+        if lang in get_supported_language():
             selLang = lang
         else:
             selLang = wx.LANGUAGE_ENGLISH

@@ -20,12 +20,12 @@ catalog.
 import subprocess
 import sys
 import os
-from lang_const import LANG_CODE_TO_NAME, LANG_DOMAIN, DEFAULT_LANG
+from lang_const import CODE_TO_NAME, LANG_DOMAIN, DEFAULT_LANG
 
 # we remove English as source code strings are in English
 supportedLang = []
-for code in LANG_CODE_TO_NAME:
-    if LANG_CODE_TO_NAME[code] != DEFAULT_LANG:
+for code in CODE_TO_NAME:
+    if CODE_TO_NAME[code] != DEFAULT_LANG:
         supportedLang.append(code)
 
 
