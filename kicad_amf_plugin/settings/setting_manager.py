@@ -4,6 +4,7 @@ import os
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LocaleChangeEvent
 from .kicad_setting import KiCadSetting
 from kicad_amf_plugin.order.supported_region import SupportedRegion
+from kicad_amf_plugin.utils.public_ip import get_ip_country
 
 APP_NAME = 'kicad_amf_plugin'
 
@@ -55,6 +56,15 @@ class _SettingManager(wx.EvtHandler) :
             self.app_conf.Flush()
         if not self.app_conf.HasEntry(WIDTH) or not self.app_conf.HasEntry(HEIGHT):
             self.set_window_size((660,700))
+        if not self.app_conf.HasEntry(ORDER_REGION):
+            location = get_ip_country()
+            if location == 'China':
+                self.set_order_region(SupportedRegion.CHINA_MAINLAND)
+            elif location == 'Japan' :
+                self.set_order_region(SupportedRegion.JAPAN)
+            else:
+                self.set_order_region(SupportedRegion.EUROPE_USA)
+
 
     def register_app(self, app : wx.App):
         self.app = app        
