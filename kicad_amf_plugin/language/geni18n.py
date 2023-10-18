@@ -44,10 +44,17 @@ outFolder = os.path.join(appFolder, 'language', 'locale')
 
 # build command for pygettext
 gtOptions = '-a -d %s -o %s.pot -p %s %s'
-tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (LANG_DOMAIN,
-                                                     LANG_DOMAIN,
-                                                     outFolder,
-                                                     appFolder))
+
+if os.name == 'Win32':
+    tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (LANG_DOMAIN,
+                                                         LANG_DOMAIN,
+                                                         outFolder,
+                                                         appFolder))
+else:
+    tCmd = 'gettext' + ' ' + (gtOptions % (LANG_DOMAIN,
+                                           LANG_DOMAIN,
+                                           outFolder,
+                                           appFolder))
 print("Generating the .pot file")
 print("cmd: %s" % tCmd)
 rCode = subprocess.call(tCmd)
