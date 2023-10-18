@@ -113,6 +113,7 @@ class PriceSummaryModel(dv.PyDataViewModel):
             for g in self.price_category:
                 if node.id in self.price_category[g].item_names() :
                     return self.ObjectToItem(self.price_category[g])
+        return dv.NullDataViewItem                
 
 
     def HasValue(self, item, col):
