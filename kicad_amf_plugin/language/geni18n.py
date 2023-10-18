@@ -33,53 +33,53 @@ appFolder = os.path.abspath(os.path.join(
     os.path.dirname(os.path.abspath(__file__)), ".."))
 
 
-if os.name == 'nt':
-    # setup some stuff to get at Python I18N tools/utilities
-    pyExe = sys.executable
-    pyFolder = os.path.split(pyExe)[0]
-    pyToolsFolder = os.path.join(pyFolder, 'Tools')
-    pyI18nFolder = os.path.join(pyToolsFolder, 'i18n')
-    pyGettext = os.path.join(pyI18nFolder, 'pygettext.py')
-    pyMsgfmt = os.path.join(pyI18nFolder, 'msgfmt.py')
-    outFolder = os.path.join(appFolder, 'language', 'locale')
-    # build command for pygettext
-    gtOptions = '-a -d %s -o %s.pot -p %s %s'
+# if os.name == 'nt':
+# setup some stuff to get at Python I18N tools/utilities
+pyExe = sys.executable
+pyFolder = os.path.split(pyExe)[0]
+pyToolsFolder = os.path.join(pyFolder, 'Tools')
+pyI18nFolder = os.path.join(pyToolsFolder, 'i18n')
+pyGettext = os.path.join(pyI18nFolder, 'pygettext.py')
+pyMsgfmt = os.path.join(pyI18nFolder, 'msgfmt.py')
+outFolder = os.path.join(appFolder, 'language', 'locale')
+# build command for pygettext
+gtOptions = '-a -d %s -o %s.pot -p %s %s'
 
-    tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (LANG_DOMAIN,
-                                                         LANG_DOMAIN,
-                                                         outFolder,
-                                                         appFolder))
-    print("Generating the .pot file")
+tCmd = pyExe + ' ' + pyGettext + ' ' + (gtOptions % (LANG_DOMAIN,
+                                                     LANG_DOMAIN,
+                                                     outFolder,
+                                                     appFolder))
+print("Generating the .pot file")
+print("cmd: %s" % tCmd)
+rCode = subprocess.call(tCmd)
+print("return code: %s\n\n" % rCode)
+
+for tLang in supportedLang:
+    # build command for msgfmt
+    langDir = os.path.join(
+        appFolder, (f'language/locale/{tLang}/LC_MESSAGES'))
+    if not os.path.exists(langDir):
+        os.mkdir(langDir)
+    poFile = os.path.join(langDir, LANG_DOMAIN + '.po')
+    tCmd = pyExe + ' ' + pyMsgfmt + ' ' + poFile
+
+    print("Generating the .mo file")
     print("cmd: %s" % tCmd)
     rCode = subprocess.call(tCmd)
     print("return code: %s\n\n" % rCode)
+# else:
+#     # Simply run the msg format cmd to update the .mo on the Ubuntu ci server
+#     for tLang in supportedLang:
+#         # build command for msgfmt
+#         langDir = os.path.join(
+#             appFolder, (f'language/locale/{tLang}/LC_MESSAGES'))
+#         if not os.path.exists(langDir):
+#             os.mkdir(langDir)
+#         poFile = os.path.join(langDir, LANG_DOMAIN + '.po')
+#         moFile = os.path.join(langDir, LANG_DOMAIN + '.mo')
+#         tCmd = 'msgfmt ' + ' --output-file='+moFile + ' ' + poFile
 
-    for tLang in supportedLang:
-        # build command for msgfmt
-        langDir = os.path.join(
-            appFolder, (f'language/locale/{tLang}/LC_MESSAGES'))
-        if not os.path.exists(langDir):
-            os.mkdir(langDir)
-        poFile = os.path.join(langDir, LANG_DOMAIN + '.po')
-        tCmd = pyExe + ' ' + pyMsgfmt + ' ' + poFile
-
-        print("Generating the .mo file")
-        print("cmd: %s" % tCmd)
-        rCode = subprocess.call(tCmd)
-        print("return code: %s\n\n" % rCode)
-else:
-    # Simply run the msg format cmd to update the .mo on the Ubuntu ci server
-    for tLang in supportedLang:
-        # build command for msgfmt
-        langDir = os.path.join(
-            appFolder, (f'language/locale/{tLang}/LC_MESSAGES'))
-        if not os.path.exists(langDir):
-            os.mkdir(langDir)
-        poFile = os.path.join(langDir, LANG_DOMAIN + '.po')
-        moFile = os.path.join(langDir, LANG_DOMAIN + '.mo')
-        tCmd = 'msgfmt ' + ' --output-file='+moFile + ' ' + poFile
-
-        print("Generating the .mo file")
-        print("cmd: %s" % tCmd)
-        rCode = subprocess.call(tCmd, shell=True)
-        print("return code: %s\n\n" % rCode)
+#         print("Generating the .mo file")
+#         print("cmd: %s" % tCmd)
+#         rCode = subprocess.call(tCmd, shell=True)
+#         print("return code: %s\n\n" % rCode)
