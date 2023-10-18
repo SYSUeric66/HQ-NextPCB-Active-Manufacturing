@@ -1,23 +1,28 @@
 import wx
-from .lang_const import CODE_TO_NAME
+from .lang_const import CODE_TO_NAME ,code_to_wx
 from kicad_amf_plugin.utils.images import Smiles
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 
 
+WX_ID_MAP =  code_to_wx()
+
 class LangSettingPopMenu(wx.Menu):
+
     def __init__(self, current_lang_id: int):
         super().__init__()
-        for lang in CODE_TO_NAME:
-            item = wx.MenuItem(self,  lang,  _(CODE_TO_NAME[lang]))
-            if current_lang_id == lang:
+        for lang in enumerate(CODE_TO_NAME):
+            id , code = lang
+            item = wx.MenuItem(self,  id,  _(CODE_TO_NAME[code]))
+            wx_id =WX_ID_MAP[code]
+            if current_lang_id == wx_id:
                 item.SetBitmap(Smiles.GetBitmap())
             self.Append(item)
-            if wx.LANGUAGE_ENGLISH == lang:
-                self.Bind(wx.EVT_MENU, self.setup_en, id=lang)
-            elif wx.LANGUAGE_JAPANESE_JAPAN == lang:
-                self.Bind(wx.EVT_MENU, self.setup_jp, id=lang)
-            elif wx.LANGUAGE_CHINESE_SIMPLIFIED == lang:
-                self.Bind(wx.EVT_MENU, self.setup_zh, id=lang)
+            if wx.LANGUAGE_ENGLISH == wx_id:
+                self.Bind(wx.EVT_MENU, self.setup_en, id=id)
+            elif wx.LANGUAGE_JAPANESE_JAPAN == wx_id:
+                self.Bind(wx.EVT_MENU, self.setup_jp, id=id)
+            elif wx.LANGUAGE_CHINESE_SIMPLIFIED == wx_id:
+                self.Bind(wx.EVT_MENU, self.setup_zh, id=id)
 
     def setup_en(self, evt):
         SETTING_MANAGER.set_language(wx.LANGUAGE_ENGLISH)

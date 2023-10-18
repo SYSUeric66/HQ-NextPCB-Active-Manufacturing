@@ -14,10 +14,18 @@ CODE_TO_NAME = {
 
 def get_supported_language():
     import wx
+    return (
+        wx.LANGUAGE_ENGLISH,
+        wx.LANGUAGE_JAPANESE_JAPAN,
+        wx.LANGUAGE_CHINESE_SIMPLIFIED
+    )
+
+def code_to_wx():
+    import wx
     return {
-        wx.LANGUAGE_ENGLISH:  'en',
-        wx.LANGUAGE_JAPANESE_JAPAN: 'ja',
-        wx.LANGUAGE_CHINESE_SIMPLIFIED: 'zh_CN'
+        'en' : wx.LANGUAGE_ENGLISH,
+        'ja' : wx.LANGUAGE_JAPANESE_JAPAN,
+       'zh_CN' :   wx.LANGUAGE_CHINESE_SIMPLIFIED
     }
 
 
