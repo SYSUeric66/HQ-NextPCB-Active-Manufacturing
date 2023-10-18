@@ -178,13 +178,17 @@ class MainFrame (wx.Frame):
                 rsp = requests.post(
                     url,
                     files = {
-                        "file" :  open(zipfile, 'rb')
+                        "file" :  open(zipfile,'rb')
                     },
                     data = self.get_place_order_form()
                 )
                 urls = json.loads(rsp.content)
-                uat_url = str(urls['redirect'])
-                webbrowser.open(uat_url)        
+                for key in 'url' , 'redirect':
+                    if key in  urls:
+                        uat_url = str(urls[key])
+                        webbrowser.open(uat_url)
+                        return 
+                raise Exception("No available order url in the response")
         except Exception as e :
             wx.MessageBox(str(e))
             raise e #TODO remove me 
