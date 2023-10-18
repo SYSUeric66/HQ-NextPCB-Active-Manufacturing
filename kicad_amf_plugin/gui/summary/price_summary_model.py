@@ -110,9 +110,7 @@ class PriceSummaryModel(dv.PyDataViewModel):
         if isinstance(node, PriceModelBase):
             return dv.NullDataViewItem
         elif isinstance(node, PriceItem):
-            for g in self.price_category:
-                if node.id in self.price_category[g].item_names() :
-                    return self.ObjectToItem(self.price_category[g])
+            return self.ObjectToItem(node.parent)
         return dv.NullDataViewItem                
 
 

@@ -8,11 +8,13 @@ class PriceModelCol(Enum):
     VALUE = DESC + 1
     COL_COUNT = VALUE + 1
 
+
 @dataclass
 class PriceItem:
     id : str
     desc : str
     value : float
+    parent : 'PriceModelBase'
 
 class PriceModelBase :
     @abc.abstractclassmethod

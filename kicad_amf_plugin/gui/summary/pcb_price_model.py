@@ -86,7 +86,7 @@ class PCBPriceModel(PriceModelBase):
         super().__init__()
         self.prices_item : 'list[PriceItem]' = []
         for i in TRANSLATED :
-            self.prices_item.append(PriceItem( PROS[i],  TRANSLATED[i] , 0 ))
+            self.prices_item.append(PriceItem( PROS[i],  TRANSLATED[i] , 0 ,self ))
 
     def data(self, row : int , col : int ) :
         if col == PriceModelCol.VALUE:
