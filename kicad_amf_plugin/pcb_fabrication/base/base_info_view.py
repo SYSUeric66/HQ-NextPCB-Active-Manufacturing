@@ -7,7 +7,7 @@ from .ui_base_info import UiBaseInfo, BOX_SIZE_SETTING, BOX_PANEL_SETTING, BOX_B
 from kicad_amf_plugin.utils.validators import NumericTextCtrlValidator, FloatTextCtrlValidator
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from kicad_amf_plugin.settings.form_value_fitter import fitter_and_map_form_value
-from kicad_amf_plugin.utils.number_round import number_round
+from kicad_amf_plugin.settings.supported_layer_count import AVAILABLE_LAYER_COUNTS
 
 import pcbnew
 import wx
@@ -17,8 +17,6 @@ AVAILABLE_MATERIAL_TYPES = ["FR-4"]
 
 AVAILABLE_BOARD_TG_TYPES = ["TG130", "TG150", "TG170"]
 
-AVAILABLE_LAYER_COUNTS = [1, 2, 4, 6,
-                          8, 10, 12, 14, 16, 18, 20]
 
 
 class PcbPackageKind:

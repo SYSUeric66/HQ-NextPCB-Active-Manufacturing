@@ -10,7 +10,7 @@
 from wx.lib.mixins.inspection import InspectionMixin
 from kicad_amf_plugin.language.lang_const import get_supported_language
 from kicad_amf_plugin.language.lang_const import LANG_DOMAIN
-
+from kicad_amf_plugin.settings.supported_layer_count import AVAILABLE_LAYER_COUNTS
 import builtins
 import sys
 import os
@@ -44,6 +44,10 @@ class BaseApp(wx.App, InspectionMixin):
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
+        self.board_manager = load_board_manager()
+        if self.board_manager.board.GetCopperLayerCount() not in AVAILABLE_LAYER_COUNTS:
+            wx.MessageBox(_("Unsupported layer count!"))
+            return False
         self.startup_dialog()
         return True
 
@@ -79,5 +83,5 @@ class BaseApp(wx.App, InspectionMixin):
         from kicad_amf_plugin.gui.main_frame import MainFrame
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
         self.main_wind = MainFrame(
-            load_board_manager(), SETTING_MANAGER.get_window_size())
+            self.board_manager, SETTING_MANAGER.get_window_size())
         self.main_wind.Show()

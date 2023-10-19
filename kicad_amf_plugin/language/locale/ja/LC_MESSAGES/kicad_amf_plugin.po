@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-10-13 18:34+0800\n"
-"PO-Revision-Date: 2023-10-13 18:35+0800\n"
+"POT-Creation-Date: 2023-10-19 18:07+0800\n"
+"PO-Revision-Date: 2023-10-19 18:10+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -16,27 +16,31 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "X-Generator: Poedit 3.4\n"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\app_base.py:51
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\app_base.py:49
+msgid "Unsupported layer count!"
+msgstr "ボードレイヤーの数はサポートされていません!"
+
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\app_base.py:56
 msgid "Restart the plugin to apply the new locale ?"
 msgstr "プラグインを再起動して新しいロケールを適用しますか?"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\app_base.py:52
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\app_base.py:57
 msgid "Tip"
 msgstr "先端"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:53
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:57
 msgid "HQ NextPCB Active Manufacturing"
 msgstr "HQネクストPCBアクティブ製造"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:126
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:188
 msgid "No available url for querying price in current region"
 msgstr "現在の地域の価格を照会するための使用可能なURLがありません"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:163
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:207
 msgid "Incorrect form parameter: "
 msgstr "フォームパラメータが正しくありません: "
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:174
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\main_frame.py:220
 msgid "No available url for placing order in current region"
 msgstr "現在の地域で注文するための利用可能なURLがありません"
 
@@ -44,11 +48,11 @@ msgstr "現在の地域で注文するための利用可能なURLがありませ
 msgid "BOM"
 msgstr "BOM"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\order_summary_model.py:10
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\order_summary_model.py:14
 msgid "days"
 msgstr "日"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\order_summary_model.py:11
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\gui\summary\order_summary_model.py:15
 msgid "hours"
 msgstr "時"
 
@@ -249,88 +253,88 @@ msgstr "価格を更新する"
 msgid "Add to Cart"
 msgstr "カートに追加"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:14
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:37
 msgid "English"
 msgstr "英語"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:15
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:38
 msgid "Japanese"
 msgstr "日本語"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:16
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\language\lang_const.py:39
 msgid "Chinese"
 msgstr "簡体字中国語"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:37
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:30
 msgid "Single Piece"
 msgstr "単品出荷"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:38
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:31
 msgid "Panel by Customer"
 msgstr "顧客別パネル"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:39
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:32
 msgid "Panel by NextPCB"
 msgstr "連続チップ(NextPCBスペル)"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:49
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:43
 msgid "N/A"
 msgstr "N/A"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:50
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:44
 msgid "Left & Right"
 msgstr "左と右"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:51
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:45
 msgid "Top & Bottom"
 msgstr "トップ＆ボトム"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:52
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:46
 msgid "All 4 sides"
 msgstr "全4面"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:75
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:70
 msgid "Panel Type X value isn't valid. Please input valid value."
 msgstr "スライスの長さが無効です。有効な整数を入力してください。"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:75
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:78
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:82
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:70
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:74
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:80
 msgid "Error"
 msgstr "エロー"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:78
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:74
 msgid "Panel Type Y value isn't valid. Please input valid value."
 msgstr "連続幅が無効なため、有効な整数を入力してください。"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:82
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:79
 msgid "Break-away Rail value isn't valid. Please input valid value."
 msgstr "プロセスフレームサイズが無効なため、有効な数値を入力してください。"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:203
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:214
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:118
 msgid "Size (single)"
 msgstr "サイズ（シングル）"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:204
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:215
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:90
 msgid "Qty(single)"
 msgstr "数量(シングル)"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:205
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:216
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\ui_base_info.py:105
 msgid "Pcs"
 msgstr "ある"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:207
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:218
 msgid "Size (set)"
 msgstr "モノリシック サイズ"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:208
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:219
 msgid "Qty(Set)"
 msgstr "連続するピースの数"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:209
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\base\base_info_view.py:220
 msgid "Set"
 msgstr "Set"
 
@@ -437,36 +441,36 @@ msgid "Yes"
 msgstr "はい"
 
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:40
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:54
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:53
 #: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\utils\constraint.py:6
 msgid "No"
 msgstr "いいえ"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:46
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:45
 msgid "Sample Test Free"
 msgstr "無料サンプルテスト"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:47
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:46
 msgid "AOI+Flying Test"
 msgstr "AOI+飛行テスト"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:48
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:47
 msgid "AOI+Fixture"
 msgstr "AOI+フィクスチャ"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:52
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:51
 msgid "Electronic"
 msgstr "電子"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:52
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:51
 msgid "Paper"
 msgstr "紙"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:54
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:53
 msgid "UL+Week/Year"
 msgstr "UL+週/年"
 
-#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:55
+#: C:\Users\ws\Documents\KiCad\7.0\scripting\plugins\kicad-amf-plugin\kicad_amf_plugin\pcb_fabrication\personalized\personalized_info_view.py:54
 msgid "UL+Year/Week"
 msgstr "UL+年/週"
 
