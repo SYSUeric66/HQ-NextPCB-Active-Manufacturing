@@ -4,9 +4,10 @@ with open('kicad_amf_plugin.po', encoding='utf-8', errors='ignore') as f:
     pair = []
     for line in f.readlines():
         if line.startswith('msgstr'):
-            pair.append((line.split(' ')[1].strip()).replace('\"', ""))
+            pair.append(
+                (line.removeprefix('msgstr') .strip()).replace('\"', ""))
         elif line.startswith('msgid'):
-            pair.append(line.split(' ')[1].strip().replace('\"', ""))
+            pair.append(line.removeprefix('msgid').strip().replace('\"', ""))
         if len(pair) == 2:
             mapping[pair[0]] = pair[1]
             pair = []
