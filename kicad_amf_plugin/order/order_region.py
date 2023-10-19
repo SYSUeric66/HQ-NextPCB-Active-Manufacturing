@@ -21,8 +21,8 @@ class OrderRegion :
         },
         #TODO Update urls for Japan maybe 
         SupportedRegion.JAPAN : {
-            URL_KIND.PLACE_ORDER : 'https://www.nextpcb.com/Upfile/kiCadUpFile',
-            URL_KIND.QUERY_PRICE : 'https://www.nextpcb.com/ajax/valuation'
+            URL_KIND.PLACE_ORDER : 'https://jp.nextpcb.com/Upfile/kiCadUpFile',
+            URL_KIND.QUERY_PRICE : 'https://jp.nextpcb.com/ajax/valuation'
         }
     }    
 

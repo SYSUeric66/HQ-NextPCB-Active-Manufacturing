@@ -1,10 +1,13 @@
 
+from kicad_amf_plugin.gui.summary.price_summary_model import PriceCategory
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.order.supported_region import SupportedRegion
 from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.gui.summary.summary_panel import SummaryPanel
+from kicad_amf_plugin.settings.default_express import DEFAULT_EXPRESS
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER ,EVT_ORDER_REGION_CHANGED
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
@@ -109,7 +112,10 @@ class MainFrame (wx.Frame):
         return base          
  
     def get_query_price_form(self):
-        return self.build_form(FormKind.QUERY_PRICE)        
+        form = self.build_form(FormKind.QUERY_PRICE)  
+        if SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND :
+            form = form | DEFAULT_EXPRESS
+        return form      
 
     def get_place_order_form(self):
         return {**self.build_form(FormKind.PLACE_ORDER) , 'type' : 'pcbfile'}
@@ -119,6 +125,49 @@ class MainFrame (wx.Frame):
             if not i.is_valid():
                 return False
         return True
+    
+    def parse_price(self , summary : json):
+        self.summary_view.update_price_detail({ 
+            PriceCategory.PCB.value :summary})
+        # normal_total_price = self.summary_view
+        # suggests = [] 
+        # for item in summary:               
+        #     if SUGGEST in summary[item] and DEL_TIME in summary[item][SUGGEST]:
+        #         for suggest in summary[item][SUGGEST][DEL_TIME] :
+        #             if NAME in suggest and TOTAL in suggest and PCS_COUNT in suggest:
+        #                 full_time_cost = str(suggest[NAME]).split(' ')
+        #                 if len(full_time_cost) > 1:
+        #                     qty = int(suggest[PCS_COUNT])
+        #                     price = float(suggest[TOTAL])
+        #                     suggests.append(
+        #                         OrderSummary(
+        #                             pcb_quantity= qty,
+        #                             price= price,
+        #                             build_time= BuildTime(int(full_time_cost[0]), full_time_cost[1])
+        #                         )
+        #                     )
+        # self.summary_view.update_order_summary(suggests)           
+    def parse_price_list(self , summary : json):
+            self.summary_view.update_price_detail(summary)
+            suggests = [] 
+            for item in summary:               
+                if SUGGEST in summary[item] and DEL_TIME in summary[item][SUGGEST]:
+                    for suggest in summary[item][SUGGEST][DEL_TIME] :
+                        if NAME in suggest and TOTAL in suggest and PCS_COUNT in suggest:
+                            full_time_cost = str(suggest[NAME]).split(' ')
+                            if len(full_time_cost) > 1:
+                                qty = int(suggest[PCS_COUNT])
+                                price = float(suggest[TOTAL])
+                                suggests.append(
+                                    OrderSummary(
+                                        pcb_quantity= qty,
+                                        price= price,
+                                        build_time= BuildTime(int(full_time_cost[0]), full_time_cost[1])
+                                    )
+                                )
+            self.summary_view.update_order_summary(suggests)        
+
+
 
     def on_update_price(self, evt):
         if not self.form_is_valid():
@@ -129,33 +178,17 @@ class MainFrame (wx.Frame):
             return
         try:
             form =self.get_query_price_form()
+            form = form
             rep = urllib.request.Request(url, data= RequestHelper.convert_dict_to_request_data(form))
             fp = urllib.request.urlopen(rep)
             data = fp.read()
             encoding = fp.info().get_content_charset('utf-8')
-            quote = json.loads(data.decode(encoding))
-
+            content = data.decode(encoding)
+            quote = json.loads(content)
             if DATA in quote and LIST in quote[DATA]:
-                summary = quote[DATA][LIST]
-                self.summary_view.update_price_detail(summary)
-                suggests = [] 
-                for item in summary:               
-                    if SUGGEST in summary[item] and DEL_TIME in summary[item][SUGGEST]:
-                        for suggest in summary[item][SUGGEST][DEL_TIME] :
-                            if NAME in suggest and TOTAL in suggest and PCS_COUNT in suggest:
-                                full_time_cost = str(suggest[NAME]).split(' ')
-                                if len(full_time_cost) > 1:
-                                    qty = int(suggest[PCS_COUNT])
-                                    price = float(suggest[TOTAL])
-                                    suggests.append(
-                                        OrderSummary(
-                                            pcb_quantity= qty,
-                                            price= price,
-                                            build_time= BuildTime(int(full_time_cost[0]), full_time_cost[1])
-                                        )
-                                    )
-                self.summary_view.update_order_summary(suggests)
-
+                return self.parse_price_list(quote[DATA][LIST])
+            elif SUGGEST in quote:
+                return self.parse_price(quote)
             else :
                 err_msg = quote
                 if 'msg' in quote:

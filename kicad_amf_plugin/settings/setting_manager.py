@@ -99,8 +99,6 @@ class _SettingManager(wx.EvtHandler) :
         return self.app_conf.ReadInt(ORDER_REGION)
 
     def get_price_unit(self,translated = False):
-            #!FIXME Currently all price info is from NextPCB
-            return '$'
             sym = '¥' if not self.order_region  else '$'
             if not translated:
                 return sym
