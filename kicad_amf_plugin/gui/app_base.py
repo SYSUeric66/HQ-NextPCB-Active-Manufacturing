@@ -44,7 +44,6 @@ class BaseApp(wx.App, InspectionMixin):
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
-        self.board_manager = load_board_manager()
         self.startup_dialog()
         return True
 
@@ -80,5 +79,5 @@ class BaseApp(wx.App, InspectionMixin):
         from kicad_amf_plugin.gui.main_frame import MainFrame
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
         self.main_wind = MainFrame(
-            self.board_manager, SETTING_MANAGER.get_window_size())
+            load_board_manager(), SETTING_MANAGER.get_window_size())
         self.main_wind.Show()
