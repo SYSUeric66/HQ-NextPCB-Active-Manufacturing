@@ -14,7 +14,7 @@ from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
 from kicad_amf_plugin.api.base_request import BaseRequest
 from kicad_amf_plugin.utils.request_helper import RequestHelper
-from kicad_amf_plugin.gui.summary.order_summary_model import OrderSummary ,BuildTime
+from kicad_amf_plugin.gui.summary.order_summary_model import AVAILABLE_TIME_UNIT, OrderSummary ,BuildTime ,TimeUnit
 import wx
 import wx.xrc
 import wx.dataview
@@ -47,6 +47,8 @@ NAME ='name'
 PCS_COUNT = 'pcs_count'
 TOTAL ='total'
 PCB ='pcb'
+FEE = 'fee'
+BCOUNT ='bcount'
 
 
 class MainFrame (wx.Frame):
@@ -125,28 +127,37 @@ class MainFrame (wx.Frame):
             if not i.is_valid():
                 return False
         return True
-    
+    def parse_zh_data_time(self, dt : str):
+        t = ""
+        unit = None
+        for i in dt :
+            if i.isnumeric() :
+                t = t + i
+            elif "天" == i :
+                unit = TimeUnit.DAY.value
+        if unit is None:
+            unit = TimeUnit.HOUR.value
+        return BuildTime(int(t) ,unit)
+
+
     def parse_price(self , summary : json):
         self.summary_view.update_price_detail({ 
             PriceCategory.PCB.value :summary})
-        # normal_total_price = self.summary_view
-        # suggests = [] 
-        # for item in summary:               
-        #     if SUGGEST in summary[item] and DEL_TIME in summary[item][SUGGEST]:
-        #         for suggest in summary[item][SUGGEST][DEL_TIME] :
-        #             if NAME in suggest and TOTAL in suggest and PCS_COUNT in suggest:
-        #                 full_time_cost = str(suggest[NAME]).split(' ')
-        #                 if len(full_time_cost) > 1:
-        #                     qty = int(suggest[PCS_COUNT])
-        #                     price = float(suggest[TOTAL])
-        #                     suggests.append(
-        #                         OrderSummary(
-        #                             pcb_quantity= qty,
-        #                             price= price,
-        #                             build_time= BuildTime(int(full_time_cost[0]), full_time_cost[1])
-        #                         )
-        #                     )
-        # self.summary_view.update_order_summary(suggests)           
+        normal_total_price = self.summary_view.get_total_price()
+        suggests = [] 
+        if SUGGEST in summary and DEL_TIME in summary[SUGGEST]:
+            for suggest in summary[SUGGEST][DEL_TIME] :
+                if NAME in suggest and FEE in suggest and BCOUNT in suggest:
+                    qty =  int(suggest[BCOUNT]) 
+                    price = float(suggest[FEE]) + normal_total_price
+                    suggests.append(
+                        OrderSummary(
+                            pcb_quantity= qty,
+                            price= price,
+                            build_time=  self.parse_zh_data_time(suggest[NAME])
+                        )
+                    )
+        self.summary_view.update_order_summary(suggests)           
     def parse_price_list(self , summary : json):
             self.summary_view.update_price_detail(summary)
             suggests = [] 

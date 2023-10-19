@@ -5,10 +5,14 @@ from enum import Enum
 
 from collections import namedtuple
 
+class TimeUnit(Enum):
+    DAY = 'days'
+    HOUR = 'hours'
+
 
 AVAILABLE_TIME_UNIT = {
-    'days':   _('days'),
-    'hours' : _('hours')
+    TimeUnit.DAY.value:   _('days'),
+    TimeUnit.HOUR.value : _('hours')
 }
 
 BuildTime = namedtuple('BuildTime' ,['Time' ,'Unit'])

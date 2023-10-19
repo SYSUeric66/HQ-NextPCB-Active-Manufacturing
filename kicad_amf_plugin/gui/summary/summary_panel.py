@@ -45,6 +45,9 @@ class SummaryPanel(UiSummaryPanel):
 
     def update_price_detail(self, price : 'dict'):
         self.model_price_summary.update_price(price)
+    
+    def get_total_price(self):
+        return self.model_price_summary.get_sum()
 
     def update_order_summary(self, price_summary : 'list'):
         self.model_order_summary.update_order_info(price_summary)
