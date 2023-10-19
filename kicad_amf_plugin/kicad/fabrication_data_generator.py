@@ -90,12 +90,8 @@ class FabricationDataGenerator:
         popt.SetFormat(1)
 
         # General Options
-        popt.SetPlotValue(
-            self.parent.settings.get("gerber", {}).get("plot_values", True)
-        )
-        popt.SetPlotReference(
-            self.parent.settings.get("gerber", {}).get("plot_references", True)
-        )
+        popt.SetPlotValue(True)
+        popt.SetPlotReference(True)
         popt.SetPlotInvisibleText(False)
 
         popt.SetSketchPadsOnFabLayers(False)
