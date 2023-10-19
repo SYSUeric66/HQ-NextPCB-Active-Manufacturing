@@ -1,12 +1,11 @@
 
-from logging import Logger
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
 from kicad_amf_plugin.pcb_fabrication.special_process.special_process_view import SpecialProcessView
 from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import PersonalizedInfoView
 from kicad_amf_plugin.gui.summary.summary_panel import SummaryPanel
-from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
+from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LAYER_COUNT_CHANGE ,EVT_UPDATE_PRICE ,EVT_PLACE_ORDER ,EVT_ORDER_REGION_CHANGED
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
@@ -102,15 +101,18 @@ class MainFrame (wx.Frame):
         if self._fabrication_data_gen is None:
             self._fabrication_data_gen = FabricationDataGenerator(self._board_manager.board)
         return self._fabrication_data_gen
-
-    def get_query_price_form(self):
+    
+    def build_form(self , kind : FormKind):
         base = BaseRequest().__dict__
         for i in self._pcb_form_parts.values():
-            base = base | i.get_from()
+            base = base | i.get_from(kind)
         return base          
+ 
+    def get_query_price_form(self):
+        return self.build_form(FormKind.QUERY_PRICE)        
 
     def get_place_order_form(self):
-        return {**self.get_query_price_form() , 'type' : 'pcbfile'}
+        return {**self.build_form(FormKind.PLACE_ORDER) , 'type' : 'pcbfile'}
     
     def form_is_valid(self):
         for i in self._pcb_form_parts.values():
@@ -155,7 +157,6 @@ class MainFrame (wx.Frame):
                 self.summary_view.update_order_summary(suggests)
 
             else :
-                Logger.error(quote)
                 err_msg = quote
                 if 'msg' in quote:
                     err_msg = quote['msg']

@@ -13,14 +13,14 @@ class OrderRegion :
     AVAILABLE_URLS = {
         SupportedRegion.CHINA_MAINLAND :{
             URL_KIND.PLACE_ORDER : 'https://www.hqpcb.com/External/fileQuote',
+            URL_KIND.QUERY_PRICE : 'https://www.hqpcb.com/public/ajax_valuation'
+        },
+        SupportedRegion.EUROPE_USA : {
+            URL_KIND.PLACE_ORDER : 'https://www.nextpcb.com/Upfile/kiCadUpFile',
             URL_KIND.QUERY_PRICE : 'https://www.nextpcb.com/ajax/valuation'
         },
         #TODO Update urls for Japan maybe 
         SupportedRegion.JAPAN : {
-            URL_KIND.PLACE_ORDER : 'https://www.nextpcb.com/Upfile/kiCadUpFile',
-            URL_KIND.QUERY_PRICE : 'https://www.nextpcb.com/ajax/valuation'
-        },
-        SupportedRegion.EUROPE_USA : {
             URL_KIND.PLACE_ORDER : 'https://www.nextpcb.com/Upfile/kiCadUpFile',
             URL_KIND.QUERY_PRICE : 'https://www.nextpcb.com/ajax/valuation'
         }

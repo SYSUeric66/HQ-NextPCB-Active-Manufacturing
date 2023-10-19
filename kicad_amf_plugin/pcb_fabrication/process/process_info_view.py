@@ -3,7 +3,7 @@ from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from .process_info_model import ProcessInfoModel
-from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
+from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 
 from .ui_process_info import UiProcessInfo
 import wx
@@ -85,7 +85,7 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
         self.Fit()
         
     @none_value_fitter    
-    def get_from(self) -> 'dict' :
+    def get_from(self , kind : FormKind) -> 'dict' :
         info = ProcessInfoModel(
             bheight=self.combo_board_thickness.GetStringSelection(),
             copper=str(

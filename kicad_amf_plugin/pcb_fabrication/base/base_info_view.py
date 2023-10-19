@@ -1,22 +1,16 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
-from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
+from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from .base_info_model import BaseInfoModel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LayerCountChange
 from .ui_base_info import UiBaseInfo , BOX_SIZE_SETTING , BOX_PANEL_SETTING ,BOX_BREAK_AWAY
 from kicad_amf_plugin.utils.validators  import  NumericTextCtrlValidator ,FloatTextCtrlValidator
 from kicad_amf_plugin.utils.roles import EditDisplayRole
-from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter
+from kicad_amf_plugin.utils.none_value_fitter import none_value_fitter 
+from kicad_amf_plugin.utils.number_round import number_round
 
 import pcbnew
 import wx
-
-def convert_pcb_geometry( base = 10, digit = 2):
-    def decorate(fn):
-        def wrapper(*args, **kwargs):
-            return  round( fn(*args, **kwargs) / base ,digit)
-        return wrapper
-    return decorate
 
 
 
@@ -103,8 +97,13 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
     def margin_mode(self):
         return  MarginMode.MARGIN_MODE_CHOICE[int(self.comb_margin_mode.GetSelection())].EditRole
 
-    @convert_pcb_geometry()
     def get_pcb_length(self):
+        """ Default is mm
+
+
+        Returns:
+            _type_: float
+        """
         if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
             if self.margin_mode in ( MarginMode.LEFT_RIGHT , MarginMode.ALL_4_SIDE ):
                 return float(self.edit_size_x.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
@@ -116,8 +115,13 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
             else:
                 return float(self.edit_size_x.GetValue()) * int(self.edit_panel_x.GetValue())       
              
-    @convert_pcb_geometry()
     def get_pcb_width(self):
+        """ Default is mm
+
+
+        Returns:
+            _type_: float
+        """        
         if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
             if self.margin_mode in (  MarginMode.LEFT_RIGHT , MarginMode.ALL_4_SIDE ):
                 return float(self.edit_size_y.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
@@ -130,14 +134,14 @@ class BaseInfoView(UiBaseInfo,FormPanelBase):
                 return float(self.edit_size_y.GetValue()) * int(self.edit_panel_y.GetValue())    
                      
     @none_value_fitter
-    def get_from(self) -> 'dict' :
+    def get_from(self , kind : FormKind) -> 'dict' :
         data = BaseInfoModel(
             blayer=  self.combo_layer_count.GetStringSelection() ,
             plate_type=AVAILABLE_MATERIAL_TYPES[0] , 
             board_tg = self.combo_board_tg.GetStringSelection() if self.combo_board_tg.Enabled else None  ,
             units = str(self.pcb_package_kind),
-            blength = str(self.get_pcb_length()),
-            bwidth= str(self.get_pcb_width()),
+            blength = str(FormPanelBase.convert_geometry(kind, SETTING_MANAGER.order_region , self.get_pcb_length())),
+            bwidth= str(FormPanelBase.convert_geometry(kind, SETTING_MANAGER.order_region , self.get_pcb_width())),
             bcount= self.combo_quantity.GetStringSelection(),
             sidedirection= str(self.margin_mode)
         )

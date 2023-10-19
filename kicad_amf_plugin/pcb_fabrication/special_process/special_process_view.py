@@ -10,7 +10,7 @@ import wx.xrc
 import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .special_process_model import SpecialProcessModel
-from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
+from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from kicad_amf_plugin.utils.validators import NumericTextCtrlValidator , FloatTextCtrlValidator
 
 HDI_STRUCTURE_CHOICE = [_(u"Rank 1"), _(u"Rank 2"), _(u"Rank 3")]
@@ -48,7 +48,7 @@ class SpecialProcessView(UiSpecialProcess,FormPanelBase):
         self.combo_baobian.SetSelection(0)
         
     @none_value_fitter    
-    def get_from(self) -> 'dict' :
+    def get_from(self , kind : FormKind) -> 'dict' :
         info = SpecialProcessModel(
             impendance= str(self.combo_impedance.GetSelection()),
             bankong= str(self.combo_halfHole.GetSelection()),

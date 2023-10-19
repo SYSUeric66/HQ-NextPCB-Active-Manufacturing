@@ -8,7 +8,7 @@ import wx.dataview
 from .ui_personalized import UiPersonalizedService , BOX_SP_REQUEST
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .personalized_info_model import PersonalizedInfoModel
-from kicad_amf_plugin.utils.form_panel_base import FormPanelBase
+from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 
 
@@ -94,7 +94,7 @@ class PersonalizedInfoView(UiPersonalizedService ,FormPanelBase):
             comb.SetSelection(0)        
         
     @none_value_fitter    
-    def get_from(self) -> 'dict' :
+    def get_from(self , kind : FormKind) -> 'dict' :
         info = PersonalizedInfoModel(
             test=TEST_METHOD_CHOICE[self.comb_test_method.StringSelection],
             shipment_report=str(self.comb_delivery_report.GetSelection()),
