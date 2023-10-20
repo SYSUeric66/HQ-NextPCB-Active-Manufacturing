@@ -341,6 +341,8 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
 
     def on_margin_mode_changed(self, event=None):
         self.edit_margin_size.Enabled = self.margin_mode != MarginMode.NA
+        if self.margin_mode == MarginMode.NA:
+            self.edit_margin_size.SetValue("0")
 
     def on_layer_count_changed(self, evt):
         evt = LayerCountChange(id=-1)

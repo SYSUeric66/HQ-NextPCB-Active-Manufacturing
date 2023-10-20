@@ -10,12 +10,8 @@ import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .special_process_model import SpecialProcessModel
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
-from kicad_amf_plugin.utils.validators import (
-    NumericTextCtrlValidator,
-    FloatTextCtrlValidator,
-)
 
-HDI_STRUCTURE_CHOICE = [_("Rank 1"), _("Rank 2"), _("Rank 3")]
+HDI_STRUCTURE_CHOICE = [_("N/A"), _("Rank 1"), _("Rank 2"), _("Rank 3")]
 
 STACKUP_CHOICE = [_("No Requirement"), _("Customer Specified Stack up")]
 
@@ -25,7 +21,6 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
         super().__init__(parent)
         self.board_manager = board_manager
 
-        self.initUI()
         self.combo_blind_via.Enabled = (
             self.board_manager.board.GetCopperLayerCount() != 2
         )
@@ -33,6 +28,9 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
 
     def is_valid(self) -> bool:
         return True
+
+    def init(self):
+        self.initUI()
 
     def initUI(self):
         for ctrl in (
@@ -79,6 +77,8 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
 
     def on_HDI_changed(self, event):
         self.combo_hdi_structure.Enabled = self.combo_blind_via.GetSelection() == 1
+        if not self.combo_hdi_structure.Enabled:
+            self.combo_hdi_structure.SetSelection(0)
 
     def on_layer_count_changed(self, event):
         self.combo_blind_via.Enabled = event.GetInt() > 2
@@ -87,13 +87,16 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
             self.combo_hdi_structure.Enabled = False
 
     def GetBlindValue(self):
-        if self.combo_blind_via.GetSelection() == 0:
+        if (
+            self.combo_blind_via.GetSelection() == 0
+            or self.combo_hdi_structure.GetSelection() == 0
+        ):
             return "0"
-        elif self.combo_hdi_structure.GetSelection() == 0:
-            return "1"
         elif self.combo_hdi_structure.GetSelection() == 1:
-            return "2"
+            return "1"
         elif self.combo_hdi_structure.GetSelection() == 2:
+            return "2"
+        elif self.combo_hdi_structure.GetSelection() == 3:
             return "3"
 
     def on_region_changed(self):

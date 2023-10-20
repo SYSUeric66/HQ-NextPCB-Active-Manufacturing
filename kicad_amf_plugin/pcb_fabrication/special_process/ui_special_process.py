@@ -159,7 +159,7 @@ class UiSpecialProcess(wx.Panel):
         self.combo_blind_via.SetSelection(0)
         fgSizer25.Add(self.combo_blind_via, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.m_staticText40111111 = wx.StaticText(
+        self.label_hdi = wx.StaticText(
             labelProcessInfo.GetStaticBox(),
             wx.ID_ANY,
             _("HDI Structure"),
@@ -167,9 +167,9 @@ class UiSpecialProcess(wx.Panel):
             wx.DefaultSize,
             0,
         )
-        self.m_staticText40111111.Wrap(-1)
+        self.label_hdi.Wrap(-1)
 
-        fgSizer25.Add(self.m_staticText40111111, 0, wx.ALL, 5)
+        fgSizer25.Add(self.label_hdi, 0, wx.ALL, 5)
 
         combo_hdi_structureChoices = []
         self.combo_hdi_structure = wx.Choice(

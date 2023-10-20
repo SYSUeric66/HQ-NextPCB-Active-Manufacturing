@@ -15,6 +15,13 @@ class BoardManager:
 
 
 def load_board_manager():
+    for fp in (
+        "D:\\complex_hierarchy\\complex_hierarchy.kicad_pcb",
+        "D:/tmp/complex_hierarchy/complex_hierarchy.kicad_pcb",
+    ):
+        if os.path.exists(fp):
+            return BoardManager(LoadBoard(fp))
+    # Setup board
     board = GetBoard()
     if board:
         return BoardManager(board)
@@ -31,7 +38,11 @@ def load_board_manager():
             | wx.FD_FILE_MUST_EXIST
             | wx.FD_PREVIEW,
         )
+
+        # Show the dialog and retrieve the user response. If it is the OK response,
+        # process the data.
         if dlg.ShowModal() == wx.ID_OK:
+            # This returns a Python list of files that were selected.
             paths = dlg.GetPaths()
             if len(paths):
                 board = LoadBoard(paths[0])
