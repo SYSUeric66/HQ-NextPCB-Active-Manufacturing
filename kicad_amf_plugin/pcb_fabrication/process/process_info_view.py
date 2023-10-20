@@ -61,7 +61,7 @@ SOLDER_COVER_CHOICE = {
     _("Tenting Vias"): "Tenting Vias",
     _("Vias not covered"): "Vias not covered",
     _("Solder Mask Plug (IV-B)"): "Solder Mask Plug (IV-B)",
-    _("Non-Conductive Fill"): "Non-Conductive Fill",
+    _("Non-Conductive Fill"): "Non-Conductive Fill & Cap (VII)",
 }
 
 SURFACE_PROCESS_CHOICE = {

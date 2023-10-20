@@ -16,7 +16,7 @@ MAPPING = {
     "Solder Mask Plug (IV-B)": "过孔塞油墨",
     "Tenting Vias": "过孔盖油",
     "Vias not covered": "过孔开窗",
-    "Non-Conductive Fill": "过孔塞树脂+电镀填平",
+    "Non-Conductive Fill & Cap (VII)": "过孔塞树脂+电镀填平",
     "HASL": "有铅喷锡",
     "Lead free HASL": "无铅喷锡",
     "ENIG": "沉金",
