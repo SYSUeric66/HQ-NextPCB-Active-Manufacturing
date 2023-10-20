@@ -5,4 +5,4 @@ from dataclasses import dataclass
 class PlaceOrderRequest:
     blength: str
     bwidth: str
-    type: str = 'pcbfile'
+    type: str = "pcbfile"

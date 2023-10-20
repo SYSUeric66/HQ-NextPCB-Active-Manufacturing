@@ -1,20 +1,20 @@
-from .price_model_base import PriceModelBase ,PriceItem
+from .price_model_base import PriceModelBase, PriceItem
+
 
 class SmtPriceModel(PriceModelBase):
-    smt_price : float = 0
+    smt_price: float = 0
 
-    def data(self, row : int , col : int) :
+    def data(self, row: int, col: int):
         return 0
 
     def name(self):
         return _("SMT")
-    
+
     def sum(self):
-        return 0  
+        return 0
 
-    def get_items(self) -> 'list[PriceItem]':
-        return []    
+    def get_items(self) -> "list[PriceItem]":
+        return []
 
-    def update(self , data : dict):
-        pass        
-        
+    def update(self, data: dict):
+        pass

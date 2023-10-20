@@ -10,8 +10,9 @@ from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import EVT_LOCALE_CHANG
 from kicad_amf_plugin.kicad.board_manager import load_board_manager
 from kicad_amf_plugin.utils.combo_box_ignore_wheel import ComboBoxIgnoreWheel
 import wx
+
 # add translation macro to builtin similar to what gettext does
-builtins.__dict__['_'] = wx.GetTranslation
+builtins.__dict__["_"] = wx.GetTranslation
 wx.Choice = ComboBoxIgnoreWheel
 
 
@@ -21,7 +22,9 @@ def _displayHook(obj):
 
 
 class BaseApp(wx.App, InspectionMixin):
-    def __init__(self, redirect=False, filename=None, useBestVisual=False, clearSigInt=True):
+    def __init__(
+        self, redirect=False, filename=None, useBestVisual=False, clearSigInt=True
+    ):
         super().__init__(redirect, filename, useBestVisual, clearSigInt)
         self.Bind(EVT_LOCALE_CHANGE, self.on_locale_changed)
 
@@ -31,8 +34,10 @@ class BaseApp(wx.App, InspectionMixin):
         sys.displayhook = _displayHook
         self.locale = None
         wx.Locale.AddCatalogLookupPathPrefix(
-            os.path.join(PLUGIN_ROOT, 'language', 'locale'))
+            os.path.join(PLUGIN_ROOT, "language", "locale")
+        )
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
         self.board_manager = load_board_manager()
@@ -44,10 +49,12 @@ class BaseApp(wx.App, InspectionMixin):
 
     def on_locale_changed(self, evt):
         self.update_language(evt.GetInt())
-        info = wx.MessageDialog(self.main_wind, _('Restart the plugin to apply the new locale ?'),
-                                _('Tip'),
-                                wx.YES | wx.ICON_QUESTION | wx.NO
-                                )
+        info = wx.MessageDialog(
+            self.main_wind,
+            _("Restart the plugin to apply the new locale ?"),
+            _("Tip"),
+            wx.YES | wx.ICON_QUESTION | wx.NO,
+        )
         res = info.ShowModal()
         info.Destroy()
         if res == wx.ID_YES:
@@ -73,6 +80,8 @@ class BaseApp(wx.App, InspectionMixin):
     def startup_dialog(self):
         from kicad_amf_plugin.gui.main_frame import MainFrame
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+
         self.main_wind = MainFrame(
-            self.board_manager, SETTING_MANAGER.get_window_size())
+            self.board_manager, SETTING_MANAGER.get_window_size()
+        )
         self.main_wind.Show()

@@ -3,8 +3,16 @@ from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from .base_info_model import BaseInfoModel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LayerCountChange
-from .ui_base_info import UiBaseInfo, BOX_SIZE_SETTING, BOX_PANEL_SETTING, BOX_BREAK_AWAY
-from kicad_amf_plugin.utils.validators import NumericTextCtrlValidator, FloatTextCtrlValidator
+from .ui_base_info import (
+    UiBaseInfo,
+    BOX_SIZE_SETTING,
+    BOX_PANEL_SETTING,
+    BOX_BREAK_AWAY,
+)
+from kicad_amf_plugin.utils.validators import (
+    NumericTextCtrlValidator,
+    FloatTextCtrlValidator,
+)
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from kicad_amf_plugin.settings.form_value_fitter import fitter_and_map_form_value
 from kicad_amf_plugin.settings.supported_layer_count import AVAILABLE_LAYER_COUNTS
@@ -18,16 +26,15 @@ AVAILABLE_MATERIAL_TYPES = ["FR-4"]
 AVAILABLE_BOARD_TG_TYPES = ["TG130", "TG150", "TG170"]
 
 
-
 class PcbPackageKind:
     SINGLE_PIECE = 1
     PANEL_BY_CUSTOMER = 3
     PANEL_BY_NEXT_PCB = 2
 
     PCB_PACKAGE_KIND = (
-        EditDisplayRole(SINGLE_PIECE, _(u"Single Piece")),
-        EditDisplayRole(PANEL_BY_CUSTOMER, _(u"Panel by Customer")),
-        EditDisplayRole(PANEL_BY_NEXT_PCB, _(u"Panel by NextPCB"))
+        EditDisplayRole(SINGLE_PIECE, _("Single Piece")),
+        EditDisplayRole(PANEL_BY_CUSTOMER, _("Panel by Customer")),
+        EditDisplayRole(PANEL_BY_NEXT_PCB, _("Panel by NextPCB")),
     )
 
 
@@ -38,15 +45,55 @@ class MarginMode:
     ALL_4_SIDE = "XY"
 
     MARGIN_MODE_CHOICE = [
-        EditDisplayRole(NA,  _(u"N/A")),
-        EditDisplayRole(LEFT_RIGHT, _(u"Left & Right")),
-        EditDisplayRole(TOP_BOTTOM,  _(u"Top & Bottom")),
-        EditDisplayRole(ALL_4_SIDE,  _(u"All 4 sides"))
+        EditDisplayRole(NA, _("N/A")),
+        EditDisplayRole(LEFT_RIGHT, _("Left & Right")),
+        EditDisplayRole(TOP_BOTTOM, _("Top & Bottom")),
+        EditDisplayRole(ALL_4_SIDE, _("All 4 sides")),
     ]
 
 
-AVAILABLE_QUANTITY = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 600,
-                      700, 800, 900, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 9000, 10000]
+AVAILABLE_QUANTITY = [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    40,
+    50,
+    75,
+    100,
+    125,
+    150,
+    200,
+    250,
+    300,
+    350,
+    400,
+    450,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1500,
+    2000,
+    2500,
+    3000,
+    3500,
+    4000,
+    4500,
+    5000,
+    5500,
+    6000,
+    6500,
+    7000,
+    7500,
+    8000,
+    9000,
+    10000,
+]
 
 
 class BaseInfoView(UiBaseInfo, FormPanelBase):
@@ -54,8 +101,7 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         super().__init__(parent)
         self.board_manager = board_manager
 
-        self.combo_pcb_package_kind.Bind(
-            wx.EVT_CHOICE, self.on_pcb_packaging_changed)
+        self.combo_pcb_package_kind.Bind(wx.EVT_CHOICE, self.on_pcb_packaging_changed)
         self.comb_margin_mode.Bind(wx.EVT_CHOICE, self.on_margin_mode_changed)
         self.combo_layer_count.Bind(wx.EVT_CHOICE, self.on_layer_count_changed)
         for editor in self.edit_panel_x, self.edit_panel_y:
@@ -65,17 +111,26 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
     def is_valid(self) -> bool:
         if self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE:
             if not self.edit_panel_x.Validate():
-                wx.MessageBox(_("Panel Type X value isn't valid. Please input valid value."), _(
-                    "Error"), wx.OK | wx.ICON_ERROR)
+                wx.MessageBox(
+                    _("Panel Type X value isn't valid. Please input valid value."),
+                    _("Error"),
+                    wx.OK | wx.ICON_ERROR,
+                )
                 return False
             if not self.edit_panel_y.Validate():
-                wx.MessageBox(_("Panel Type Y value isn't valid. Please input valid value."), _(
-                    "Error"), wx.OK | wx.ICON_ERROR)
+                wx.MessageBox(
+                    _("Panel Type Y value isn't valid. Please input valid value."),
+                    _("Error"),
+                    wx.OK | wx.ICON_ERROR,
+                )
                 return False
         if self.edit_margin_size.Enabled:
             if not self.edit_margin_size.Validate():
-                wx.MessageBox(_("Break-away Rail value isn't valid. Please input valid value."),
-                              _("Error"), wx.OK | wx.ICON_ERROR)
+                wx.MessageBox(
+                    _("Break-away Rail value isn't valid. Please input valid value."),
+                    _("Error"),
+                    wx.OK | wx.ICON_ERROR,
+                )
                 return False
         return True
 
@@ -93,14 +148,18 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
 
     @property
     def pcb_package_kind(self):
-        return PcbPackageKind.PCB_PACKAGE_KIND[int(self.combo_pcb_package_kind.GetSelection())].EditRole
+        return PcbPackageKind.PCB_PACKAGE_KIND[
+            int(self.combo_pcb_package_kind.GetSelection())
+        ].EditRole
 
     @property
     def margin_mode(self):
-        return MarginMode.MARGIN_MODE_CHOICE[int(self.comb_margin_mode.GetSelection())].EditRole
+        return MarginMode.MARGIN_MODE_CHOICE[
+            int(self.comb_margin_mode.GetSelection())
+        ].EditRole
 
     def get_pcb_length(self):
-        """ Default is mm
+        """Default is mm
 
 
         Returns:
@@ -108,17 +167,26 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         """
         if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
             if self.margin_mode in (MarginMode.LEFT_RIGHT, MarginMode.ALL_4_SIDE):
-                return float(self.edit_size_x.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
+                return (
+                    float(self.edit_size_x.GetValue())
+                    + float(self.edit_margin_size.GetValue()) * 2
+                )
             else:
                 return float(self.edit_size_x.GetValue())
         else:
             if self.margin_mode in (MarginMode.LEFT_RIGHT, MarginMode.ALL_4_SIDE):
-                return float(self.edit_size_x.GetValue()) * int(self.edit_panel_x.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
+                return (
+                    float(self.edit_size_x.GetValue())
+                    * int(self.edit_panel_x.GetValue())
+                    + float(self.edit_margin_size.GetValue()) * 2
+                )
             else:
-                return float(self.edit_size_x.GetValue()) * int(self.edit_panel_x.GetValue())
+                return float(self.edit_size_x.GetValue()) * int(
+                    self.edit_panel_x.GetValue()
+                )
 
     def get_pcb_width(self):
-        """ Default is mm
+        """Default is mm
 
 
         Returns:
@@ -126,32 +194,51 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         """
         if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
             if self.margin_mode in (MarginMode.LEFT_RIGHT, MarginMode.ALL_4_SIDE):
-                return float(self.edit_size_y.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
+                return (
+                    float(self.edit_size_y.GetValue())
+                    + float(self.edit_margin_size.GetValue()) * 2
+                )
             else:
                 return float(self.edit_size_y.GetValue())
         else:
             if self.margin_mode in (MarginMode.LEFT_RIGHT, MarginMode.ALL_4_SIDE):
-                return float(self.edit_size_y.GetValue()) * int(self.edit_panel_y.GetValue()) + float(self.edit_margin_size.GetValue()) * 2
+                return (
+                    float(self.edit_size_y.GetValue())
+                    * int(self.edit_panel_y.GetValue())
+                    + float(self.edit_margin_size.GetValue()) * 2
+                )
             else:
-                return float(self.edit_size_y.GetValue()) * int(self.edit_panel_y.GetValue())
+                return float(self.edit_size_y.GetValue()) * int(
+                    self.edit_panel_y.GetValue()
+                )
 
     @fitter_and_map_form_value
-    def get_from(self, kind: FormKind) -> 'dict':
+    def get_from(self, kind: FormKind) -> "dict":
         data = BaseInfoModel(
             blayer=self.combo_layer_count.GetStringSelection(),
             plate_type=AVAILABLE_MATERIAL_TYPES[0],
-            board_tg=self.combo_board_tg.GetStringSelection(
-            ) if self.combo_board_tg.Enabled else None,
+            board_tg=self.combo_board_tg.GetStringSelection()
+            if self.combo_board_tg.Enabled
+            else None,
             units=str(self.pcb_package_kind),
-            blength=str(FormPanelBase.convert_geometry(
-                kind, SETTING_MANAGER.order_region, self.get_pcb_length())),
-            bwidth=str(FormPanelBase.convert_geometry(
-                kind, SETTING_MANAGER.order_region, self.get_pcb_width())),
+            blength=str(
+                FormPanelBase.convert_geometry(
+                    kind, SETTING_MANAGER.order_region, self.get_pcb_length()
+                )
+            ),
+            bwidth=str(
+                FormPanelBase.convert_geometry(
+                    kind, SETTING_MANAGER.order_region, self.get_pcb_width()
+                )
+            ),
             bcount=self.combo_quantity.GetStringSelection(),
-            sidedirection=str(self.margin_mode)
+            sidedirection=str(self.margin_mode),
         )
 
-        if self.pcb_package_kind in (PcbPackageKind.PANEL_BY_CUSTOMER, PcbPackageKind.PANEL_BY_NEXT_PCB):
+        if self.pcb_package_kind in (
+            PcbPackageKind.PANEL_BY_CUSTOMER,
+            PcbPackageKind.PANEL_BY_NEXT_PCB,
+        ):
             data.layoutx = self.edit_panel_x.GetValue()
             data.layouty = self.edit_panel_y.GetValue()
 
@@ -171,14 +258,15 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         self.combo_material_type.Append(AVAILABLE_MATERIAL_TYPES)
         self.combo_material_type.SetSelection(0)
 
-        self.combo_layer_count.AppendItems(
-            [str(i) for i in AVAILABLE_LAYER_COUNTS])
+        self.combo_layer_count.AppendItems([str(i) for i in AVAILABLE_LAYER_COUNTS])
         self.combo_layer_count.SetSelection(1)
 
         self.combo_pcb_package_kind.Append(
-            [i.DisplayRole for i in PcbPackageKind.PCB_PACKAGE_KIND])
+            [i.DisplayRole for i in PcbPackageKind.PCB_PACKAGE_KIND]
+        )
         self.comb_margin_mode.Append(
-            [i.DisplayRole for i in MarginMode.MARGIN_MODE_CHOICE])
+            [i.DisplayRole for i in MarginMode.MARGIN_MODE_CHOICE]
+        )
 
         self.combo_quantity.Append([str(i) for i in AVAILABLE_QUANTITY])
         self.combo_quantity.SetSelection(0)
@@ -192,16 +280,20 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
             i.SetEditable(False)
         self.edit_margin_size.Enabled = False
         self.box_panel_setting.Show(
-            self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE)
+            self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE
+        )
 
     def loadBoardInfo(self):
         boardWidth = pcbnew.ToMM(
-            self.board_manager.board.GetBoardEdgesBoundingBox().GetWidth())
+            self.board_manager.board.GetBoardEdgesBoundingBox().GetWidth()
+        )
         boardHeight = pcbnew.ToMM(
-            self.board_manager.board.GetBoardEdgesBoundingBox().GetHeight())
+            self.board_manager.board.GetBoardEdgesBoundingBox().GetHeight()
+        )
         layerCount = self.board_manager.board.GetCopperLayerCount()
         self.combo_layer_count.SetSelection(
-            self.combo_layer_count.FindString(str(layerCount)))
+            self.combo_layer_count.FindString(str(layerCount))
+        )
         self.combo_layer_count.Enabled = False
         self.edit_size_x.SetValue(str(boardWidth))
         self.edit_size_y.SetValue(str(boardHeight))
@@ -209,17 +301,20 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
 
     def on_pcb_packaging_changed(self, evt=None):
         if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
-            self.box_piece_or_panel_size.SetLabelText(_('Size (single)'))
-            self.label_quantity.SetLabel(_('Qty(single)'))
-            self.label_quantity_unit.SetLabel(_('Pcs'))
+            self.box_piece_or_panel_size.SetLabelText(_("Size (single)"))
+            self.label_quantity.SetLabel(_("Qty(single)"))
+            self.label_quantity_unit.SetLabel(_("Pcs"))
         else:
-            self.box_piece_or_panel_size.SetLabelText(_('Size (set)'))
-            self.label_quantity.SetLabel(_('Qty(Set)'))
-            self.label_quantity_unit.SetLabel(_('Set'))
+            self.box_piece_or_panel_size.SetLabelText(_("Size (set)"))
+            self.label_quantity.SetLabel(_("Qty(Set)"))
+            self.label_quantity_unit.SetLabel(_("Set"))
 
         self.box_panel_setting.Show(
-            self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE)
-        self.box_break_away.Enabled = self.pcb_package_kind != PcbPackageKind.PANEL_BY_CUSTOMER
+            self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE
+        )
+        self.box_break_away.Enabled = (
+            self.pcb_package_kind != PcbPackageKind.PANEL_BY_CUSTOMER
+        )
         self.on_margin_mode_changed()
         if SETTING_MANAGER.get_main_wind() is not None:
             SETTING_MANAGER.get_main_wind().adjust_size()
@@ -236,8 +331,15 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
 
     def get_pcb_count(self):
         n = int(self.combo_quantity.GetStringSelection())
-        if self.combo_pcb_package_kind.GetSelection() == 1 or self.combo_pcb_package_kind.GetSelection() == 2:
-            return n * int(self.edit_panel_x.GetValue()) * int(self.edit_panel_y.GetValue())
+        if (
+            self.combo_pcb_package_kind.GetSelection() == 1
+            or self.combo_pcb_package_kind.GetSelection() == 2
+        ):
+            return (
+                n
+                * int(self.edit_panel_x.GetValue())
+                * int(self.edit_panel_y.GetValue())
+            )
         else:
             return n
 

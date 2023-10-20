@@ -63,7 +63,7 @@ class FabricationDataGenerator:
 
     def fill_zones(self):
         """Refill copper zones following user prompt."""
-        #if self.parent.settings.get("gerber", {}).get("fill_zones", True):
+        # if self.parent.settings.get("gerber", {}).get("fill_zones", True):
         filler = ZONE_FILLER(self.board)
         zones = self.board.Zones()
         filler.Fill(zones)
@@ -207,7 +207,7 @@ class FabricationDataGenerator:
     def generate_cpl(self):
         """Generate placement file (CPL)."""
         cplname = f"CPL-{self.filename.split('.')[0]}.csv"
-        #self.corrections = self.parent.library.get_all_correction_data()
+        # self.corrections = self.parent.library.get_all_correction_data()
         aux_orgin = self.board.GetDesignSettings().GetAuxOrigin()
         with open(
             os.path.join(self.output_dir, cplname), "w", newline="", encoding="utf-8"
@@ -228,7 +228,7 @@ class FabricationDataGenerator:
                             part[2],
                             ToMM(position.x),
                             ToMM(position.y) * -1,
-                            '',
+                            "",
                             "top" if fp.GetLayer() == 0 else "bottom",
                         ]
                     )
@@ -246,15 +246,16 @@ class FabricationDataGenerator:
                 writer.writerow(part)
         self.logger.info("Finished generating BOM file")
 
-    
     @property
     def zip_file_path(self):
-        return  os.path.join(self.output_dir, f"GERBER-{self.filename.split('.')[0]}.zip")  
+        return os.path.join(
+            self.output_dir, f"GERBER-{self.filename.split('.')[0]}.zip"
+        )
 
     @contextlib.contextmanager
     def create_kicad_pcb_file(self):
         try:
-            self.create_folders()            
+            self.create_folders()
             self.fill_zones()
             self.generate_geber(None)
             self.generate_excellon()
@@ -262,6 +263,3 @@ class FabricationDataGenerator:
             yield self.zip_file_path
         except Exception as error:
             logging.error(f"Error while processing kicad pcb file ,detail :  {error}")
-
-
-

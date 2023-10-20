@@ -1,6 +1,6 @@
 import wx
-_=wx.GetTranslation
 
+_ = wx.GetTranslation
 
 
 BOOLEAN_CHOICE = [_("No"), _("Yes")]

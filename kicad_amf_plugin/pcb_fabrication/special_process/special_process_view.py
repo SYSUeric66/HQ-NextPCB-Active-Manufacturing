@@ -1,4 +1,3 @@
-
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.order.order_region import SupportedRegion
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
@@ -11,12 +10,14 @@ import wx.dataview
 from kicad_amf_plugin.utils.constraint import BOOLEAN_CHOICE
 from .special_process_model import SpecialProcessModel
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
-from kicad_amf_plugin.utils.validators import NumericTextCtrlValidator, FloatTextCtrlValidator
+from kicad_amf_plugin.utils.validators import (
+    NumericTextCtrlValidator,
+    FloatTextCtrlValidator,
+)
 
-HDI_STRUCTURE_CHOICE = [_(u"Rank 1"), _(u"Rank 2"), _(u"Rank 3")]
+HDI_STRUCTURE_CHOICE = [_("Rank 1"), _("Rank 2"), _("Rank 3")]
 
-STACKUP_CHOICE = [_(u"No Requirement"), _(
-    u"Customer Specified Stack up")]
+STACKUP_CHOICE = [_("No Requirement"), _("Customer Specified Stack up")]
 
 
 class SpecialProcessView(UiSpecialProcess, FormPanelBase):
@@ -25,14 +26,22 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
         self.board_manager = board_manager
 
         self.initUI()
-        self.combo_blind_via.Enabled = self.board_manager.board.GetCopperLayerCount() != 2
+        self.combo_blind_via.Enabled = (
+            self.board_manager.board.GetCopperLayerCount() != 2
+        )
         self.combo_blind_via.Bind(wx.EVT_CHOICE, self.on_HDI_changed)
 
     def is_valid(self) -> bool:
         return True
 
     def initUI(self):
-        for ctrl in self.combo_impedance, self.combo_goldFinger, self.combo_halfHole,  self.combo_pad_hole, self.combo_blind_via:
+        for ctrl in (
+            self.combo_impedance,
+            self.combo_goldFinger,
+            self.combo_halfHole,
+            self.combo_pad_hole,
+            self.combo_blind_via,
+        ):
             for i in BOOLEAN_CHOICE:
                 ctrl.Append(_(i))
             ctrl.SetSelection(0)
@@ -47,17 +56,21 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
         self.combo_baobian.SetSelection(0)
 
     @fitter_and_map_form_value
-    def get_from(self, kind: FormKind) -> 'dict':
+    def get_from(self, kind: FormKind) -> "dict":
         info = SpecialProcessModel(
             impendance=str(self.combo_impedance.GetSelection()),
             bankong=str(self.combo_halfHole.GetSelection()),
             blind=self.GetBlindValue(),
-            via_in_pad='N/A' if self.combo_pad_hole.GetSelection() == 0 else 'Have',
+            via_in_pad="N/A" if self.combo_pad_hole.GetSelection() == 0 else "Have",
             beveledge=str(self.combo_goldFinger.GetSelection()),
-            baobian=self.combo_baobian.GetStringSelection()
+            baobian=self.combo_baobian.GetStringSelection(),
         )
-        if  self.combo_stackup.Shown and self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
-            info.pressing = 'Customer Specified Stack up'
+        if (
+            self.combo_stackup.Shown
+            and self.layer_count > 2
+            and self.combo_stackup.GetSelection() != 0
+        ):
+            info.pressing = "Customer Specified Stack up"
         return vars(info)
 
     @property
@@ -84,6 +97,5 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
             return "3"
 
     def on_region_changed(self):
-        for i in self.label_stackup ,  self.combo_stackup:
-            i.Show(SETTING_MANAGER.order_region !=
-                   SupportedRegion.CHINA_MAINLAND)
+        for i in self.label_stackup, self.combo_stackup:
+            i.Show(SETTING_MANAGER.order_region != SupportedRegion.CHINA_MAINLAND)

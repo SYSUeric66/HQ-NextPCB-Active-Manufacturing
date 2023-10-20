@@ -20,20 +20,24 @@ MAPPING = {
     "HASL": "有铅喷锡",
     "Lead free HASL": "无铅喷锡",
     "ENIG": "沉金",
-    "Have" :"有"
+    "Have": "有",
 }
 
 
 def fitter_and_map_form_value(fn):
     def wrapper(*args, **kwargs):
-        form: 'dict' = fn(*args, **kwargs)
+        form: "dict" = fn(*args, **kwargs)
         new_form = {}
         for i in form:
             if form[i] is None:
                 continue
-            if SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND  and form[i] in MAPPING:
-                new_form[i] = MAPPING[form[i]] 
+            if (
+                SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND
+                and form[i] in MAPPING
+            ):
+                new_form[i] = MAPPING[form[i]]
             else:
                 new_form[i] = form[i]
         return new_form
+
     return wrapper

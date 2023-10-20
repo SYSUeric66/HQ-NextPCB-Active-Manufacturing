@@ -3,21 +3,26 @@ import json
 import wx
 import os
 import logging
+
+
 class KiCadSetting:
     def read_lang_setting():
         try:
             import pcbnew
+
             kicad_setting_path = str(pcbnew.SETTINGS_MANAGER.GetUserSettingsPath())
-            logging.info(f'Kicad setting path {kicad_setting_path}')
-            print(f'Kicad setting path {kicad_setting_path}')
+            logging.info(f"Kicad setting path {kicad_setting_path}")
+            print(f"Kicad setting path {kicad_setting_path}")
             if len(kicad_setting_path):
-                kicad_common_json = os.path.join(kicad_setting_path, 'kicad_common.json')
-                with open(kicad_common_json) as f :
+                kicad_common_json = os.path.join(
+                    kicad_setting_path, "kicad_common.json"
+                )
+                with open(kicad_common_json) as f:
                     data = json.loads(f.read())
-                    lang : str = data["system"]["language"]
-                    if lang.count(u"中文"):
+                    lang: str = data["system"]["language"]
+                    if lang.count("中文"):
                         return wx.LANGUAGE_CHINESE_SIMPLIFIED
-                    elif lang.count(u"日本"):
+                    elif lang.count("日本"):
                         return wx.LANGUAGE_JAPANESE_JAPAN
             else:
                 logging.error("Empty KiCad config path!")

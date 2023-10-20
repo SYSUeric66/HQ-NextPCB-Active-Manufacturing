@@ -31,6 +31,8 @@ for i in __init__.py __main__.py kicad_amf_plugin
     do cp -r $i $PLUGIN_PATH
 done
 
+for i in  `find $PLUGIN_PATH -iname __pycache__` ; do rm -rf $i ; done
+
 echo "Write version to achieve"
 echo $VERSION > $PLUGIN_PATH/VERSION
 

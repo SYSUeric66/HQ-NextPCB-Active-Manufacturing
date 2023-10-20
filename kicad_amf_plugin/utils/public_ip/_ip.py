@@ -76,25 +76,29 @@ def get(nurls: int = len(URLS), timeout: float = 1) -> str:
             "responses ({first_votes} occurrences each)"
         )
     return first_ip
+
+
 def get_ip():
-    response = requests.get('https://api64.ipify.org?format=json').json()
+    response = requests.get("https://api64.ipify.org?format=json").json()
     return response["ip"]
 
+
 def get_ip_country():
-    GEO_IP_API_URL  = 'http://ip-api.com/json/'
+    GEO_IP_API_URL = "http://ip-api.com/json/"
 
     # Can be also site URL like this : 'google.com'
-    IP_TO_SEARCH    = '210.138.184.59'
+    IP_TO_SEARCH = "210.138.184.59"
 
     # Creating request object to GeoLocation API
-    req             = urllib.request.Request(GEO_IP_API_URL+IP_TO_SEARCH)
+    req = urllib.request.Request(GEO_IP_API_URL + IP_TO_SEARCH)
     # Getting in response JSON
-    response        = urllib.request.urlopen(req).read()
+    response = urllib.request.urlopen(req).read()
     # Loading JSON from text to object
-    json_response   = json.loads(response.decode('utf-8'))
+    json_response = json.loads(response.decode("utf-8"))
 
     # Print country
-    return json_response['country']
+    return json_response["country"]
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     print(get_ip_country())

@@ -1,18 +1,18 @@
 import wx
-from .lang_const import CODE_TO_NAME ,code_to_wx
+from .lang_const import CODE_TO_NAME, code_to_wx
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 
 
-WX_ID_MAP =  code_to_wx()
+WX_ID_MAP = code_to_wx()
+
 
 class LangSettingPopMenu(wx.Menu):
-
     def __init__(self, current_lang_id: int):
         super().__init__()
         for lang in enumerate(CODE_TO_NAME):
-            id , code = lang
-            item = wx.MenuItem(id = id, text=  _(CODE_TO_NAME[code])  , kind = wx.ITEM_CHECK)
-            wx_id =WX_ID_MAP[code]
+            id, code = lang
+            item = wx.MenuItem(id=id, text=_(CODE_TO_NAME[code]), kind=wx.ITEM_CHECK)
+            wx_id = WX_ID_MAP[code]
             if current_lang_id == wx_id:
                 item.Check(True)
             else:
