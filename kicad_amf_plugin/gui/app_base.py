@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-# Author:   Werner F. Bruhin
-# Purpose:  how to I18N enable an application
-#
-# Inspired by the I18N wxPython demo and the Internationalization page on
-# the wxPython wiki.
-#
-
 from wx.lib.mixins.inspection import InspectionMixin
 from kicad_amf_plugin.language.lang_const import get_supported_language
 from kicad_amf_plugin.language.lang_const import LANG_DOMAIN

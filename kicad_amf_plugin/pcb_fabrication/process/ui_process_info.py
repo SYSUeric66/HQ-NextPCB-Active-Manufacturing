@@ -110,10 +110,10 @@ class UiProcessInfo ( wx.Panel ):
 		self.combo_silk_screen_color.SetSelection( 0 )
 		fgSizer25.Add( self.combo_silk_screen_color, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText401111111 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Via Process"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText401111111.Wrap( -1 )
+		self.label_stackup = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Via Process"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_stackup.Wrap( -1 )
 
-		fgSizer25.Add( self.m_staticText401111111, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.label_stackup, 0, wx.ALL, 5 )
 
 		combo_solder_coverChoices = []
 		self.combo_solder_cover = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, combo_solder_coverChoices, 0 )

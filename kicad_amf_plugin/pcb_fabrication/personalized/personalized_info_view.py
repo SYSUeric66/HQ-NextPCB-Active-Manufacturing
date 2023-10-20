@@ -32,7 +32,7 @@ PAPER = [
 USER_STAMP = [
     EditDisplayRole(1, _('Add customer stamp')),
     EditDisplayRole(2, _("Add it to specified location")),
-    EditDisplayRole(2, _("Don't add customer stamp")),
+    EditDisplayRole(3, _("Don't add customer stamp")),
 ]
 
 HQ_PACK = [
@@ -61,8 +61,10 @@ class PersonalizedInfoView(UiPersonalizedService, FormPanelBase):
         self.initUI()
 
     def initUI(self):
+        #NOTE It seems that all tests are free now 
         self.comb_test_method.Append([i for i in TEST_METHOD_CHOICE])
         self.comb_test_method.SetSelection(0)
+
         for ctrl in (self.combo_microsection_report, self.comb_film, self.comb_delivery_report):
             for i in BOOLEAN_CHOICE:
                 ctrl.Append(_(i))
@@ -95,7 +97,7 @@ class PersonalizedInfoView(UiPersonalizedService, FormPanelBase):
     @fitter_and_map_form_value
     def get_from(self, kind: FormKind) -> 'dict':
         info = PersonalizedInfoModel(
-            test=TEST_METHOD_CHOICE[self.comb_test_method.StringSelection],
+            test=TEST_METHOD_CHOICE[self.comb_test_method.StringSelection] if self.comb_test_method.Shown else None,
             shipment_report=str(self.comb_delivery_report.GetSelection()),
             slice_report=str(self.combo_microsection_report.GetSelection()),
             report_type=str(self.GetReportType()),
@@ -148,5 +150,3 @@ class PersonalizedInfoView(UiPersonalizedService, FormPanelBase):
                    SupportedRegion.CHINA_MAINLAND)
         self.sp_box.Show(SETTING_MANAGER.order_region !=
                          SupportedRegion.CHINA_MAINLAND)
-        if SETTING_MANAGER.get_main_wind() is not None:
-            SETTING_MANAGER.get_main_wind().adjust_size()

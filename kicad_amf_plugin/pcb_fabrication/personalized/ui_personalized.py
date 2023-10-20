@@ -28,10 +28,10 @@ class UiPersonalizedService ( wx.Panel ):
 		fgSizer25.SetFlexibleDirection( wx.BOTH )
 		fgSizer25.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.m_staticText401 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Electrical Test"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText401.Wrap( -1 )
+		self.label_electric_test = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Electrical Test"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_electric_test.Wrap( -1 )
 
-		fgSizer25.Add( self.m_staticText401, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.label_electric_test, 0, wx.ALL, 5 )
 
 		comb_test_methodChoices = []
 		self.comb_test_method = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comb_test_methodChoices, 0 )
@@ -88,10 +88,10 @@ class UiPersonalizedService ( wx.Panel ):
 		self.comb_ul_mark.SetSelection( 0 )
 		fgSizer25.Add( self.comb_ul_mark, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText401111111 = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Film"), wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText401111111.Wrap( -1 )
+		self.label_stackup = wx.StaticText( labelProcessInfo.GetStaticBox(), wx.ID_ANY, _(u"Film"), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.label_stackup.Wrap( -1 )
 
-		fgSizer25.Add( self.m_staticText401111111, 0, wx.ALL, 5 )
+		fgSizer25.Add( self.label_stackup, 0, wx.ALL, 5 )
 
 		comb_filmChoices = []
 		self.comb_film = wx.Choice( labelProcessInfo.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comb_filmChoices, 0 )

@@ -56,7 +56,7 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
             beveledge=str(self.combo_goldFinger.GetSelection()),
             baobian=self.combo_baobian.GetStringSelection()
         )
-        if self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
+        if  self.combo_stackup.Shown and self.layer_count > 2 and self.combo_stackup.GetSelection() != 0:
             info.pressing = 'Customer Specified Stack up'
         return vars(info)
 
@@ -84,4 +84,6 @@ class SpecialProcessView(UiSpecialProcess, FormPanelBase):
             return "3"
 
     def on_region_changed(self):
-        pass
+        for i in self.label_stackup ,  self.combo_stackup:
+            i.Show(SETTING_MANAGER.order_region !=
+                   SupportedRegion.CHINA_MAINLAND)
