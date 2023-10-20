@@ -219,7 +219,6 @@ class MainFrame(wx.Frame):
             return
         try:
             form = self.get_query_price_form()
-            form = form
             rep = urllib.request.Request(
                 url, data=RequestHelper.convert_dict_to_request_data(form)
             )
