@@ -84,4 +84,5 @@ class BaseApp(wx.App, InspectionMixin):
         self.main_wind = MainFrame(
             self.board_manager, SETTING_MANAGER.get_window_size()
         )
-        self.main_wind.Show()
+        self.main_wind.ShowModal()
+

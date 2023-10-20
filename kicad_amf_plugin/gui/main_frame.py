@@ -65,9 +65,9 @@ FEE = "fee"
 BCOUNT = "bcount"
 
 
-class MainFrame(wx.Frame):
+class MainFrame(wx.Dialog):
     def __init__(self, board_manager: BoardManager, size, parent=None):
-        wx.Frame.__init__(
+        wx.Dialog.__init__(
             self,
             parent,
             id=wx.ID_ANY,
@@ -120,6 +120,7 @@ class MainFrame(wx.Frame):
         self.Bind(EVT_PLACE_ORDER, self.on_place_order)
         self.Bind(EVT_ORDER_REGION_CHANGED, self.on_order_region_changed)
         self.Bind(wx.EVT_SIZE, self.OnSize, self)
+        self.Bind(wx.EVT_CLOSE, self.OnClose, self)
 
         for i in self._pcb_form_parts.values():
             i.init()
@@ -171,7 +172,8 @@ class MainFrame(wx.Frame):
         return BuildTime(int(t), unit)
 
     def parse_price(self, summary: json):
-        self.summary_view.update_price_detail({PriceCategory.PCB.value: summary})
+        self.summary_view.update_price_detail(
+            {PriceCategory.PCB.value: summary})
         normal_total_price = self.summary_view.get_total_price()
         suggests = []
         if SUGGEST in summary and DEL_TIME in summary[SUGGEST]:
@@ -204,7 +206,8 @@ class MainFrame(wx.Frame):
                                     pcb_quantity=qty,
                                     price=price,
                                     build_time=BuildTime(
-                                        int(full_time_cost[0]), full_time_cost[1]
+                                        int(full_time_cost[0]
+                                            ), full_time_cost[1]
                                     ),
                                 )
                             )
@@ -213,9 +216,11 @@ class MainFrame(wx.Frame):
     def on_update_price(self, evt):
         if not self.form_is_valid():
             return
-        url = OrderRegion.get_url(SETTING_MANAGER.order_region, URL_KIND.QUERY_PRICE)
+        url = OrderRegion.get_url(
+            SETTING_MANAGER.order_region, URL_KIND.QUERY_PRICE)
         if url is None:
-            wx.MessageBox(_("No available url for querying price in current region"))
+            wx.MessageBox(
+                _("No available url for querying price in current region"))
             return
         try:
             form = self.get_query_price_form()
@@ -248,7 +253,8 @@ class MainFrame(wx.Frame):
                 SETTING_MANAGER.order_region, URL_KIND.PLACE_ORDER
             )
             if url is None:
-                wx.MessageBox(_("No available url for placing order in current region"))
+                wx.MessageBox(
+                    _("No available url for placing order in current region"))
                 return
             with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile:
                 rsp = requests.post(
@@ -280,3 +286,7 @@ class MainFrame(wx.Frame):
     def OnSize(self, evt):
         evt.Skip()
         SETTING_MANAGER.set_window_size(self.Size)
+
+    def OnClose(self, evt):
+        print("Bye~")
+        self.Destroy()
