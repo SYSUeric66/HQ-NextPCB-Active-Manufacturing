@@ -1,4 +1,5 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.order.supported_region import SupportedRegion
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from .base_info_model import BaseInfoModel
@@ -109,7 +110,10 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         self.edit_margin_size.SetValidator(FloatTextCtrlValidator())
 
     def is_valid(self) -> bool:
-        if self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE:
+        if (
+            self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE
+            and not self.should_apply_single_board_geometry()
+        ):
             if not self.edit_panel_x.Validate():
                 wx.MessageBox(
                     _("Panel Type X value isn't valid. Please input valid value."),
@@ -158,6 +162,14 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
             int(self.comb_margin_mode.GetSelection())
         ].EditRole
 
+    def should_apply_single_board_geometry(self):
+        return (
+            self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE
+            or SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND
+            and self.pcb_package_kind
+            in (PcbPackageKind.SINGLE_PIECE, PcbPackageKind.PANEL_BY_CUSTOMER)
+        )
+
     def get_pcb_length(self):
         """Default is mm
 
@@ -165,7 +177,7 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         Returns:
             _type_: float
         """
-        if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
+        if self.should_apply_single_board_geometry():
             if self.margin_mode in (MarginMode.LEFT_RIGHT, MarginMode.ALL_4_SIDE):
                 return (
                     float(self.edit_size_x.GetValue())
@@ -192,7 +204,7 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
         Returns:
             _type_: float
         """
-        if self.pcb_package_kind == PcbPackageKind.SINGLE_PIECE:
+        if self.should_apply_single_board_geometry():
             if self.margin_mode in (MarginMode.LEFT_RIGHT, MarginMode.ALL_4_SIDE):
                 return (
                     float(self.edit_size_y.GetValue())
@@ -239,13 +251,20 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
             PcbPackageKind.PANEL_BY_CUSTOMER,
             PcbPackageKind.PANEL_BY_NEXT_PCB,
         ):
-            data.layoutx = self.edit_panel_x.GetValue()
-            data.layouty = self.edit_panel_y.GetValue()
+            if not self.order_region_is_cn_and_package_by_customer():
+                data.layoutx = self.edit_panel_x.GetValue()
+                data.layouty = self.edit_panel_y.GetValue()
 
         if self.margin_mode != MarginMode.NA:
             data.sidewidth = self.edit_margin_size.GetValue()
 
         return vars(data)
+
+    def order_region_is_cn_and_package_by_customer(self):
+        return (
+            SETTING_MANAGER.order_region == SupportedRegion.CHINA_MAINLAND
+            and self.pcb_package_kind == PcbPackageKind.PANEL_BY_CUSTOMER
+        )
 
     def init(self):
         self.initUI()
@@ -311,6 +330,7 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
 
         self.box_panel_setting.Show(
             self.pcb_package_kind != PcbPackageKind.SINGLE_PIECE
+            and not self.order_region_is_cn_and_package_by_customer()
         )
         self.box_break_away.Enabled = (
             self.pcb_package_kind != PcbPackageKind.PANEL_BY_CUSTOMER
@@ -344,4 +364,4 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
             return n
 
     def on_region_changed(self):
-        pass
+        self.on_pcb_packaging_changed(None)
