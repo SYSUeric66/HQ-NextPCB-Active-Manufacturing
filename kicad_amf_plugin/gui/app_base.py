@@ -51,7 +51,9 @@ class BaseApp(wx.App, InspectionMixin):
         self.update_language(evt.GetInt())
         info = wx.MessageDialog(
             self.main_wind,
-            _("Restart the plugin to apply the new locale ?"),
+            _(
+                "Restart the plugin to apply the new locale ?\nFor full translation(including the options), restarting KiCad is required"
+            ),
             _("Tip"),
             wx.YES | wx.ICON_QUESTION | wx.NO,
         )
@@ -84,5 +86,4 @@ class BaseApp(wx.App, InspectionMixin):
         self.main_wind = MainFrame(
             self.board_manager, SETTING_MANAGER.get_window_size()
         )
-        self.main_wind.ShowModal()
-
+        self.main_wind.Show()

@@ -11,6 +11,7 @@ from kicad_amf_plugin.pcb_fabrication.personalized.personalized_info_view import
 )
 from kicad_amf_plugin.gui.summary.summary_panel import SummaryPanel
 from kicad_amf_plugin.settings.default_express import DEFAULT_EXPRESS
+from kicad_amf_plugin.settings.single_plugin import SINGLE_PLUGIN
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import (
     EVT_LAYER_COUNT_CHANGE,
@@ -65,9 +66,9 @@ FEE = "fee"
 BCOUNT = "bcount"
 
 
-class MainFrame(wx.Dialog):
+class MainFrame(wx.Frame):
     def __init__(self, board_manager: BoardManager, size, parent=None):
-        wx.Dialog.__init__(
+        wx.Frame.__init__(
             self,
             parent,
             id=wx.ID_ANY,
@@ -79,7 +80,7 @@ class MainFrame(wx.Dialog):
         self._board_manager = board_manager
         self._fabrication_data_gen = None
         self._pcb_form_parts: "dict[PCBFormPart, FormPanelBase]" = {}
-        SETTING_MANAGER.register_main_wind(self)
+        SINGLE_PLUGIN.register_main_wind(self)
         self.init_ui()
 
     def init_ui(self):
@@ -172,8 +173,7 @@ class MainFrame(wx.Dialog):
         return BuildTime(int(t), unit)
 
     def parse_price(self, summary: json):
-        self.summary_view.update_price_detail(
-            {PriceCategory.PCB.value: summary})
+        self.summary_view.update_price_detail({PriceCategory.PCB.value: summary})
         normal_total_price = self.summary_view.get_total_price()
         suggests = []
         if SUGGEST in summary and DEL_TIME in summary[SUGGEST]:
@@ -206,8 +206,7 @@ class MainFrame(wx.Dialog):
                                     pcb_quantity=qty,
                                     price=price,
                                     build_time=BuildTime(
-                                        int(full_time_cost[0]
-                                            ), full_time_cost[1]
+                                        int(full_time_cost[0]), full_time_cost[1]
                                     ),
                                 )
                             )
@@ -216,11 +215,9 @@ class MainFrame(wx.Dialog):
     def on_update_price(self, evt):
         if not self.form_is_valid():
             return
-        url = OrderRegion.get_url(
-            SETTING_MANAGER.order_region, URL_KIND.QUERY_PRICE)
+        url = OrderRegion.get_url(SETTING_MANAGER.order_region, URL_KIND.QUERY_PRICE)
         if url is None:
-            wx.MessageBox(
-                _("No available url for querying price in current region"))
+            wx.MessageBox(_("No available url for querying price in current region"))
             return
         try:
             form = self.get_query_price_form()
@@ -253,8 +250,7 @@ class MainFrame(wx.Dialog):
                 SETTING_MANAGER.order_region, URL_KIND.PLACE_ORDER
             )
             if url is None:
-                wx.MessageBox(
-                    _("No available url for placing order in current region"))
+                wx.MessageBox(_("No available url for placing order in current region"))
                 return
             with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile:
                 rsp = requests.post(
@@ -288,5 +284,5 @@ class MainFrame(wx.Dialog):
         SETTING_MANAGER.set_window_size(self.Size)
 
     def OnClose(self, evt):
-        print("Bye~")
+        SINGLE_PLUGIN.register_main_wind(None)
         self.Destroy()

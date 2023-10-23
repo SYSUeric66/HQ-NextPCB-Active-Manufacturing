@@ -1,5 +1,9 @@
-def _main():
-    from kicad_amf_plugin.gui.app_base import BaseApp
+from kicad_amf_plugin.settings.single_plugin import SINGLE_PLUGIN
 
-    app = BaseApp()
-    app.MainLoop()
+
+def _main():
+    if not SINGLE_PLUGIN.show_existing():
+        from kicad_amf_plugin.gui.app_base import BaseApp
+
+        app = BaseApp()
+        app.MainLoop()

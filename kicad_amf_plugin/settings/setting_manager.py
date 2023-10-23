@@ -30,8 +30,6 @@ EN_BUILD_TIME_FORMATTER = "{time} {unit}"
 class _SettingManager(wx.EvtHandler):
     def __init__(self) -> None:
         self.app: wx.App = None
-        self.wind: wx.TopLevelWindow = None
-
         sp = wx.StandardPaths.Get()
         config_loc = sp.GetUserConfigDir()
         config_loc = os.path.join(config_loc, APP_NAME)
@@ -61,12 +59,6 @@ class _SettingManager(wx.EvtHandler):
 
     def register_app(self, app: wx.App):
         self.app = app
-
-    def register_main_wind(self, wind: wx.TopLevelWindow):
-        self.wind = wind
-
-    def get_main_wind(self):
-        return self.wind
 
     def set_language(self, now: int):
         old = self.language

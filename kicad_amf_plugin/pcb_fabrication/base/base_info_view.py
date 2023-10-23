@@ -1,6 +1,7 @@
 from kicad_amf_plugin.kicad.board_manager import BoardManager
 from kicad_amf_plugin.order.supported_region import SupportedRegion
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+from kicad_amf_plugin.settings.single_plugin import SINGLE_PLUGIN
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 from .base_info_model import BaseInfoModel
 from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import LayerCountChange
@@ -336,8 +337,8 @@ class BaseInfoView(UiBaseInfo, FormPanelBase):
             self.pcb_package_kind != PcbPackageKind.PANEL_BY_CUSTOMER
         )
         self.on_margin_mode_changed()
-        if SETTING_MANAGER.get_main_wind() is not None:
-            SETTING_MANAGER.get_main_wind().adjust_size()
+        if SINGLE_PLUGIN.get_main_wind() is not None:
+            SINGLE_PLUGIN.get_main_wind().adjust_size()
 
     def on_margin_mode_changed(self, event=None):
         self.edit_margin_size.Enabled = self.margin_mode != MarginMode.NA
