@@ -3,9 +3,11 @@ from kicad_amf_plugin.settings.form_value_fitter import fitter_and_map_form_valu
 from .process_info_model import ProcessInfoModel
 from kicad_amf_plugin.utils.form_panel_base import FormKind, FormPanelBase
 
+
 from .ui_process_info import UiProcessInfo
 import wx
 import pcbnew
+from pcbnew import PCB_TRACK, PCB_TRACE_T, PCB_ARC_T, PCB_VIA_T
 
 
 THICKNESS_SETTING = {
@@ -35,6 +37,8 @@ MIN_TRACE_WIDTH_CLEARANCE_CHOICE = [10, 8, 6, 5, 4, 3.5]
 MIN_HOLE_SIZE_CHOICE = [0.3, 0.25, 0.2, 0.15]
 
 MM = "mm"
+
+DEFAULT_MIN_TRACK_WIDTH = 6
 
 KNOW_COLOR_MAPPING = {
     _("Green"): "Green",
@@ -181,17 +185,10 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
     def loadBoardInfo(self):
         for i in self.label_immersion_gold, self.combo_gold_thickness:
             i.Show(False)
-        designSettings = self.board_manager.board.GetDesignSettings()
-        minTraceWidth = designSettings.m_TrackMinWidth
-        minTraceClearance = designSettings.m_MinClearance
-        minHoleSize = designSettings.m_MinThroughDrill
-        self.combo_inner_copper_thickness.Enabled = self.layer_count > 2
 
+        self.combo_inner_copper_thickness.Enabled = self.layer_count > 2
         self.setup_board_thickness_choice(self.layer_count)
-        self.set_min_trace(
-            pcbnew.ToMils(minTraceWidth), pcbnew.ToMils(minTraceClearance)
-        )
-        self.set_min_hole(pcbnew.ToMM(minHoleSize))
+        self.setup_trace_and_via()
 
     def setup_board_thickness_choice(self, event):
         layer_count = event if isinstance(event, int) else event.GetInt()
@@ -274,3 +271,23 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
 
     def on_region_changed(self):
         pass
+
+    def setup_trace_and_via(self):
+
+        designSettings = self.board_manager.board.GetDesignSettings()
+        minTraceWidth = designSettings.m_TrackMinWidth
+        minTraceClearance = designSettings.m_MinClearance
+        minHoleSize = designSettings.m_MinThroughDrill
+
+        tracks: "list[PCB_TRACK]" = self.board_manager.board.Tracks()
+        for i in tracks:
+            type_id = i.Type()
+            if type_id in (PCB_TRACE_T, PCB_ARC_T):
+                minTraceWidth = min(minTraceWidth, i.GetWidth())
+            elif type_id == PCB_VIA_T:
+                minHoleSize = min(minHoleSize, i.GetDrillValue())
+
+        self.set_min_trace(
+            pcbnew.ToMils(minTraceWidth), pcbnew.ToMils(minTraceClearance)
+        )
+        self.set_min_hole(pcbnew.ToMM(minHoleSize))
