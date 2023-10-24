@@ -224,19 +224,19 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
         if minTrace == 0:
             minTrace = 6
             self.combo_min_trace_width_clearance.SetSelection(2)
-        elif minTrace >= 10:
+        elif minTrace > 8:
             minTrace = 10
             self.combo_min_trace_width_clearance.SetSelection(0)
-        elif minTrace >= 8:
+        elif minTrace > 6:
             minTrace = 8
             self.combo_min_trace_width_clearance.SetSelection(1)
-        elif minTrace >= 6:
+        elif minTrace > 5:
             minTrace = 6
             self.combo_min_trace_width_clearance.SetSelection(2)
-        elif minTrace >= 5:
+        elif minTrace > 4:
             minTrace = 5
             self.combo_min_trace_width_clearance.SetSelection(3)
-        elif minTrace >= 4:
+        elif minTrace > 3.5:
             minTrace = 4
             self.combo_min_trace_width_clearance.SetSelection(4)
         else:
@@ -275,16 +275,30 @@ class ProcessInfoView(UiProcessInfo, FormPanelBase):
     def setup_trace_and_via(self):
 
         designSettings = self.board_manager.board.GetDesignSettings()
-        minTraceWidth = designSettings.m_TrackMinWidth
+        minTraceWidth = (
+            designSettings.m_TrackMinWidth
+            if designSettings.m_TrackMinWidth != 0
+            else None
+        )
         minTraceClearance = designSettings.m_MinClearance
-        minHoleSize = designSettings.m_MinThroughDrill
+        minHoleSize = (
+            designSettings.m_MinThroughDrill
+            if designSettings.m_MinThroughDrill != 0
+            else None
+        )
 
         tracks: "list[PCB_TRACK]" = self.board_manager.board.Tracks()
         for i in tracks:
             type_id = i.Type()
             if type_id in (PCB_TRACE_T, PCB_ARC_T):
+                if minTraceWidth is None:
+                    minTraceWidth = i.GetWidth()
+                    continue
                 minTraceWidth = min(minTraceWidth, i.GetWidth())
             elif type_id == PCB_VIA_T:
+                if minHoleSize is None:
+                    minHoleSize = i.GetDrillValue()
+                    continue
                 minHoleSize = min(minHoleSize, i.GetDrillValue())
 
         self.set_min_trace(
