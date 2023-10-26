@@ -1,5 +1,8 @@
+# Inspired by https://github.com/AislerHQ/PushForKiCad/blob/main/src/plugin.py
+
 import pcbnew
 import os
+
 from kicad_amf_plugin.plugin._main import _main
 from kicad_amf_plugin.icon import ICON_ROOT
 

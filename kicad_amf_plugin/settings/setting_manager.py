@@ -49,7 +49,11 @@ class _SettingManager(wx.EvtHandler):
         if not self.app_conf.HasEntry(WIDTH) or not self.app_conf.HasEntry(HEIGHT):
             self.set_window_size((660, 700))
         if not self.app_conf.HasEntry(ORDER_REGION):
-            location = get_ip_country()
+            location = "China"
+            try:
+                location = get_ip_country()
+            except:
+                pass
             if location == "China":
                 self.set_order_region(SupportedRegion.CHINA_MAINLAND)
             elif location == "Japan":

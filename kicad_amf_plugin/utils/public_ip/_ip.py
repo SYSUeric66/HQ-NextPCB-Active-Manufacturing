@@ -87,7 +87,7 @@ def get_ip_country():
     GEO_IP_API_URL = "http://ip-api.com/json/"
 
     # Can be also site URL like this : 'google.com'
-    IP_TO_SEARCH = "210.138.184.59"
+    IP_TO_SEARCH = get_ip()
 
     # Creating request object to GeoLocation API
     req = urllib.request.Request(GEO_IP_API_URL + IP_TO_SEARCH)

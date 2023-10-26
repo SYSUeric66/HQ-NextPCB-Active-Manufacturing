@@ -1,3 +1,5 @@
+# Inspired by https://github.com/Bouni/kicad-jlcpcb-tools
+
 import csv
 import logging
 import os

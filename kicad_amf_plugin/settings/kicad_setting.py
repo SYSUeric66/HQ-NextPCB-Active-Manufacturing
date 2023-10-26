@@ -6,7 +6,22 @@ import logging
 
 
 class KiCadSetting:
+    @staticmethod
     def read_lang_setting():
+        lang = ""
+        try:
+            from pcbnew import GetLanguage
+
+            lang = GetLanguage()
+        except ImportError:
+            pass
+        finally:
+            if len(lang) == 0:
+                return KiCadSetting.read_lang_setting_from_json()
+            return lang
+
+    @staticmethod
+    def read_lang_setting_from_json():
         try:
             import pcbnew
 
