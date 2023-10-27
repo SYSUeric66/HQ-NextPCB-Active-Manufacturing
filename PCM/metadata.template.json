@@ -19,7 +19,8 @@
     },
     "license": "MIT",
     "resources": {
-        "homepage": "https://gitlab.com/nextpcbofficial/NextPCB-Plug-in-for-Kicad"
+        "homepage": "https://gitlab.com/nextpcbofficial/NextPCB-Plug-in-for-Kicad",
+        "gitee": "https://gitee.com/HQNEXTPCB/NextPCB-Plug-in-for-Kicad"
     },
     "versions": [
         {
