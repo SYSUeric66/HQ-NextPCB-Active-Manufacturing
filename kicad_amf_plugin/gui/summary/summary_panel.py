@@ -85,11 +85,11 @@ class SummaryPanel(UiSummaryPanel):
         )
         self.choice_order_region.SetSelection(SETTING_MANAGER.order_region)
 
-        max_width = 300
+        max_width = 0
         for view in self.list_order_summary, self.list_price_detail:
             sum = 0
             for i in range(0, view.GetColumnCount()):
-                sum = sum + self.list_order_summary.GetColumn(i).GetWidth()
+                sum = sum + self.view.GetColumn(i).GetWidth()
             max_width = max(max_width, sum)
             sum = 0
 
