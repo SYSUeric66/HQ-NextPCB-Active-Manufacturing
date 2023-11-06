@@ -11,7 +11,7 @@ class LangSettingPopMenu(wx.Menu):
         super().__init__()
         for lang in enumerate(CODE_TO_NAME):
             idx, code = lang
-            idx = 10 + idx # Fix macos : menu item id cannot be zero
+            idx = 10 + idx  # Fix macos : menu item id cannot be zero
             item = wx.MenuItem(id=idx, text=_(CODE_TO_NAME[code]), kind=wx.ITEM_CHECK)
             wx_id = WX_ID_MAP[code]
             if current_lang_id == wx_id:
@@ -21,10 +21,10 @@ class LangSettingPopMenu(wx.Menu):
             self.Append(item)
             if wx.LANGUAGE_ENGLISH == wx_id:
                 self.Bind(wx.EVT_MENU, self.setup_en, id=idx)
-            elif wx.LANGUAGE_JAPANESE_JAPAN == wx_id:
-                self.Bind(wx.EVT_MENU, self.setup_jp, id=idx)
             elif wx.LANGUAGE_CHINESE_SIMPLIFIED == wx_id:
                 self.Bind(wx.EVT_MENU, self.setup_zh, id=idx)
+            else:
+                self.Bind(wx.EVT_MENU, self.setup_jp, id=idx)
 
     def setup_en(self, evt):
         SETTING_MANAGER.set_language(wx.LANGUAGE_ENGLISH)
