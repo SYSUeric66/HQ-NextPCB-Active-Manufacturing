@@ -48,19 +48,24 @@ class UiSummaryPanel(wx.Panel):
             wx.StaticBox(self, wx.ID_ANY, _("Preference")), wx.HORIZONTAL
         )
 
-        radio_box_order_regionChoices = [_("CN"), _("JP"), _("EU/USA")]
-        self.radio_box_order_region = wx.RadioBox(
-            sbSizer4.GetStaticBox(),
+        sbSizer42 = wx.StaticBoxSizer(
+            wx.StaticBox(sbSizer4.GetStaticBox(), wx.ID_ANY, _("Order Region")),
+            wx.VERTICAL,
+        )
+
+        choice_order_regionChoices = []
+        self.choice_order_region = wx.Choice(
+            sbSizer42.GetStaticBox(),
             wx.ID_ANY,
-            _("Order Region"),
             wx.DefaultPosition,
             wx.DefaultSize,
-            radio_box_order_regionChoices,
-            1,
-            wx.RA_SPECIFY_ROWS,
+            choice_order_regionChoices,
+            0,
         )
-        self.radio_box_order_region.SetSelection(0)
-        sbSizer4.Add(self.radio_box_order_region, 0, 0, 5)
+        self.choice_order_region.SetSelection(0)
+        sbSizer42.Add(self.choice_order_region, 0, wx.ALL, 5)
+
+        sbSizer4.Add(sbSizer42, 1, wx.EXPAND, 5)
 
         sbSizer4.Add((0, 0), 1, wx.EXPAND, 5)
 
