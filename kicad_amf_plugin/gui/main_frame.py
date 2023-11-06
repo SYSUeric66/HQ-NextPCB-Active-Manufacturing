@@ -84,10 +84,17 @@ class MainFrame(wx.Frame):
         self.init_ui()
 
     def init_ui(self):
+        wx.SizerFlags.DisableConsistencyChecks()
+        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        splitter = wx.SplitterWindow(self, style=wx.SP_LIVE_UPDATE)
-        sty = wx.BORDER_THEME
-        pcb_fab_scroll_wind = wx.ScrolledWindow(splitter, style=sty)
+
+        pcb_fab_scroll_wind = wx.ScrolledWindow(
+            self,
+            wx.ID_ANY,
+            wx.DefaultPosition,
+            wx.Size(-1, -1),
+            wx.HSCROLL | wx.VSCROLL,
+        )
         pcb_fab_scroll_wind.SetScrollRate(10, 10)
 
         lay_pcb_fab_panel = wx.BoxSizer(wx.VERTICAL)
@@ -98,12 +105,9 @@ class MainFrame(wx.Frame):
         pcb_fab_scroll_wind.SetSizer(lay_pcb_fab_panel)
         pcb_fab_scroll_wind.Layout()
 
-        self.summary_view = SummaryPanel(splitter, style=sty)
-        splitter.SetMinimumPaneSize(200)
-        splitter.SplitVertically(
-            pcb_fab_scroll_wind, self.summary_view, SETTING_MANAGER.get_sash_position()
-        )
-        main_sizer.Add(splitter, 1, wx.ALL | wx.EXPAND)
+        self.summary_view = SummaryPanel(self)
+        main_sizer.Add(pcb_fab_scroll_wind, 1, wx.EXPAND, 8)
+        main_sizer.Add(self.summary_view, 0, wx.EXPAND, 8)
 
         self.Bind(
             EVT_LAYER_COUNT_CHANGE,
@@ -118,7 +122,6 @@ class MainFrame(wx.Frame):
         self.Bind(EVT_ORDER_REGION_CHANGED, self.on_order_region_changed)
         self.Bind(wx.EVT_SIZE, self.OnSize, self)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
-        self.Bind(wx.EVT_SPLITTER_SASH_POS_CHANGED, self.on_sash_changed, splitter)
 
         for i in self._pcb_form_parts.values():
             i.init()
@@ -127,10 +130,6 @@ class MainFrame(wx.Frame):
         self.SetSizer(main_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
-
-    def on_sash_changed(self, evt):
-        print(evt.GetSashPosition())
-        SETTING_MANAGER.set_sash_pos(evt.GetSashPosition())
 
     @property
     def fabrication_data_generator(self):
