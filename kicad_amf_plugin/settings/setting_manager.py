@@ -83,7 +83,7 @@ class _SettingManager(wx.EvtHandler):
             wx.PostEvent(self.app, evt)
 
     def get_mainwindow_sash_position(self):
-        return self.app_conf.ReadInt(MAIN_WINDOW_SASH_POS, DEFAULT_WIDTH * 4 / 7)
+        return self.app_conf.ReadInt(MAIN_WINDOW_SASH_POS, int(DEFAULT_WIDTH * 4 / 7))
 
     def set_mainwindow_sash_pos(self, pos: int):
         self.app_conf.WriteInt(MAIN_WINDOW_SASH_POS, int(pos))
