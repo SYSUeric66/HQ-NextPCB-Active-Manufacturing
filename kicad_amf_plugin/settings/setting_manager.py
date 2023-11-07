@@ -17,7 +17,9 @@ WIDTH = "width"
 
 HEIGHT = "height"
 
-SASH_POS = "sash_pos"
+MAIN_WINDOW_SASH_POS = "main_window_sash_pos"
+
+SPLITTER_DETAIL_SUMMARY = "splitter_detail_summary"
 
 
 DEFAULT_WIDTH = 660
@@ -37,7 +39,7 @@ class _SettingManager(wx.EvtHandler):
         self.app: wx.App = None
         sp = wx.StandardPaths.Get()
         config_loc = sp.GetUserConfigDir()
-        config_loc = os.path.join(config_loc, APP_NAME)
+        config_loc = os.path.join(config_loc, f".{APP_NAME}")
 
         if not os.path.exists(config_loc):
             os.mkdir(config_loc)
@@ -51,8 +53,6 @@ class _SettingManager(wx.EvtHandler):
         if not self.app_conf.HasEntry(LANGUAGE):
             self.set_language(KiCadSetting.read_lang_setting())
             self.app_conf.Flush()
-        if not self.app_conf.HasEntry(WIDTH) or not self.app_conf.HasEntry(HEIGHT):
-            self.set_window_size((DEFAULT_WIDTH, 700))
         if not self.app_conf.HasEntry(ORDER_REGION):
             location = "China"
             try:
@@ -80,11 +80,11 @@ class _SettingManager(wx.EvtHandler):
             self.app_conf.Flush()
             wx.PostEvent(self.app, evt)
 
-    def get_sash_position(self):
-        return self.app_conf.ReadInt(SASH_POS, DEFAULT_WIDTH * 4 / 7)
+    def get_mainwindow_sash_position(self):
+        return self.app_conf.ReadInt(MAIN_WINDOW_SASH_POS, DEFAULT_WIDTH * 4 / 7)
 
-    def set_sash_pos(self, pos: int):
-        self.app_conf.WriteInt(SASH_POS, pos)
+    def set_mainwindow_sash_pos(self, pos: int):
+        self.app_conf.WriteInt(MAIN_WINDOW_SASH_POS, pos)
         self.app_conf.Flush()
 
     @property
@@ -120,7 +120,16 @@ class _SettingManager(wx.EvtHandler):
         self.app_conf.Flush()
 
     def get_window_size(self):
-        return wx.Size(self.app_conf.ReadInt(WIDTH), self.app_conf.ReadInt(HEIGHT))
+        return wx.Size(
+            self.app_conf.ReadInt(WIDTH, 800), self.app_conf.ReadInt(HEIGHT, 800)
+        )
+
+    def set_summary_detail_sash_pos(self, pos: int):
+        self.app_conf.WriteInt(key=SPLITTER_DETAIL_SUMMARY, value=pos)
+        self.app_conf.Flush()
+
+    def get_summary_detail_sash_pos(self):
+        return self.app_conf.ReadInt(SPLITTER_DETAIL_SUMMARY, 380)
 
 
 SETTING_MANAGER = _SettingManager()

@@ -1,4 +1,5 @@
 from kicad_amf_plugin.order.supported_region import SupportedRegion
+from kicad_amf_plugin.utils.post_init_window import PostInitWindow
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from .ui_summary_panel import UiSummaryPanel
 from kicad_amf_plugin.icon import GetImagePath
@@ -24,7 +25,7 @@ OrderRegionSettings = (
 )
 
 
-class SummaryPanel(UiSummaryPanel):
+class SummaryPanel(UiSummaryPanel, PostInitWindow):
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
 
@@ -33,6 +34,11 @@ class SummaryPanel(UiSummaryPanel):
         self.btn_update_price.Bind(wx.EVT_BUTTON, self.on_update_price_clicked)
         self.btn_place_order.Bind(wx.EVT_BUTTON, self.on_place_order_clicked)
         self.choice_order_region.Bind(wx.EVT_CHOICE, self.on_region_changed)
+        self.Bind(
+            wx.EVT_SPLITTER_SASH_POS_CHANGED,
+            self.on_sash_changed,
+            self.splitter_detail_summary,
+        )
 
     def init_ui(self):
         self.list_order_summary.AppendTextColumn(
@@ -95,6 +101,10 @@ class SummaryPanel(UiSummaryPanel):
 
         self.SetMinSize(wx.Size(max_width + 30, -1))
 
+    def post_init(self):
+        sash_pos = SETTING_MANAGER.get_summary_detail_sash_pos()
+        self.splitter_detail_summary.SetSashPosition(sash_pos, True)
+
     def update_price_detail(self, price: "dict"):
         self.model_price_summary.update_price(price)
 
@@ -112,6 +122,10 @@ class SummaryPanel(UiSummaryPanel):
     def on_place_order_clicked(self, ev):
         evt = PlaceOrder(id=-1)
         wx.PostEvent(self.Parent, evt)
+
+    def on_sash_changed(self, evt):
+        sash_pos = evt.GetSashPosition()
+        SETTING_MANAGER.set_summary_detail_sash_pos(sash_pos)
 
     def GetImagePath(self, bitmap_path):
         return GetImagePath(bitmap_path)

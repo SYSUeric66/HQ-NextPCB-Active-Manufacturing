@@ -22,6 +22,7 @@ from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import (
 from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
 from kicad_amf_plugin.kicad.fabrication_data_generator import FabricationDataGenerator
 from kicad_amf_plugin.api.base_request import BaseRequest
+from kicad_amf_plugin.utils.post_init_window import PostInitWindow
 from kicad_amf_plugin.utils.request_helper import RequestHelper
 from kicad_amf_plugin.gui.summary.order_summary_model import (
     AVAILABLE_TIME_UNIT,
@@ -66,7 +67,7 @@ FEE = "fee"
 BCOUNT = "bcount"
 
 
-class MainFrame(wx.Frame):
+class MainFrame(wx.Frame, PostInitWindow):
     def __init__(self, board_manager: BoardManager, size, parent=None):
         wx.Frame.__init__(
             self,
@@ -80,8 +81,13 @@ class MainFrame(wx.Frame):
         self._board_manager = board_manager
         self._fabrication_data_gen = None
         self._pcb_form_parts: "dict[PCBFormPart, FormPanelBase]" = {}
+        self._post_init_windows: "list[PostInitWindow]" = []
         SINGLE_PLUGIN.register_main_wind(self)
         self.init_ui()
+
+    def post_init(self):
+        for i in self._post_init_windows:
+            i.post_init()
 
     def init_ui(self):
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
@@ -105,6 +111,7 @@ class MainFrame(wx.Frame):
         pcb_fab_scroll_wind.Layout()
 
         self.summary_view = SummaryPanel(self)
+        self._post_init_windows.append(self.summary_view)
         main_sizer.Add(pcb_fab_scroll_wind, 1, wx.EXPAND, 8)
         main_sizer.Add(self.summary_view, 0, wx.EXPAND, 8)
 
@@ -212,6 +219,7 @@ class MainFrame(wx.Frame):
         self.summary_view.update_order_summary(suggests)
 
     def on_update_price(self, evt):
+        self.post_init()
         if not self.form_is_valid():
             return
         url = OrderRegion.get_url(SETTING_MANAGER.order_region, URL_KIND.QUERY_PRICE)

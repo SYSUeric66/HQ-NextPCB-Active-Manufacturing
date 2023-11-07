@@ -33,6 +33,7 @@ class BaseApp(wx.EvtHandler):
 
     def load_success(self):
         from kicad_amf_plugin.settings.setting_manager import SETTING_MANAGER
+
         self.update_language(SETTING_MANAGER.language)
         SETTING_MANAGER.register_app(self)
         self.board_manager = load_board_manager()
@@ -72,7 +73,7 @@ class BaseApp(wx.EvtHandler):
         if self.locale.IsOk():
             self.locale.AddCatalog(LANG_DOMAIN)
         else:
-            wx.MessageBox(self.locale.GetLocale() +  _(" is not supported"))
+            wx.MessageBox(self.locale.GetLocale() + _(" is not supported"))
             self.locale = None
 
     def startup_dialog(self):
