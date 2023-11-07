@@ -1,5 +1,10 @@
 from kicad_amf_plugin.gui.summary.price_summary_model import PriceCategory
 from kicad_amf_plugin.kicad.board_manager import BoardManager
+from kicad_amf_plugin.kicad.fabrication_data_generator_evt import (
+    EVT_BUTTON_FABRICATION_DATA_GEN_RES,
+    FabricationDataGenEvent,
+    GenerateStatus,
+)
 from kicad_amf_plugin.order.supported_region import SupportedRegion
 from kicad_amf_plugin.pcb_fabrication.base.base_info_view import BaseInfoView
 from kicad_amf_plugin.pcb_fabrication.process.process_info_view import ProcessInfoView
@@ -37,6 +42,7 @@ import requests
 import webbrowser
 import json
 from kicad_amf_plugin.order.order_region import OrderRegion, URL_KIND
+from kicad_amf_plugin.kicad.fabrication_data_generator_thread import DataGenThread
 from enum import Enum
 
 
@@ -79,9 +85,26 @@ class MainFrame(wx.Frame):
         )
         self._board_manager = board_manager
         self._fabrication_data_gen = None
+        self._fabrication_data_gen_thread = None
         self._pcb_form_parts: "dict[PCBFormPart, FormPanelBase]" = {}
+        self._data_gen_progress: wx.ProgressDialog = None
         SINGLE_PLUGIN.register_main_wind(self)
         self.init_ui()
+
+    def show_data_gen_progress_dialog(self):
+        if self._data_gen_progress is not None:
+            self._data_gen_progress.Destroy()
+            self._data_gen_progress = None
+        self._data_gen_progress = wx.ProgressDialog(
+            _("Generating fabrication data"),
+            "",
+            maximum=GenerateStatus.MAX_PROGRESS,
+            parent=self,
+            style=0 | wx.PD_APP_MODAL
+            # | wx.PD_CAN_SKIP
+            # | wx.PD_ELAPSED_TIME
+            # | wx.PD_AUTO_HIDE
+        )
 
     def init_ui(self):
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
@@ -136,6 +159,10 @@ class MainFrame(wx.Frame):
 
         self.main_splitter.Bind(wx.EVT_IDLE, self.main_splitter_on_idle)
 
+        self.Bind(
+            EVT_BUTTON_FABRICATION_DATA_GEN_RES, self.on_fabrication_data_gen_progress
+        )
+
         for i in self._pcb_form_parts.values():
             i.init()
             i.on_region_changed()
@@ -145,6 +172,17 @@ class MainFrame(wx.Frame):
         self.SetSizer(main_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
+
+    def on_fabrication_data_gen_progress(self, evt: FabricationDataGenEvent):
+        if self._data_gen_progress is not None:
+            res = evt.GetMyVal()
+            if GenerateStatus.RUNNING == res.get_status():
+                self._data_gen_progress.Update(res.get_progress())
+            else:
+                self._data_gen_progress.Destroy()
+                self._data_gen_progress = None
+                if GenerateStatus.FAILED == res.get_status():
+                    wx.MessageBox(f"{res.get_message()}")
 
     def on_sash_pos_changed(self, evt):
         sash_pos = evt.GetSashPosition()
@@ -238,7 +276,6 @@ class MainFrame(wx.Frame):
         self.summary_view.update_order_summary(suggests)
 
     def on_update_price(self, evt):
-        self.post_init()
         if not self.form_is_valid():
             return
         url = OrderRegion.get_url(SETTING_MANAGER.order_region, URL_KIND.QUERY_PRICE)
@@ -269,31 +306,17 @@ class MainFrame(wx.Frame):
             raise e  # TODO remove me
 
     def on_place_order(self, evt):
+        self.show_data_gen_progress_dialog()
         if not self.form_is_valid():
             return
-        try:
-            url = OrderRegion.get_url(
-                SETTING_MANAGER.order_region, URL_KIND.PLACE_ORDER
-            )
-            if url is None:
-                wx.MessageBox(_("No available url for placing order in current region"))
-                return
-            with self.fabrication_data_generator.create_kicad_pcb_file() as zipfile:
-                rsp = requests.post(
-                    url,
-                    files={"file": open(zipfile, "rb")},
-                    data=self.get_place_order_form(),
-                )
-                urls = json.loads(rsp.content)
-                for key in "url", "redirect":
-                    if key in urls:
-                        uat_url = str(urls[key])
-                        webbrowser.open(uat_url)
-                        return
-                raise Exception("No available order url in the response")
-        except Exception as e:
-            wx.MessageBox(str(e))
-            raise e  # TODO remove me
+        url = OrderRegion.get_url(SETTING_MANAGER.order_region, URL_KIND.PLACE_ORDER)
+        if url is None:
+            wx.MessageBox(_("No available url for placing order in current region"))
+            return
+        t = DataGenThread(
+            self, self.fabrication_data_generator, self.get_place_order_form(), url
+        )
+        t.Start()
 
     def adjust_size(self):
         for i in self._pcb_form_parts.values():
