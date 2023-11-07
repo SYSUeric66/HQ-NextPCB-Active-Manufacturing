@@ -85,10 +85,12 @@ class MainFrame(wx.Frame):
 
     def init_ui(self):
         self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-        main_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        left_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.main_splitter = wx.SplitterWindow(self, style=wx.SP_LIVE_UPDATE)
+        self.left_panel_container = wx.Panel(self.main_splitter)
 
         pcb_fab_scroll_wind = wx.ScrolledWindow(
-            self,
+            self.left_panel_container,
             wx.ID_ANY,
             wx.DefaultPosition,
             wx.Size(-1, -1),
@@ -104,9 +106,14 @@ class MainFrame(wx.Frame):
         pcb_fab_scroll_wind.SetSizer(lay_pcb_fab_panel)
         pcb_fab_scroll_wind.Layout()
 
-        self.summary_view = SummaryPanel(self)
-        main_sizer.Add(pcb_fab_scroll_wind, 1, wx.EXPAND, 8)
-        main_sizer.Add(self.summary_view, 0, wx.EXPAND, 8)
+        self.summary_view = SummaryPanel(self.main_splitter)
+        left_sizer.Add(pcb_fab_scroll_wind, 1, wx.EXPAND, 8)
+        self.left_panel_container.SetSizer(left_sizer)
+        self.left_panel_container.Layout()
+        left_sizer.Fit(self.left_panel_container)
+        self.main_splitter.SplitVertically(
+            self.left_panel_container, self.summary_view, 400
+        )
 
         self.Bind(
             EVT_LAYER_COUNT_CHANGE,
@@ -121,14 +128,33 @@ class MainFrame(wx.Frame):
         self.Bind(EVT_ORDER_REGION_CHANGED, self.on_order_region_changed)
         self.Bind(wx.EVT_SIZE, self.OnSize, self)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
+        self.Bind(
+            wx.EVT_SPLITTER_SASH_POS_CHANGED,
+            self.on_sash_pos_changed,
+            self.main_splitter,
+        )
+
+        self.main_splitter.Bind(wx.EVT_IDLE, self.main_splitter_on_idle)
 
         for i in self._pcb_form_parts.values():
             i.init()
             i.on_region_changed()
 
+        main_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        main_sizer.Add(self.main_splitter, 1, wx.EXPAND, 5)
         self.SetSizer(main_sizer)
         self.Layout()
         self.Centre(wx.BOTH)
+
+    def on_sash_pos_changed(self, evt):
+        sash_pos = evt.GetSashPosition()
+        SETTING_MANAGER.set_mainwindow_sash_pos(sash_pos)
+
+    def main_splitter_on_idle(self, evt):
+        self.main_splitter.SetSashPosition(
+            SETTING_MANAGER.get_mainwindow_sash_position()
+        )
+        self.main_splitter.Unbind(wx.EVT_IDLE)
 
     @property
     def fabrication_data_generator(self):
@@ -272,6 +298,7 @@ class MainFrame(wx.Frame):
     def adjust_size(self):
         for i in self._pcb_form_parts.values():
             i.Layout()
+        self.left_panel_container.Layout()
         self.Layout()
 
     def on_order_region_changed(self, ev):

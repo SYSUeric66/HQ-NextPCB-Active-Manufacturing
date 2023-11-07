@@ -22,7 +22,9 @@ MAIN_WINDOW_SASH_POS = "main_window_sash_pos"
 SPLITTER_DETAIL_SUMMARY = "splitter_detail_summary"
 
 
-DEFAULT_WIDTH = 660
+DEFAULT_WIDTH = 800
+
+DEFAULT_HEIGHT = 888
 
 PRICE_UNIT = {0: "¥", 1: "$"}
 
@@ -121,7 +123,8 @@ class _SettingManager(wx.EvtHandler):
 
     def get_window_size(self):
         return wx.Size(
-            self.app_conf.ReadInt(WIDTH, 800), self.app_conf.ReadInt(HEIGHT, 800)
+            self.app_conf.ReadInt(WIDTH, DEFAULT_WIDTH),
+            self.app_conf.ReadInt(HEIGHT, DEFAULT_HEIGHT),
         )
 
     def set_summary_detail_sash_pos(self, pos: int):
