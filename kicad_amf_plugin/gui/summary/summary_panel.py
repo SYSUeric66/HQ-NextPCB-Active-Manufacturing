@@ -101,6 +101,12 @@ class SummaryPanel(UiSummaryPanel, PostInitWindow):
 
         self.SetMinSize(wx.Size(max_width + 30, -1))
 
+    def splitter_detail_summaryOnIdle(self, event):
+        self.splitter_detail_summary.SetSashPosition(
+            SETTING_MANAGER.get_summary_detail_sash_pos()
+        )
+        self.splitter_detail_summary.Unbind(wx.EVT_IDLE)
+
     def post_init(self):
         sash_pos = SETTING_MANAGER.get_summary_detail_sash_pos()
         self.splitter_detail_summary.SetSashPosition(sash_pos, True)

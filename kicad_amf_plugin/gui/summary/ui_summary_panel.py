@@ -17,10 +17,6 @@ from kicad_amf_plugin.utils.platebtn import (
     PB_STYLE_SQUARE,
 )
 
-import gettext
-
-_ = gettext.gettext
-
 ###########################################################################
 ## Class UiSummaryPanel
 ###########################################################################
@@ -147,9 +143,7 @@ class UiSummaryPanel(wx.Panel):
         self.m_panel2.SetSizer(sbSizer41)
         self.m_panel2.Layout()
         sbSizer41.Fit(self.m_panel2)
-        self.splitter_detail_summary.SplitHorizontally(
-            self.m_panel1, self.m_panel2, 480
-        )
+        self.splitter_detail_summary.SplitHorizontally(self.m_panel1, self.m_panel2, 0)
         bSizer1.Add(self.splitter_detail_summary, 1, wx.EXPAND, 5)
 
         bSizer31 = wx.BoxSizer(wx.VERTICAL)
@@ -180,7 +174,7 @@ class UiSummaryPanel(wx.Panel):
         pass
 
     def splitter_detail_summaryOnIdle(self, event):
-        self.splitter_detail_summary.SetSashPosition(480)
+        self.splitter_detail_summary.SetSashPosition(0)
         self.splitter_detail_summary.Unbind(wx.EVT_IDLE)
 
     # Virtual image path resolution method. Override this in your derived class.

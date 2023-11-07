@@ -2,10 +2,10 @@ from pcbnew import GetBoard, LoadBoard
 import wx
 import os
 
+
 class EmptyBoardException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
-
 
 
 class BoardManager:
@@ -24,6 +24,13 @@ def load_board_manager():
     if board:
         return BoardManager(board)
     else:
+        fps = [
+            "D:\\pcb_projects\\Kicad\\flat_hierarchy_update_pcbwith_changes_made_to_schematics\\flat_hierarchy\\flat_hierarchy.kicad_pcb"
+        ]
+        for i in fps:
+            if os.path.exists(i):
+                return BoardManager(LoadBoard(i))
+
         dlg = wx.FileDialog(
             None,
             message="Choose a kicad pcb file",

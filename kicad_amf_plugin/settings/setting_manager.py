@@ -129,7 +129,7 @@ class _SettingManager(wx.EvtHandler):
         self.app_conf.Flush()
 
     def get_summary_detail_sash_pos(self):
-        return self.app_conf.ReadInt(SPLITTER_DETAIL_SUMMARY, 380)
+        return self.app_conf.ReadInt(SPLITTER_DETAIL_SUMMARY, 432)
 
 
 SETTING_MANAGER = _SettingManager()
