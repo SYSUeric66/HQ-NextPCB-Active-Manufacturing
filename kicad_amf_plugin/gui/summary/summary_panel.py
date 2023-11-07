@@ -1,5 +1,4 @@
 from kicad_amf_plugin.order.supported_region import SupportedRegion
-from kicad_amf_plugin.utils.post_init_window import PostInitWindow
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from .ui_summary_panel import UiSummaryPanel
 from kicad_amf_plugin.icon import GetImagePath
@@ -25,7 +24,7 @@ OrderRegionSettings = (
 )
 
 
-class SummaryPanel(UiSummaryPanel, PostInitWindow):
+class SummaryPanel(UiSummaryPanel):
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
 
@@ -106,10 +105,6 @@ class SummaryPanel(UiSummaryPanel, PostInitWindow):
             SETTING_MANAGER.get_summary_detail_sash_pos()
         )
         self.splitter_detail_summary.Unbind(wx.EVT_IDLE)
-
-    def post_init(self):
-        sash_pos = SETTING_MANAGER.get_summary_detail_sash_pos()
-        self.splitter_detail_summary.SetSashPosition(sash_pos, True)
 
     def update_price_detail(self, price: "dict"):
         self.model_price_summary.update_price(price)
