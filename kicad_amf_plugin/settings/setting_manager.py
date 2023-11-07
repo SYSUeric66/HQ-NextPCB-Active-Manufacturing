@@ -24,7 +24,7 @@ SPLITTER_DETAIL_SUMMARY = "splitter_detail_summary"
 
 DEFAULT_WIDTH = 800
 
-DEFAULT_HEIGHT = 888
+DEFAULT_HEIGHT = 814
 
 PRICE_UNIT = {0: "¥", 1: "$"}
 
