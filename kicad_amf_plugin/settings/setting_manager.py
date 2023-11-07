@@ -86,7 +86,7 @@ class _SettingManager(wx.EvtHandler):
         return self.app_conf.ReadInt(MAIN_WINDOW_SASH_POS, DEFAULT_WIDTH * 4 / 7)
 
     def set_mainwindow_sash_pos(self, pos: int):
-        self.app_conf.WriteInt(MAIN_WINDOW_SASH_POS, pos)
+        self.app_conf.WriteInt(MAIN_WINDOW_SASH_POS, int(pos))
         self.app_conf.Flush()
 
     @property
@@ -128,7 +128,7 @@ class _SettingManager(wx.EvtHandler):
         )
 
     def set_summary_detail_sash_pos(self, pos: int):
-        self.app_conf.WriteInt(key=SPLITTER_DETAIL_SUMMARY, value=pos)
+        self.app_conf.WriteInt(key=SPLITTER_DETAIL_SUMMARY, value=int(pos))
         self.app_conf.Flush()
 
     def get_summary_detail_sash_pos(self):
