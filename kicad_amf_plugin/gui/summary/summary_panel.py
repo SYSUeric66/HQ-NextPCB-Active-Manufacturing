@@ -18,9 +18,9 @@ from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import (
 
 
 OrderRegionSettings = (
-    EditDisplayRole(SupportedRegion.CHINA_MAINLAND, _("CN")),
-    EditDisplayRole(SupportedRegion.JAPAN, _("JP")),
-    EditDisplayRole(SupportedRegion.EUROPE_USA, _("EU/USA")),
+    EditDisplayRole(SupportedRegion.CHINA_MAINLAND, _("China")),
+    EditDisplayRole(SupportedRegion.JAPAN, _("Japan")),
+    EditDisplayRole(SupportedRegion.EUROPE_USA, _("Other countries/areas")),
 )
 
 

@@ -97,14 +97,11 @@ class MainFrame(wx.Frame):
             self._data_gen_progress.Destroy()
             self._data_gen_progress = None
         self._data_gen_progress = wx.ProgressDialog(
-            _("Generating fabrication data"),
-            "",
+            _("Preparing for your order"),
+            _("The browser will be launched automatically while ready"),
             maximum=GenerateStatus.MAX_PROGRESS,
             parent=self,
-            style=0 | wx.PD_APP_MODAL
-            # | wx.PD_CAN_SKIP
-            # | wx.PD_ELAPSED_TIME
-            # | wx.PD_AUTO_HIDE
+            style=0 | wx.PD_APP_MODAL | wx.PD_ELAPSED_TIME,
         )
 
     def init_ui(self):
@@ -178,7 +175,7 @@ class MainFrame(wx.Frame):
         if self._data_gen_progress is not None:
             res = evt.GetMyVal()
             if GenerateStatus.RUNNING == res.get_status():
-                self._data_gen_progress.Update(res.get_progress())
+                self._data_gen_progress.Update(res.get_progress(), res.get_message())
             else:
                 self._data_gen_progress.Destroy()
                 self._data_gen_progress = None
