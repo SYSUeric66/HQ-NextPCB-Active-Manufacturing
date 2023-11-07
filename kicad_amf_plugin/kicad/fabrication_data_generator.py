@@ -31,7 +31,6 @@ from pcbnew import (
     In2_Cu,
     In3_Cu,
     In4_Cu,
-    Refresh,
     ToMM,
 )
 
@@ -69,7 +68,6 @@ class FabricationDataGenerator:
         filler = ZONE_FILLER(self.board)
         zones = self.board.Zones()
         filler.Fill(zones)
-        Refresh()
 
     def get_position(self, footprint):
         """Calculate position based on center of bounding box"""
