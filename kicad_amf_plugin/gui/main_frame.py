@@ -88,6 +88,7 @@ class MainFrame(wx.Frame):
         self._fabrication_data_gen_thread = None
         self._pcb_form_parts: "dict[PCBFormPart, FormPanelBase]" = {}
         self._data_gen_progress: wx.ProgressDialog = None
+        self._dataGenThread: DataGenThread = None
         SINGLE_PLUGIN.register_main_wind(self)
         self.init_ui()
 
@@ -313,10 +314,12 @@ class MainFrame(wx.Frame):
         if url is None:
             wx.MessageBox(_("No available url for placing order in current region"))
             return
-        t = DataGenThread(
+        if self._dataGenThread is not None:
+            self._dataGenThread.join()
+            self._dataGenThread = None
+        self._dataGenThread = DataGenThread(
             self, self.fabrication_data_generator, self.get_place_order_form(), url
         )
-        t.Start()
 
     def adjust_size(self):
         for i in self._pcb_form_parts.values():
