@@ -101,7 +101,7 @@ class MainFrame(wx.Frame):
             _("The browser will be launched automatically while ready"),
             maximum=GenerateStatus.MAX_PROGRESS,
             parent=self,
-            style=0 | wx.PD_APP_MODAL | wx.PD_ELAPSED_TIME,
+            style=0 | wx.PD_APP_MODAL,
         )
 
     def init_ui(self):
