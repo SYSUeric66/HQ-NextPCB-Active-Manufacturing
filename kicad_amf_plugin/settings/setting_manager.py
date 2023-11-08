@@ -72,7 +72,7 @@ class _SettingManager(wx.EvtHandler):
         self.app = app
 
     def set_language(self, now: int):
-        old = self.language
+        old = self.get_language
         if old == now:
             return
         self.app_conf.WriteInt(key=LANGUAGE, value=now)
@@ -89,8 +89,7 @@ class _SettingManager(wx.EvtHandler):
         self.app_conf.WriteInt(MAIN_WINDOW_SASH_POS, int(pos))
         self.app_conf.Flush()
 
-    @property
-    def language(self):
+    def get_language(self) -> int:
         return self.app_conf.ReadInt(LANGUAGE)
 
     def set_order_region(self, region: int):
@@ -105,7 +104,7 @@ class _SettingManager(wx.EvtHandler):
         sym = "¥" if not self.order_region else "$"
         if not translated:
             return sym
-        if self.language == wx.LANGUAGE_CHINESE_SIMPLIFIED:
+        if self.get_language() == wx.LANGUAGE_CHINESE_SIMPLIFIED:
             return TRANSLATED_PRICE_UNIT[sym]
         return sym
 

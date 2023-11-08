@@ -2,9 +2,8 @@ from kicad_amf_plugin.order.supported_region import SupportedRegion
 from kicad_amf_plugin.utils.roles import EditDisplayRole
 from .ui_summary_panel import UiSummaryPanel
 from kicad_amf_plugin.icon import GetImagePath
-from kicad_amf_plugin.language.lang_setting_pop_menu import LangSettingPopMenu
 import wx
-from .order_summary_model import OrderSummary, OrderSummaryModel
+from .order_summary_model import OrderSummaryModel
 from .price_summary_model import PriceSummaryModel
 
 
@@ -18,9 +17,9 @@ from kicad_amf_plugin.gui.event.pcb_fabrication_evt_list import (
 
 
 OrderRegionSettings = (
-    EditDisplayRole(SupportedRegion.CHINA_MAINLAND, _("China")),
-    EditDisplayRole(SupportedRegion.JAPAN, _("Japan")),
-    EditDisplayRole(SupportedRegion.EUROPE_USA, _("Others")),
+    EditDisplayRole(SupportedRegion.CHINA_MAINLAND, _("Mainland China")),
+    EditDisplayRole(SupportedRegion.EUROPE_USA, _("Worldwide (English)")),
+    EditDisplayRole(SupportedRegion.JAPAN, _("Worldwide (Japanese)")),
 )
 
 
@@ -29,7 +28,6 @@ class SummaryPanel(UiSummaryPanel):
         super().__init__(*args, **kw)
 
         self.init_ui()
-        self.btn_set_language.Bind(wx.EVT_BUTTON, self.on_set_lang_clicked)
         self.btn_update_price.Bind(wx.EVT_BUTTON, self.on_update_price_clicked)
         self.btn_place_order.Bind(wx.EVT_BUTTON, self.on_place_order_clicked)
         self.choice_order_region.Bind(wx.EVT_CHOICE, self.on_region_changed)
@@ -137,11 +135,6 @@ class SummaryPanel(UiSummaryPanel):
         _, height = line.GetSize()
         line.Destroy()
         return height
-
-    def on_set_lang_clicked(self, evt):
-        menu = LangSettingPopMenu(SETTING_MANAGER.language)
-        self.PopupMenu(menu)
-        menu.Destroy()
 
     def clear_content(self):
         for i in self.model_order_summary, self.model_price_summary:

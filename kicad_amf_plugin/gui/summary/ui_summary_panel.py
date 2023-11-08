@@ -9,8 +9,8 @@
 
 import wx
 import wx.xrc
-from kicad_amf_plugin.utils.platebtn import PlateButton, PB_STYLE_GRADIENT
 import wx.dataview
+from kicad_amf_plugin.utils.platebtn import PlateButton, PB_STYLE_GRADIENT
 from kicad_amf_plugin.utils.platebtn import (
     PlateButton,
     PB_STYLE_GRADIENT,
@@ -47,7 +47,7 @@ class UiSummaryPanel(wx.Panel):
         self.m_staticText1 = wx.StaticText(
             sbSizer4.GetStaticBox(),
             wx.ID_ANY,
-            _("Shipping address"),
+            _("Website"),
             wx.DefaultPosition,
             wx.DefaultSize,
             0,
@@ -69,22 +69,6 @@ class UiSummaryPanel(wx.Panel):
         sbSizer4.Add(self.choice_order_region, 0, wx.ALIGN_CENTER | wx.ALL, 5)
 
         sbSizer4.Add((0, 0), 1, wx.EXPAND, 5)
-
-        self.m_staticline1 = wx.StaticLine(
-            sbSizer4.GetStaticBox(),
-            wx.ID_ANY,
-            wx.DefaultPosition,
-            wx.DefaultSize,
-            wx.LI_VERTICAL,
-        )
-        sbSizer4.Add(self.m_staticline1, 0, wx.EXPAND | wx.ALL, 5)
-
-        self.btn_set_language = PlateButton(
-            self,
-            bmp=wx.Bitmap(self.GetImagePath("language.png"), wx.BITMAP_TYPE_ANY),
-            style=PB_STYLE_GRADIENT,
-        )
-        sbSizer4.Add(self.btn_set_language, 0, wx.ALL, 5)
 
         bSizer3.Add(sbSizer4, 1, wx.EXPAND, 5)
 

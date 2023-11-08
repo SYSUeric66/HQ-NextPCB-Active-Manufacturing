@@ -50,7 +50,7 @@ class DataGenThread(Thread):
                 ) = idx_step
                 desc, action = step
                 evt = FabricationDataGenEvent(fabricationDataGenerateResult)
-                evt.SetMyVal(
+                evt.set_status(
                     GenerateStatus(
                         GenerateStatus.RUNNING,
                         desc,
@@ -61,7 +61,7 @@ class DataGenThread(Thread):
                 action()
 
             evt = FabricationDataGenEvent(fabricationDataGenerateResult)
-            evt.SetMyVal(
+            evt.set_status(
                 GenerateStatus(
                     GenerateStatus.RUNNING,
                     _("Sending order request"),
@@ -82,14 +82,11 @@ class DataGenThread(Thread):
                     uat_url = str(urls[key])
                     webbrowser.open(uat_url)
                     evt = FabricationDataGenEvent(fabricationDataGenerateResult)
-                    evt.SetMyVal(GenerateStatus(GenerateStatus.SUCCESS))
+                    evt.set_status(GenerateStatus(GenerateStatus.SUCCESS))
                     wx.PostEvent(self.win, event=evt)
                     return
             raise Exception("No available order url in the response")
         except Exception as e:
             evt = FabricationDataGenEvent(fabricationDataGenerateResult)
-            evt.SetMyVal(GenerateStatus(GenerateStatus.FAILED, str(e)))
+            evt.set_status(GenerateStatus(GenerateStatus.FAILED, str(e)))
             wx.PostEvent(self.win, event=evt)
-        finally:
-            self.counting_thread.stop_counting()
-            self.counting_thread.join()

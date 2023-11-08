@@ -34,10 +34,10 @@ EVT_BUTTON_FABRICATION_DATA_GEN_RES = wx.PyEventBinder(fabricationDataGenerateRe
 class FabricationDataGenEvent(wx.PyCommandEvent):
     def __init__(self, evtType, id=wx.ID_ANY):
         wx.PyCommandEvent.__init__(self, evtType, id)
-        self.myVal: GenerateStatus = None
+        self._status: GenerateStatus = None
 
-    def SetMyVal(self, val: GenerateStatus):
-        self.myVal = val
+    def set_status(self, val: GenerateStatus):
+        self._status = val
 
-    def GetMyVal(self):
-        return self.myVal
+    def get_status(self):
+        return self._status

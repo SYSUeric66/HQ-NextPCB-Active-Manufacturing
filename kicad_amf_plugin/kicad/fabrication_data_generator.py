@@ -52,10 +52,6 @@ class FabricationDataGenerator:
     def output_dir(self):
         return os.path.join(self.nextpcb_root, "output_files")
 
-    def __del__(self):
-        if os.path.exists(self.output_dir):
-            os.remove(self.output_dir)
-
     def create_folders(self):
         """Create output folders if they not already exist."""
         Path(self.output_dir).mkdir(parents=True, exist_ok=True)

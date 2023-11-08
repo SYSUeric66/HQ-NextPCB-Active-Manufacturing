@@ -173,7 +173,7 @@ class MainFrame(wx.Frame):
 
     def on_fabrication_data_gen_progress(self, evt: FabricationDataGenEvent):
         if self._data_gen_progress is not None:
-            res = evt.GetMyVal()
+            res = evt.get_status()
             if GenerateStatus.RUNNING == res.get_status():
                 self._data_gen_progress.Update(res.get_progress(), res.get_message())
             else:
