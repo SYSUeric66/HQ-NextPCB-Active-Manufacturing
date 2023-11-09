@@ -69,15 +69,6 @@ class UiSummaryPanel(wx.Panel):
         self.choice_order_region.SetSelection(0)
         sbSizer4.Add(self.choice_order_region, 0, wx.ALIGN_CENTER | wx.ALL, 5)
 
-        self.m_staticline1 = wx.StaticLine(
-            sbSizer4.GetStaticBox(),
-            wx.ID_ANY,
-            wx.DefaultPosition,
-            wx.DefaultSize,
-            wx.LI_VERTICAL,
-        )
-        sbSizer4.Add(self.m_staticline1, 0, wx.EXPAND | wx.ALL, 5)
-
         sbSizer4.Add((0, 0), 1, wx.EXPAND, 5)
 
         bSizer3.Add(sbSizer4, 1, wx.EXPAND, 5)
