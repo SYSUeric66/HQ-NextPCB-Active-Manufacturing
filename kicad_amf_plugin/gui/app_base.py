@@ -6,6 +6,7 @@ import os
 from kicad_amf_plugin import PLUGIN_ROOT
 from kicad_amf_plugin.kicad.board_manager import load_board_manager
 from kicad_amf_plugin.utils.combo_box_ignore_wheel import ComboBoxIgnoreWheel
+from kicad_amf_plugin.icon import GetImagePath
 import wx
 
 # add translation macro to builtin similar to what gettext does
@@ -46,4 +47,5 @@ class BaseApp(wx.EvtHandler):
         self.main_wind = MainFrame(
             self.board_manager, SETTING_MANAGER.get_window_size()
         )
+        self.main_wind.SetIcon(wx.Icon(GetImagePath("Huaqiu.ico")))
         self.main_wind.Show()
